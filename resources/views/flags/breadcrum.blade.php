@@ -159,7 +159,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="edit-epic" tabindex="-1" role="dialog" aria-labelledby="edit-epic" aria-hidden="true">
+<div class="modal" id="edit-epic" tabindex="-1" role="dialog" aria-labelledby="edit-epic" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="width: 626px !important;">
             <div class="modal-header">
@@ -321,6 +321,8 @@ function searchflag(value,id) {
     });
 }
 function editflag(id) {
+    var new_url="{{ url()->current() }}?flag="+id;
+    window.history.pushState("data","Title",new_url);
     $.ajax({
         type: "POST",
         url: "{{ url('dashboard/flags/getflagmodal') }}",
@@ -467,6 +469,13 @@ function viewboards(id) {
 $(document).ready(function() {
     $('#epics').select2({
         width: '100%'
+    });
+    @if(isset($_GET['flag']))
+        editflag("{{ $_GET['flag'] }}")
+    @endif
+    $("#edit-epic").on('hidden.bs.modal', function(){
+       var new_url="{{ url()->current() }}";
+       window.history.pushState("data","Title",new_url);
     });
 });
 </script>

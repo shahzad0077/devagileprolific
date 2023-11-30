@@ -10,7 +10,7 @@ use App\Models\orders;
 use App\Models\orderdetails;
 use Twilio\Rest\Client;
 use App\Models\orderstatus;
-use App\Models\orderstatus;
+use App\Models\activities;
 use App\Models\Member_order;
 use Mail;
 use Illuminate\Support\Facades\Http;
