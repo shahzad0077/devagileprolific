@@ -84,6 +84,12 @@ class FlagController extends Controller
     }
     public function changestatus(Request $request)
     {
+        // $data = flags::find($request->droppedElId);
+        // $previous_status = $data->flag_status;
+        // $new_status = $request->parentElId;
+
+        // $activity = 'Moved This Flag From '.$previous_status.' To '.$new_status.'';
+        // Cmf::save_activity()
         DB::table('flags')->where('id',$request->droppedElId)->update(['flag_status' => $request->parentElId]);
     }
     public function getflagmodal(Request $request)

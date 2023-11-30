@@ -1,4 +1,4 @@
-import React, { useCallback ,useState, useEffect } from 'react';
+import React, { useCallback,useState  } from 'react';
 import ReactFlow, {
   addEdge,
   MiniMap,
@@ -7,6 +7,9 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
 } from 'reactflow';
+
+const url = "https://jsonplaceholder.typicode.com/users";
+const [data, setData] = useState([])
 
 
 import { nodes as initialNodes, edges as initialEdges } from './initial-elements';

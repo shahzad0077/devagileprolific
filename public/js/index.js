@@ -30,6 +30,11 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" !=
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
+var url = "https://jsonplaceholder.typicode.com/users";
+var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+  _useState2 = _slicedToArray(_useState, 2),
+  data = _useState2[0],
+  setData = _useState2[1];
 
 
 
@@ -219,6 +224,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+// console.log('ok')
 
 var root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(document.getElementById("asdsadsadsadsad"));
 root.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, {
