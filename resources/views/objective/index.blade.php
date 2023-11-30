@@ -512,7 +512,7 @@ $var_objective = 'PageT-'.$type;
                                                                 @endphp
                                                             <div class="action ml-0">
                                                                 <button
-                                                                    class="btn btn-icon btn-circle bg-white btn-tolbar ml-auto" onclick="editobjectivekey({{$key->id}},'{{$key->key_name}}','{{$key->key_start_date}}','{{$key->key_end_date}}','{{$trimmedStringkey}}','{{$key->weight}}','{{$obj->id}}')" data-toggle="modal" data-target="#edit-key-result">
+                                                                    class="btn btn-icon btn-circle bg-white btn-tolbar ml-auto" onclick="editobjectivekey({{$key->id}},'{{$key->key_name}}','{{$key->key_start_date}}','{{$key->key_end_date}}','{{$trimmedStringkey}}','{{$key->weight}}','{{$obj->id}}','{{$key->key_result_type}}','{{$key->key_unit}}','{{$key->init_value}}','{{$key->target_number}}')" data-toggle="modal" data-target="#edit-key-result">
                                                                     <img src="{{ asset('public/assets/images/icons/edit.svg') }}"
                                                                         alt="Edit"
                                                                         style="border-radius: 50%; width: 18px; height: 18px;">
@@ -1310,14 +1310,14 @@ $var_objective = 'PageT-'.$type;
                         @if($organization->type == 'unit')
                         <div class="col-md-12 col-lg-12 col-xl-12">
                             <div class="form-group mb-0">
-                                <select class="form-control search-team" id="team" >
+                                <select class="form-control" id="team" >
                             
                                 @foreach(DB::table('unit_team')->where('org_id',$organization->id)->get() as $r)
                                 <option value="{{$r->id}}">{{$r->team_title}}</option>
                                 @endforeach
 
                                 </select>
-                              <label for="small-description" class="lable-bottom-imp" style="top:-40px">Assign Team</label>
+                              <label for="small-description" class="lable-bottom-imp" >Assign Team</label>
                             </div>
                         </div>
                         @endif
@@ -1326,13 +1326,13 @@ $var_objective = 'PageT-'.$type;
                         @if($organization->type == 'stream')   
                         <div class="col-md-12 col-lg-12 col-xl-12">
                             <div class="form-group mb-0">
-                                <select class="form-control search-team" id="team"  >
+                                <select class="form-control" id="team"  >
                               
                                     @foreach(DB::table('value_team')->where('org_id',$organization->id)->get() as $r)
                                     <option value="{{$r->id}}">{{$r->team_title}}</option>
                                     @endforeach
                                 </select>
-                              <label for="small-description" style="top:-40px">Assign Team</label>
+                              <label for="small-description">Assign Team</label>
                             </div>
                         </div>
                         @endif
