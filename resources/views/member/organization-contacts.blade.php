@@ -175,7 +175,11 @@ $var_objective = "Org-Contact";
                                                             
                                                             <input type="hidden" id="old_image" name="old_image" value="{{ $member->image }}">
                                                             <div class="col-md-12 col-lg-12 col-xl-12">
-                                                            <img src="{{asset('public/assets/images/'.$member->image)}}" style="width:100px; height:100px; object-fit:cover" alt="Example Image">
+                                                                @if($member->image != NULL)
+                                                                <img src="{{asset('public/assets/images/'.$member->image)}}" style="width:100px; height:100px; object-fit:cover" alt="Example Image">
+                                                                @else
+                                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv1Tt9_33HyVMm_ZakYQy-UgsLjE00biEArg&usqp=CAU" style="width:100px; height:100px; object-fit:cover" alt="Example Image">
+                                                                @endif    
                                                                 <div class="form-group mb-0">
                                                                     <input type="file" class="form-control" name="image" >
                                                                     <label for="profile">Profile Picture</label>

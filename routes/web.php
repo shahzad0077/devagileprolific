@@ -129,6 +129,7 @@ Route::post('edit-member', [App\Http\Controllers\MemberController::class,'Update
 Route::get('check-email', [App\Http\Controllers\MemberController::class,'Checkemail']);
 Route::post('delete-member', [App\Http\Controllers\MemberController::class,'DeleteMember']);
 Route::post('delete-mutiple-user', [App\Http\Controllers\MemberController::class,'DeleteAllMember']);
+Route::get('check-email-edit', [App\Http\Controllers\MemberController::class,'CheckemailEdit']);
 
 Route::get('dashboard/organization/contacts', [App\Http\Controllers\MemberController::class,'ObjectivesContacts']);
 Route::post('save-org-contact', [App\Http\Controllers\MemberController::class,'SaveOrganizationMember']);
@@ -220,9 +221,6 @@ Route::name('flags.')->namespace('App\Http\Controllers')->prefix('dashboard/flag
     Route::POST('unarchiveflag', 'FlagController@unarchiveflag');
     Route::POST('showepicdetail', 'FlagController@showepicdetail');
     Route::POST('escalateflag', 'FlagController@escalateflag');
-});
-Route::name('react.')->namespace('App\Http\Controllers')->prefix('dashboard/react')->group(function () {
-    Route::get('{organizationid}', 'ReactController@index');
 });
 //EpicComment
 Route::post('add-epic-comment', [App\Http\Controllers\ObjectiveController::class, 'SaveComment']);

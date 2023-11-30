@@ -110,6 +110,8 @@ $var_objective = "Org-Unit";
                                                                 <div class="title">{{$r->name}} {{ $r->last_name }}</div>
                                                             </div>
                                                         </td>
+                                                        @else
+                                                        <td>N/A</td>
                                                         @endif
                                                         @endforeach
                                                         @else
@@ -144,20 +146,20 @@ $var_objective = "Org-Unit";
                                                         
                                                         <div id="show-error"></div>
                                                 
-                                                        <form method="POST">
+                                                        <form method="POST" method="POST" action="{{url('delete-business-unit')}}">
                                                          @csrf   
-                                                         <input type="hidden" id="delete_id" value="{{$unit->id}}">
+                                                         <input type="hidden" name="delete_id" id="delete_id" value="{{$unit->id}}">
                                                        
                                                 
                                                         <div class="modal-body">
                                                           
                                                         Are you sure you want to delete this Business Units?
-                                                        <input type="text"  id="noPasteField" class="form-control" placeholder="Write business unit name and hit confirm" required>
+                                                        <input type="text" name="val"  id="noPasteField" class="form-control" placeholder="Write business unit name and hit confirm" required>
                                                 
                                                         </div>
                                                         <div class="modal-footer">
                                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                          <button type="button" onclick="DeleteUnit();" class="btn btn-danger">Confirm</button>
+                                                          <button type="submit"  onclick="DeleteUnit();" class="btn btn-danger">Confirm</button>
                                                         </div>
                                                         </form>
                                                       </div>
@@ -319,10 +321,10 @@ $var_objective = "Org-Unit";
 
         function DeleteUnit()
         {
-            
-        var delete_id = $('#delete_id').val();
-        var val = $('#noPasteField').val();
-        if($('#noPasteField').val() == '')
+ 
+         var delete_id = $('#delete_id').val();
+    
+        if($('#PasteField').val() == '')
         {
           $('#show-error').html('<div class="alert alert-danger" role="alert"> Please Enter  Business Units Name</div>');    
             return  false;

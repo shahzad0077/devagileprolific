@@ -104,7 +104,14 @@ function updateepicflag() {
         var objective_status = $('#obj_status').val();
 
 
-        if($('#objective_name').val() != '' || $('#start_date').val() != '' || $('#end_date').val() != '') {
+        if($('#objective_name').val() == '') 
+        {
+        $('#obj-feild-error').html('Please fill out all required fields.');
+        return false;
+        } 
+
+
+        
             $.ajax({
                 type: "POST",
                 url: "{{ url('save-objective') }}",
@@ -148,11 +155,7 @@ function updateepicflag() {
 
                 }
             });
-        } else {
-
-            $('#obj-feild-error').html('Please fill out all required fields.');
-
-        }
+      
     }
     function editobjective(obj_id,obj_name,obj_start_date,obj_end_date,obj_detail,obj_status)
     {
@@ -395,7 +398,7 @@ $('.target_value').each(function() {
 
 
 
-if ($('#key_name').val() == '' || $('.target_value').val() == '') 
+if ($('#key_name').val() == '') 
 {
 $('#key-feild-error').html('Please fill out all required fields.');
 return false;
@@ -476,7 +479,7 @@ $.ajax({
 
 
 
-function editobjectivekey(key_id,key_name,key_start_date,key_end_date,key_detail,key_weight,obj_id)
+function editobjectivekey(key_id,key_name,key_start_date,key_end_date,key_detail,key_weight,obj_id,key_type,key_unit,key_init_value,key_target)
     {
      $('#edit_key_obj_id').val(key_id);   
      $('#edit_key_name').val(key_name);   
@@ -487,6 +490,10 @@ function editobjectivekey(key_id,key_name,key_start_date,key_end_date,key_detail
      $('#weight-edit').html('');
      $('#wieght-error-edit').html('');
 
+     $('#edit_key_result_type').val(key_type);   
+     $('#edit_key_result_unit').val(key_unit);   
+     $('#edit_init_value').val(key_init_value);   
+     $('#edit_target_number').val(key_target);  
 
      getkeyweight(key_id);
      getkeychart();
@@ -670,10 +677,13 @@ var obj_id = $('#edit_key_obj').val();
 var edit_key_status = $('#edit_key_status').val();
 
 var weightedit = $('#sliderValue' + key_id).val();   
-
 var weightedit_1 = $('#sliderValueEdit').val();  
-
 var type = "{{ $organization->type }}";
+
+var edit_key_result_type = $('#edit_key_result_type').val();   
+var edit_key_result_unit = $('#edit_key_result_unit').val();   
+var edit_init_value = $('#edit_init_value').val();   
+var edit_target_number = $('#edit_target_number').val();  
 
 
 
@@ -698,7 +708,11 @@ $.ajax({
         obj_id:obj_id,
         edit_key_status:edit_key_status,
         unit_id:unit_id,
-        type:type
+        type:type,
+        edit_key_result_type:edit_key_result_type,
+        edit_key_result_unit:edit_key_result_unit,
+        edit_init_value:edit_init_value,
+        edit_target_number:edit_target_number,
     },
     success: function(res) {
 
@@ -1024,6 +1038,7 @@ function editinitiative(initiative_id,initiative_name,initiative_start_date,init
      $('#edit_id_initiative_key').val(initiative_key);
      $('#edit_id_initiative_obj').val(initiative_obj);
      
+     $('.edit_initiative_start_date').attr('min',initiative_start_date);
      getinitiativweight(initiative_id);
      $('#wieght-error-edit-init').html('');
 
