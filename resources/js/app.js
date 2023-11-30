@@ -1,32 +1,62 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+import React, { useCallback } from 'react';
+import ReactFlow, {
+  addEdge,
+  MiniMap,
+  Controls,
+  Background,
+  useNodesState,
+  useEdgesState,
+} from 'reactflow';
 
-require('./bootstrap');
+import { nodes as initialNodes, edges as initialEdges } from './initial-elements';
+import CustomNode from './CustomNode';
 
-window.Vue = require('vue').default;
+import 'reactflow/dist/style.css';
+import '../css/overview.css';
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+const nodeTypes = {
+  custom: CustomNode,
+};
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+const minimapStyle = {
+  height: 120,
+};
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+const onInit = (reactFlowInstance) => console.log('flow loaded:', reactFlowInstance);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+const OverviewFlow = () => {
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
 
-const app = new Vue({
-    el: '#app',
-});
+  // we are using a bit of a shortcut here to adjust the edge type
+  // this could also be done with a custom edge for example
+  const edgesWithUpdatedTypes = edges.map((edge) => {
+    if (edge.sourceHandle) {
+      const edgeType = nodes.find((node) => node.type === 'custom').data.selects[edge.sourceHandle];
+      edge.type = edgeType;
+    }
+
+    return edge;
+  });
+
+  return (
+    <ReactFlow
+      nodes={nodes}
+      edges={edgesWithUpdatedTypes}
+      onNodesChange={onNodesChange}
+      onEdgesChange={onEdgesChange}
+      onConnect={onConnect}
+      onInit={onInit}
+      fitView
+      attributionPosition="top-right"
+      nodeTypes={nodeTypes}
+    >
+      <MiniMap style={minimapStyle} zoomable pannable />
+      <Controls />
+      <Background color="#aaa" gap={16} />
+    </ReactFlow>
+  );
+};
+
+export default OverviewFlow;
