@@ -1277,19 +1277,20 @@ $updateData = [
         
         if(!$name)
         {
-        echo 1; 
+        return redirect()->back()->with('message', 'Please Enter Correct Business Units Name');
         }else
         {
         DB::table('business_units')->where('id',$request->delete_id)->delete();
         DB::table('value_stream')->where('unit_id',$request->delete_id)->delete();
         DB::table('objectives')->where('unit_id',$request->delete_id)->delete();
-        DB::table('unit_team')->where('org_id',$request->delete_id)->delete();   
+        DB::table('unit_team')->where('org_id',$request->delete_id)->delete();
+        return redirect()->back()->with('message', 'Business Units Deleted Successfully');
+   
         }
       
        
 
        
-        // return redirect()->back()->with('message', 'Business Units Deleted Successfully');
 
     }
     
@@ -1372,6 +1373,22 @@ $updateData = [
       }
 
        
+
+    }
+
+    public function CheckemailEdit(Request $request)
+    {
+     
+        $oldemail = User::where('id',$request->member)->first();
+        $email = User::where('email',$request->email)->first();
+
+        if($oldemail->email == $email->email)
+        {
+        echo 1;     
+        }else
+        {
+        echo 2;    
+        }
 
     }
 

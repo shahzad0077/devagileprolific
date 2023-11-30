@@ -377,8 +377,13 @@ class ObjectiveController extends Controller
         'key_end_date' => $request->edit_key_end_date,
         'key_detail' => $request->edit_key_detail,
         'user_id' => Auth::id(),
-         'weight' => $weight,
-         'key_status' => $request->edit_key_status,
+        'weight' => $weight,
+        'key_status' => $request->edit_key_status,
+        'key_result_type' => $request->edit_key_result_type,
+        'key_unit' => $request->edit_key_result_unit,
+        'init_value' => $request->edit_init_value,
+        'target_number' => $request->edit_target_number,
+      
 
         ]);
 
