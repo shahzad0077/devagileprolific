@@ -1,6 +1,10 @@
 import React, { memo } from 'react';
 import { Handle, useReactFlow, useStoreApi, Position } from 'reactflow';
 
+const url = "https://jsonplaceholder.typicode.com/users";
+
+console.log(url);
+
 const options = [
   {
     value: 'smoothstep',
