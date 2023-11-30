@@ -105,6 +105,9 @@
                                       <div>
                                         Teams
                                       </div>
+
+                              {{-- <a href="javascript:void(0);" class="add_team text-black" title="Add field"><i class="fa fa-plus" aria-hidden="true"></i></a> --}}
+
                                     
                                 </div>
                                 <hr>
@@ -143,8 +146,8 @@
                             <div class="col-md-12 col-lg-12 col-xl-6">
                                 <div class="form-group mb-0">
                                    <select class="form-control" id="key_result_type">
-                                    <option value="">Select Key Result Type</option>
-                                    <option value="Should Increase to">Should Increase To</option>
+                                    <option value="">Select Key Result type</option>
+                                    <option  value="Should Increase to">Should Increase To</option>
                                       <option value="Should decrease to">Should decrease To</option>
                                        <option value="Should stay above">Should stay above</option>
                                        <option value="Should stay below">Should stay below</option>
@@ -158,8 +161,8 @@
                             <div class="col-md-12 col-lg-12 col-xl-6">
                                 <div class="form-group mb-0">
                                    <select class="form-control" id="key_result_unit" >
-                                    <option value="">Select Unit</option>
-                                    <option value="number">Number</option>
+                                    <option value="">Select Key Result Unit</option>
+                                    <option  value="number">Number</option>
                                       <option value="pound £">pound £</option>
                                        <option value="Euro €">Euro €</option>
                                        <option value="Dollar $">Dollar $</option>
@@ -278,6 +281,57 @@
                                 <label for="small-description">Small Description</label>
                             </div>
                         </div>
+
+                        <div class="col-md-12 col-lg-12 col-xl-12">
+                            <div class="d-flex flex-row align-items-center justify-content-between mt-4">
+                                  <div>
+                                    Target Values
+                                  </div>
+                                
+                            </div>
+                            <hr>
+                            </div>
+    
+                                <div class="col-md-12 col-lg-12 col-xl-6">
+                                    <div class="form-group mb-0">
+                                       <select class="form-control" id="edit_key_result_type">
+                                        <option value="Should Increase to">Should Increase To</option>
+                                          <option value="Should decrease to">Should decrease To</option>
+                                           <option value="Should stay above">Should stay above</option>
+                                           <option value="Should stay below">Should stay below</option>
+                                           <option value="Achieved">Achieved or not(100% / 0%)</option>
+    
+                                       </select>
+                                        <label for="small-description">Key Result Type</label>
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-12 col-lg-12 col-xl-6">
+                                    <div class="form-group mb-0">
+                                       <select class="form-control" id="edit_key_result_unit" >
+                                        <option value="number">Number</option>
+                                          <option value="pound £">pound £</option>
+                                           <option value="Euro €">Euro €</option>
+                                           <option value="Dollar $">Dollar $</option>
+    
+                                       </select>
+                                        <label for="small-description">Unit</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12 col-xl-6">
+                                    <div class="form-group mb-0">
+                                        <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" id="edit_init_value" required>
+                                        <label for="objective-name">Initial Number</label>
+                                    </div>
+                                </div>
+    
+                                <div class="col-md-12 col-lg-12 col-xl-6">
+                                    <div class="form-group mb-0">
+                                        <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" id="edit_target_number" required>
+                                        <label for="objective-name">Target Number</label>
+                                    </div>
+                                </div>
 
                         <div class="row ml-1">
                             <div class="col-md-12 key-chart-data">
@@ -647,7 +701,7 @@
                         </div>
                         <div class="col-md-6 col-lg-6 col-xl-6">
                             <div class="form-group mb-0">
-                                <input type="date" class="form-control" id="edit_initiative_start_date" required>
+                                <input type="date" class="form-control edit_initiative_start_date" id="edit_initiative_start_date" required>
                                 <label for="start-date">Start Date</label>
                             </div>
                         </div>
