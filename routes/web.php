@@ -222,6 +222,9 @@ Route::name('flags.')->namespace('App\Http\Controllers')->prefix('dashboard/flag
     Route::POST('showepicdetail', 'FlagController@showepicdetail');
     Route::POST('escalateflag', 'FlagController@escalateflag');
 });
+Route::name('react.')->namespace('App\Http\Controllers')->prefix('dashboard/react')->group(function () {
+    Route::get('{organizationid}', 'ReactController@index');
+});
 //EpicComment
 Route::post('add-epic-comment', [App\Http\Controllers\ObjectiveController::class, 'SaveComment']);
 Route::post('update-epic-comment', [App\Http\Controllers\ObjectiveController::class, 'UpdateEpicComment']);
