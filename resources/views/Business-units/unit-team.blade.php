@@ -37,7 +37,6 @@ $var_objective = "Org-Unit-team";
                                                         </td>
                                                         <td>Team Name</td>
                                                         <td>Members</td>
-                                                        <td>Value Streams</td>
                                                         <td>Team Leader</td>
                                                         <td>Action</td>
                                                     </tr>
@@ -67,7 +66,7 @@ $var_objective = "Org-Unit-team";
                                                         <td><a class="nav-link" href="{{url('dashboard/organization/'.$team->slug.'/portfolio/BU')}}">{{$team->team_title}}</a></td>
                                                         
                                                         <td>{{$dataCount}}</td>
-                                                        <td>4</td>
+                            
                                                         @foreach(DB::table('members')->get() as $r)
                                                         @if($r->id == $team->lead_id)
                                                         <td class="image-cell">
@@ -80,6 +79,8 @@ $var_objective = "Org-Unit-team";
                                                                 <div class="title">{{$r->name}} {{ $r->last_name }}</div>
                                                             </div>
                                                         </td>
+                                                        @else
+                                                        <td>N/A</td>
                                                         @endif
                                                         @endforeach
                                                         
