@@ -108,6 +108,8 @@ $var_objective = "V-Stream";
                                                                 <div class="title">{{$r->name}} {{$r->last_name}}</div>
                                                             </div>
                                                         </td>
+                                                        @else
+                                                        <td>N/A</td>
                                                         @endif
                                                         @endforeach
                                                         <td>{{$TeamCount}}</td>

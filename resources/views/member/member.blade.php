@@ -56,7 +56,7 @@ $var_objective = "Member";
                         <div class="col-md-12 p-0">
                             <div class="card">
                                 <div class="card-body p-10">
-                                    <table class="table data-table">
+                                    <table class="table data-table example">
                                         <thead>
                                             <tr>
                                                 <td>
@@ -266,7 +266,7 @@ $var_objective = "Member";
                         </div>
                         <div class="col-md-12 col-lg-12 col-xl-12">
                             <div class="form-group mb-0">
-                                <input type="email" class="form-control" id="email" name="email" onkeyup="checkemail(this.value)" required>
+                                <input type="email" class="form-control" id="email" name="email" onfocusout="checkemail(this.value)" required>
                                 <label for="email">Email</label>
                             </div>
                         </div>
@@ -437,6 +437,23 @@ $var_objective = "Member";
  
 			
     // });
+
+    $(document).ready(function() {
+    var table = $('.example').DataTable({
+    "pagingType": "full_numbers",
+    "language": {
+        "paginate": {
+            "previous": "&lsaquo;", // Custom previous arrow
+            "next": "&rsaquo;" // Custom next arrow
+        }
+    },
+   "columnDefs": [
+    { "orderable":false, "targets": [0,6] }
+]
+});
+
+    
+    });
     
 $("#checkAll").click(function () {
 $('input:checkbox').not(this).prop('checked', this.checked);
