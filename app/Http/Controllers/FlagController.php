@@ -342,4 +342,13 @@ class FlagController extends Controller
         }
         
     }
+    public function showtab(Request $request)
+    {
+        if($request->tab == 'comment')
+        {
+            $comments = flag_comments::where('flag_id' , $request->id)->wherenull('comment_id')->orderby('id' , 'desc')->get();
+            $html = view('flags.allcomments', compact('comments'))->render();
+            return $html;
+        }
+    }
 }
