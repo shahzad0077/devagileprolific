@@ -82,7 +82,7 @@ function updateepicflag() {
 
 
 
-        function get_date(val,id)
+function get_date(val,id)
         {
         var selectedDate = new Date(val);
         selectedDate.setDate(selectedDate.getDate() + 1);
@@ -390,6 +390,7 @@ var init_value = $('#init_value').val();
 var target_number = $('#target_number').val();
 
 
+
 var Target = [];
 
 $('.target_value').each(function() {
@@ -403,7 +404,6 @@ if ($('#key_name').val() == '')
 $('#key-feild-error').html('Please fill out all required fields.');
 return false;
 }
-
 
 
 
@@ -497,6 +497,7 @@ function editobjectivekey(key_id,key_name,key_start_date,key_end_date,key_detail
 
      getkeyweight(key_id);
      getkeychart();
+     console.log(getkeychart());
 
 
     }
@@ -1044,7 +1045,7 @@ function editinitiative(initiative_id,initiative_name,initiative_start_date,init
 
     }
     
-      function getinitiativweight(id)
+    function getinitiativweight(id)
     {
 
   $('#initiative-edit-weight').html('');
@@ -1953,7 +1954,7 @@ $('#epic_end_date_month').val(endformattedDate);
 //   console.log(formattedDate); // Output: "2023-07-01"
 // } else {
 //   console.log("Invalid date.");
-$('#story-data').html('');
+$('.story-data').html('');
 $('#comment_area').html('');
 var randomInteger = getRandomInt(100, 999);
 $('#r_id').val(randomInteger);
@@ -2065,6 +2066,7 @@ $.ajax({
               $("#nestedCollapsible"+epic_obj).collapse('toggle');
               $("#key-result"+epic_key).collapse('toggle');
               $("#initiative"+ini_epic_id).collapse('toggle');
+              $("#AddStory").collapse('toggle');
               handleDivClick(ini_epic_id);
                
         // }
@@ -2565,7 +2567,6 @@ function deleteepiccomment(id)
 
 
     var unit_id = "{{ $organization->id }}"; 
-    var epic  = $('#edit_epic_id').val(); 
 
     $.ajax({
     type: "POST",
@@ -2576,12 +2577,12 @@ function deleteepiccomment(id)
     data: {
     id:id,    
     unit_id:unit_id,
-    epic:epic,
 
     },
     success: function(res) {
       
-    $('#edit-comment_area').html(res);
+    // $('#edit-comment_area').html(res);
+    $('#delete-comment'+id).remove();
 
     }
 });
@@ -2653,7 +2654,9 @@ function updateQvalue(id)
       
         $('#edit-val'+id).html(title);
         $('#edit-button-val'+id).html('<button class="btn-circle btn-tolbar" type="button" onclick="editquartervalue('+id+','+"'"+title+"'"+')"><img src="{{ url('public/assets/images/icons/edit.svg') }}"></button>  <button class="btn-circle btn-tolbar" type="button" onclick="deletequartervalue('+id+')"><img src="{{ url('public/assets/images/icons/delete.svg') }}"></button>');
-
+        
+        $('#q-value'+res.key_chart_id).html(res.value);
+        
     }
 });
 
@@ -2718,8 +2721,9 @@ function getteam()
 
         }
 
-function getteamobj(id)
+function getteamobj(id,x)
 {
+
     var unit_id = "{{ $organization->id }}"; 
     var type = "{{ $organization->type }}"; 
         $.ajax({
@@ -2737,19 +2741,219 @@ function getteamobj(id)
           
         if(res)
         {
-        $('#obj-team').empty();
-        $('#obj-team').append('<option hidden value="">Select Objective</option>'); 
+        $('#obj-team'+x).empty();
+        $('#obj-team'+x).append('<option hidden value="">Select Objective</option>'); 
         $.each(res, function(key, course){
-        $('#obj-team').append('<option value="'+ course.id +'">' + course.objective_name+ '</option>');
+        $('#obj-team'+x).append('<option value="'+ course.id +'">' + course.objective_name+ '</option>');
         });
         }else{
-        $('#obj-team').empty();
+        $('#obj-team'+x).empty();
         }
 
         }
         });
 
-        }      
+        }
+        
+         
+       function getUnitObj(id)
+        {
+    
+        var type = "{{ $organization->type }}"; 
+
+        $.ajax({
+        type: "GET",
+        url: "{{ url('get-unit-obj') }}",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+        id:id,
+        type:type,
+        },
+        success: function(res) {
+       
+        if(res)
+        {
+        $('.bu-obj').empty();
+        $('.bu-obj').append('<option hidden>Choose Obective</option>'); 
+        $.each(res, function(key, course){
+        $('.bu-obj').append('<option value="'+ course.id +'">' + course.objective_name+ '</option>');
+        });
+        }else{
+        $('.bu-obj').empty();
+        }
+
+        }
+        });
+
+        }
+
+        function getBUKey(id)
+        {
+   
+        $.ajax({
+        type: "GET",
+        url: "{{ url('get-BU-key') }}",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+        id:id,
+        },
+        success: function(res) {
+          
+        if(res)
+        {
+        $('.key-BU').empty();
+        $('.key-BU').append('<option hidden>Choose Key Result</option>'); 
+        $.each(res, function(key, course){
+        $('.key-BU').append('<option value="'+ course.id +'">' + course.key_name+ '</option>');
+        });
+        }else{
+        $('.key-BU').empty();
+        }
+
+        }
+        });
+
+        }
+
+function editkeyqvalue(id,val)
+{
+$('#edit-q-val'+id).html('<input type="text" class="form-control w-50" style="font-size:12px" id="q-value'+id+'" value="'+val+'" onfocusout="updateKeyQvalue('+id+')">');
+}
+
+function updateKeyQvalue(id)
+{
+   var title = $('#q-value'+id).val(); 
+   var unit_id = "{{ $organization->id }}"; 
+
+    $.ajax({
+    type: "POST",
+    url: "{{ url('update-key-quarter-value') }}",
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    data: {
+    id:id,    
+    title:title,    
+    unit_id:unit_id,
+   
+    },
+    success: function(res) {
+      
+        $('#edit-q-val'+id).html(title);
+        $('#edit-button-qval'+id).html('<button class="btn-circle btn-tolbar" type="button" onclick="editkeyqvalue('+id+','+"'"+title+"'"+')"><img src="{{ url('public/assets/images/icons/edit.svg') }}"></button> ');
+        $('#q-sprint'+res.id).html(res.quarter_value);
+       
+        
+    }
+});
+
+}
+
+
+function addepicreply(id)
+{
+$('#epic-reply'+id).html('<input type="text" placeholder="Type..." class="form-control w-50" style="font-size:12px" id="reply'+id+'"><button type="button" class="btn btn-default btn-sm ml-2 mt-1" onclick="savereply('+id+')">save</button>');
+}
+
+function savereply(id)
+{
+   var title = $('#reply'+id).val(); 
+   var unit_id = "{{ $organization->id }}"; 
+
+    $.ajax({
+    type: "POST",
+    url: "{{ url('epic-reply') }}",
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    data: {
+    id:id,    
+    title:title,    
+    unit_id:unit_id,
+   
+    },
+    success: function(res) {
+      
+    $('#epic-reply'+id).html('');
+       
+        
+    }
+});
+
+}
+
+function gettarget(target)
+{
+
+var typeV = $('#key_result_type').val();
+var iniV = $('#init_value').val();
+ if(typeV == 'Should Increase to')
+ {
+
+   if(target <= iniV)
+    {
+    $('#target-error').html('The target value should be greater than the initial value');
+    }else if(target >= iniV)
+    {
+    $('#target-error').html('');  
+
+    }else
+    {
+    }
+ }
+
+ 
+ if(typeV == 'Should stay above')
+ {
+  
+   if(target <= iniV)
+    {
+    $('#target-error').html('The target value should be greater than the initial value');
+    }else if(target >= iniV)
+    {
+    $('#target-error').html('');  
+
+    }else
+    {
+    }
+ }
+
+ if(typeV == 'Should decrease to')
+ {
+
+   if(target >= iniV)
+    {
+    $('#target-error').html('The target value should be less than the initial value');
+    }else if(target <= iniV)
+    {
+    $('#target-error').html('');  
+
+    }else
+    {
+    }
+ }
+
+ if(typeV == 'Should stay below')
+ {
+
+   if(target >= iniV)
+    {
+    $('#target-error').html('The target value should be less than the initial value');
+    }else if(target <= iniV)
+    {
+    $('#target-error').html('');  
+
+    }else
+    {
+    }
+ }
+
+
+}
 
 
 function getRandomInt(min, max) {
@@ -2757,7 +2961,6 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
 
 
 
