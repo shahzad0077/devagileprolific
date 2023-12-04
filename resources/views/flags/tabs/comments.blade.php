@@ -159,87 +159,87 @@
         @php
             $puser = DB::table('users')->where('id',$p->user_id)->first();
         @endphp
-        <div class="card comment-card-new reply-card">
-            <div class="deletecomment" id="commentdelete{{ $p->id }}">
-                <div class="buttons">
-                    <button onclick="deletecommenthide({{$p->id}})" class="btn btn-default btn-sm">Cancel</button>
-                    <button onclick="deletecomment({{ $p->id }})" class="btn btn-primary btn-sm">Delete</button>
+            <div class="card comment-card-new reply-card">
+                <div class="deletecomment" id="commentdelete{{ $p->id }}">
+                    <div class="buttons">
+                        <button onclick="deletecommenthide({{$p->id}})" class="btn btn-default btn-sm">Cancel</button>
+                        <button onclick="deletecomment({{ $p->id }})" class="btn btn-primary btn-sm">Delete</button>
+                    </div>
                 </div>
-            </div>
-            <div class="commentedit" id="commentedit{{ $p->id }}">
-                <form method="POST" id="updatecomment{{ $p->id }}" action="{{ url('dashboard/flags/updatecomment') }}">
-                    @csrf
-                    <input type="hidden" value="{{ $p->id }}" name="comment_id">
-                    <div class="row mt-3">
-                        <div class="col-md-12 col-lg-12 col-xl-12">
-                            <div class="d-flex flex-column">
-                                <div>
-                                    <div class="form-group mb-0">
-                                        <input value="{{ $p->comment }}" type="text" class="form-control" name="comment" id="objective-name" required>
-                                        <label for="objective-name">Write Comment</label>
+                <div class="commentedit" id="commentedit{{ $p->id }}">
+                    <form method="POST" id="updatecomment{{ $p->id }}" action="{{ url('dashboard/flags/updatecomment') }}">
+                        @csrf
+                        <input type="hidden" value="{{ $p->id }}" name="comment_id">
+                        <div class="row mt-3">
+                            <div class="col-md-12 col-lg-12 col-xl-12">
+                                <div class="d-flex flex-column">
+                                    <div>
+                                        <div class="form-group mb-0">
+                                            <input value="{{ $p->comment }}" type="text" class="form-control" name="comment" id="objective-name" required>
+                                            <label for="objective-name">Write Comment</label>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span onclick="editcommenthide({{$p->id}})" class="btn btn-default btn-sm">Cancel</span>
+                                        <button type="submit" id="updatecommentbutton{{ $p->id }}" class="btn btn-primary btn-sm">Update</button>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="d-flex flex-column">
+                                    <div>
+                                        <h5>{{ $puser->name }} {{ $puser->last_name }}</h5>
+                                        <small>{{ Cmf::date_format($p->created_at) }}</small>
+                                        @if($p->created_at != $p->updated_at)
+                                        <small>Updated</small>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="pr-2">
+                                    <span onclick="editcommentshow({{$r->id}})" class="commenticon">
+                                        <img src="{{ url('public/assets/svg/editcommentsvg.svg') }}">
+                                    </span>
+                                </div>
                                 <div>
-                                    <span onclick="editcommenthide({{$p->id}})" class="btn btn-default btn-sm">Cancel</span>
-                                    <button type="submit" id="updatecommentbutton{{ $p->id }}" class="btn btn-primary btn-sm">Update</button>
+                                    <span onclick="deletecommentshow({{$r->id}})" class="commenticon">
+                                        <img src="{{ url('public/assets/svg/deletecomment.svg') }}">
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <div class="card-body">
-                <div class="d-flex flex-column">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <div class="d-flex flex-row align-items-center">
-                            <div class="d-flex flex-column">
-                                <div>
-                                    <h5>{{ $puser->name }} {{ $puser->last_name }}</h5>
-                                    <small>{{ Cmf::date_format($p->created_at) }}</small>
-                                    @if($p->created_at != $p->updated_at)
-                                    <small>Updated</small>
-                                    @endif
-                                </div>
-                            </div>
+                        <div>
+                            <p>{{ $p->comment }}</p>
                         </div>
-                        <div class="d-flex flex-row align-items-center">
-                            <div class="pr-2">
-                                <button onclick="editcommentshow({{$p->id}})" class="btn-circle btn-tolbar">
-                                    <img src="{{ url('public/assets/images/icons/edit.svg') }}">
-                                </button>
-                            </div>
-                            <div>
-                                <button onclick="deletecommentshow({{$p->id}})" class="btn-circle btn-tolbar">
-                                    <img src="{{ url('public/assets/images/icons/delete.svg') }}">
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <p>{{ $p->comment }}</p>
                     </div>
                 </div>
             </div>
-        </div>
-        <script type="text/javascript">
-            $('#updatecomment{{ $p->id }}').on('submit',(function(e) {
-                $('#updatecommentbutton{{ $p->id }}').html('<i class="fa fa-spin fa-spinner"></i>');
-                e.preventDefault();
-                var formData = new FormData(this);
-                $.ajax({
-                    type:'POST',
-                    url: $(this).attr('action'),
-                    data:formData,
-                    cache:false,
-                    contentType: false,
-                    processData: false,
-                    success: function(data){
-                        $('#updatecommentbutton{{ $p->id }}').html('Save');
-                        $('.comment-area').html(data);
-                    }
-                });
-            }));
-        </script>
+            <script type="text/javascript">
+                $('#updatecomment{{ $p->id }}').on('submit',(function(e) {
+                    $('#updatecommentbutton{{ $p->id }}').html('<i class="fa fa-spin fa-spinner"></i>');
+                    e.preventDefault();
+                    var formData = new FormData(this);
+                    $.ajax({
+                        type:'POST',
+                        url: $(this).attr('action'),
+                        data:formData,
+                        cache:false,
+                        contentType: false,
+                        processData: false,
+                        success: function(data){
+                            $('#updatecommentbutton{{ $p->id }}').html('Save');
+                            $('.comment-area').html(data);
+                        }
+                    });
+                }));
+            </script>
         @endforeach
         <script type="text/javascript">
             $('#updatecomment{{ $r->id }}').on('submit',(function(e) {
@@ -324,7 +324,7 @@ function editcommenthide(id) {
     $('#commentedit'+id).hide();
 }
 function deletecommentshow(id) {
-    $('#commentdelete'+id).show();
+    $('#commentdelete'+id).slideToggle();
 }
 function deletecommenthide(id) {
     $('#commentdelete'+id).hide();
