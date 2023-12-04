@@ -115,19 +115,6 @@ class FlagController extends Controller
         $html = view('flags.simplecard', compact('r'))->render();
         return $html;
     }
-    public function savecomment(Request $request)
-    {
-        $addcomment = new flag_comments();
-        $addcomment->flag_id = $request->flag_id;
-        $addcomment->user_id = $request->user_id;
-        $addcomment->comment = $request->comment;
-        $addcomment->type = 'comment';
-        $addcomment->save();
-        $comments = flag_comments::where('flag_id' , $request->flag_id)->wherenull('comment_id')->orderby('id' , 'desc')->get();
-        $html = view('flags.allcomments', compact('comments'))->render();
-        return $html;
-    }
-
     public function savereply(Request $request)
     {
         $addcomment = new flag_comments();
@@ -342,13 +329,35 @@ class FlagController extends Controller
         }
         
     }
+    public function savecomment(Request $request)
+    {
+        $addcomment = new flag_comments();
+        $addcomment->flag_id = $request->flag_id;
+        $addcomment->user_id = $request->user_id;
+        $addcomment->comment = $request->comment;
+        $addcomment->type = 'comment';
+        $addcomment->save();
+        $comments = flag_comments::where('flag_id' , $request->flag_id)->wherenull('comment_id')->orderby('id' , 'desc')->get();
+        $data = flags::find($request->flag_id);
+        $html = view('flags.tabs.comments', compact('comments','data'))->render();
+        return $html;
+    }
     public function showtab(Request $request)
     {
+
+        if($request->tab == 'general')
+        {
+            $data = flags::find($request->id);
+            $html = view('flags.tabs.general', compact('data'))->render();
+            return $html;
+        }
         if($request->tab == 'comment')
         {
             $comments = flag_comments::where('flag_id' , $request->id)->wherenull('comment_id')->orderby('id' , 'desc')->get();
-            $html = view('flags.allcomments', compact('comments'))->render();
+            $data = flags::find($request->id);
+            $html = view('flags.tabs.comments', compact('comments','data'))->render();
             return $html;
         }
+        
     }
 }

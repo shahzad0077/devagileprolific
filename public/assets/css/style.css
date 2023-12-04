@@ -21016,6 +21016,20 @@ input[type="radio"]:checked {
 .rightside{
     display: flex;
 }
+
+.displayflex{
+    display: flex;
+}
+.firstdropdownofcomments{
+    margin-right: 10px;
+    margin-top: 7px;
+    color: #b2b2b2;
+    font-size: 14px;
+    cursor: pointer;
+}
+.writecomment{
+    display: none;
+}
 .newmodalcontent{
     border-radius: 8px !important;
 }
@@ -21064,6 +21078,7 @@ input[type="radio"]:checked {
 }
 .block-header {
     padding-bottom: 10px;
+    height: 35px;
 }
 
 .block-header h4 {
@@ -21170,6 +21185,7 @@ input[type="radio"]:checked {
 }
 
 .searchepic-box{
+    display: none;
     height: 264px;
     width: 94%;
     overflow: auto;
@@ -21236,4 +21252,11 @@ input[type="radio"]:checked {
 .memberdetail{
     font-size: 12px;
     color: #b3b3b3;
+}
+.loaderdisplay{
+    text-align: center;
+    margin: auto;
+}
+.loaderdisplay i{
+    font-size: 50px;
 }

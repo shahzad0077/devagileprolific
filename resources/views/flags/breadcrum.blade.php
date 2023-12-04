@@ -423,7 +423,8 @@ function editflag(id) {
         },
         success: function(res) {
             $('#showformforedit').html(res);
-            $('#edit-epic').modal('show')
+            $('#edit-epic').modal('show');
+            showtab(id , 'general');
         },
         error: function(error) {
             console.log('Error updating card position:', error);

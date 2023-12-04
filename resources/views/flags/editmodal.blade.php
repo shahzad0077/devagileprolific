@@ -3,10 +3,10 @@
         <div class="menuettitle">
             <h4>Menu</h4>
             <ul>
-                <li onclick="showtab({{$data->id}} , 'general')" class="active"><img src="{{ url('public/assets/svg/edit-2.svg') }}"> General</li>
-                <li onclick="showtab({{$data->id}} , 'comment')"><img src="{{ url('public/assets/svg/comment.svg') }}"> Comments</li>
-                <li onclick="showtab({{$data->id}} , 'activites')"><img src="{{ url('public/assets/svg/activites.svg') }}"> Activities</li>
-                <li onclick="showtab({{$data->id}} , 'attachment')"><img src="{{ url('public/assets/svg/attachment.svg') }}"> Attachments</li>
+                <li id="general" onclick="showtab({{$data->id}} , 'general')" class="tabsclass active"><img src="{{ url('public/assets/svg/edit-2.svg') }}"> General</li>
+                <li id="comment" onclick="showtab({{$data->id}} , 'comment')" class="tabsclass"><img src="{{ url('public/assets/svg/comment.svg') }}"> Comments</li>
+                <li id="activites" onclick="showtab({{$data->id}} , 'activites')" class="tabsclass"><img src="{{ url('public/assets/svg/activites.svg') }}"> Activities</li>
+                <li id="attachment" onclick="showtab({{$data->id}} , 'attachment')" class="tabsclass"><img src="{{ url('public/assets/svg/attachment.svg') }}"> Attachments</li>
             </ul>
             <h4>Action</h4>
             <ul>
@@ -18,110 +18,14 @@
             </ul>
         </div>
     </div>
-    <div class="col-md-9 secondportion">
-        <div class="row">
-            <div class="col-md-12 col-lg-12 col-xl-12">
-                <div class="d-flex flex-row align-items-center justify-content-between block-header">
-                    <div>
-                        <h4><img src="{{ url('public/assets/svg/editsvg.svg') }}"> Basic Details</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <form class="needs-validation mt-5" method="POST" id="updateflag{{ $data->id }}" action="{{ url('dashboard/flags/updateflag') }}" novalidate>
-        @csrf         
-            <input type="hidden" id="cardid" value="{{ $data->id }}" name="id">
-            <div class="row">
-                <div class="col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group mb-0">
-                        <label for="objective-name">Flag Title</label>
-                        <input type="text" value="{{ $data->flag_title }}" class="form-control" name="flag_title" id="objective-name" required>
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group mb-0 positionrelative">
-                        <label for="objective-name">Epic (Optional)</label>
-                        <input type="text" placeholder="Search Epic" class="form-control" name="flag_title" id="objective-name" required>
-                        <div class="searchiconforinput">
-                            <img src="{{ url('public/assets/images/searchiconsvg.svg') }}">
-                        </div>
-                    </div>
-                    <div class="searchepic-box">
-                        <div class="epic">
-                            <div class="epic-tittle">Epic Name</div>
-                            <div class="epic-detail">Objective / Key Result / Initiative</div>
-                        </div>
-                        <div class="epic">
-                            <div class="epic-tittle">Epic Name</div>
-                            <div class="epic-detail">Objective / Key Result / Initiative</div>
-                        </div>
-                        <div class="epic">
-                            <div class="epic-tittle">Epic Name</div>
-                            <div class="epic-detail">Objective / Key Result / Initiative</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group mb-0">
-                        <label for="lead-manager">Flag Assignee</label>
-                        <select required class="form-control" name="flag_assign" id="flag_assign">
-                            <option  value="">Select Flag Assignee</option>
-                            @foreach(DB::table('members')->where('org_user',Auth::id())->get() as $r)                
-                              <option @if($r->id  == $data->flag_assign) selected @endif value="{{ $r->id }}">{{ $r->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-12 col-lg-12 col-xl-12">
-                    <div class="form-group mb-0">
-                        <label>Description</label>
-                        <div class="textareaformcontrol">
-                            <textarea name="flag_description" id="editor{{ $r->id }}">{{ $data->flag_description }}</textarea> 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row margintopfourtypixel">
-                <div class="col-md-12 text-right">
-                    <button type="submit" class="btn btn-primary btn-theme ripple savechangebutton" id="updatebutton">Save Changes</button>
-                </div>
-            </div>
-        </form>
+    <div class="col-md-9 secondportion loaderdisplay">
+        
     </div>
 </div>
-
 <script type="text/javascript">
-    $('#editor{{ $r->id }}').summernote({
-        height: 180,
-        toolbar: [
-            ['style', ['bold', 'italic', 'underline', 'clear']],
-            ['font', ['strikethrough', 'superscript', 'subscript']],
-            ['fontsize', ['fontsize']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['height', ['height']],
-            ['view', ['fullscreen', 'codeview']],
-        ],
-    });
-    $('#updateflag{{ $data->id }}').on('submit',(function(e) {
-        $('#updatebutton').html('<i class="fa fa-spin fa-spinner"></i>');
-        e.preventDefault();
-        var formData = new FormData(this);
-        var cardid = $('#cardid').val();
-        $.ajax({
-            type:'POST',
-            url: $(this).attr('action'),
-            data:formData,
-            cache:false,
-            contentType: false,
-            processData: false,
-            success: function(data){
-                $('#updatebutton').html('Save Changes');
-                $('#'+cardid).html(data)         
-            }
-        });
-    }));
     function showtab(id , tab) {
+        $('.secondportion').addClass('loaderdisplay');
+        $('.secondportion').html('<i class="fa fa-spin fa-spinner"></i>');
         $.ajax({
             type: "POST",
             url: "{{ url('dashboard/flags/showtab') }}",
@@ -133,7 +37,10 @@
                 tab:tab,
             },
             success: function(res) {
+                $('.secondportion').removeClass('loaderdisplay');
                 $('.secondportion').html(res);
+                $('.tabsclass').removeClass('active');
+                $('#'+tab).addClass('active');
             },
             error: function(error) {
                 
