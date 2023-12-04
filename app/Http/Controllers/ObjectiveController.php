@@ -431,6 +431,9 @@ class ObjectiveController extends Controller
         DB::table('key_result')->where('id',$request->key_delete_id)->delete();
         DB::table('initiative')->where('key_id',$request->key_delete_id)->delete();
 
+        DB::table('key_chart')->where('key_id',$request->key_delete_id)->delete();
+        DB::table('key_quarter_value')->where('key_id',$request->key_delete_id)->delete();
+
        if($request->type == 'unit')
         {
          $organization  = DB::table('business_units')->where('slug',$request->slug)->first();
@@ -2966,10 +2969,26 @@ class ObjectiveController extends Controller
 
     DB::table('epic_comment')->where('id',$request->id)->delete();
   
-    $Comment = DB::table('epic_comment')->where('user_id',Auth::id())->where('epic_id',$request->epic)->get();
-    return view('objective.edit-epic-comment',compact('Comment'));    
+    // $Comment = DB::table('epic_comment')->where('user_id',Auth::id())->where('epic_id',$request->epic)->get();
+    // return view('objective.edit-epic-comment',compact('Comment'));    
 
     }
+
+
+    public function EpicCommentReply(Request $request)
+    {
+        
+
+            DB::table('epic_comment_reply')
+           ->insert([
+            'comment_id' => $request->id,
+            'reply' => $request->title,
+            'user_id' => Auth::id(),  
+            ]);
+
+        
+
+    } 
     
 
 
