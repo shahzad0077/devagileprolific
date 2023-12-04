@@ -360,7 +360,26 @@ $updateData = [
       return $Obj;
     }
     
+    public function GetBUObj(Request $request)
+    {
+    if($request->type == 'BU')
+    {   
+    $objective = DB::table('objectives')->where('unit_id',$request->id)->where('type','unit')->where('trash',NULL)->get();
+    }
+    if($request->type == 'VS')
+    {   
+    $objective = DB::table('objectives')->where('unit_id',$request->id)->where('type','stream')->where('trash',NULL)->get();
+    }
+      
     
+    return $objective;
+    }
+
+    public function GetBUKey(Request $request)
+    {
+    $objective = DB::table('key_result')->where('obj_id',$request->id)->get();
+    return $objective;
+    }
 
     
 }

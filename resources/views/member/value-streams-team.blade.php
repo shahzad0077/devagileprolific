@@ -67,8 +67,9 @@ $var_objective = "Stream-team";
                                                         </td>
                                                         
                                                         <td>{{$dataCount}}</td>
-                                               
+                                                        @if($team->lead_id)
                                                         @foreach(DB::table('members')->get() as $r)
+                                                       
                                                         @if($r->id == $team->lead_id)
                                                         <td class="image-cell">
                                                             @if($r->image != NULL)
@@ -80,10 +81,12 @@ $var_objective = "Stream-team";
                                                                 <div class="title">{{$r->name}} {{$r->last_name}}</div>
                                                             </div>
                                                         </td>
+                                                      
+                                                        @endif
+                                                        @endforeach
                                                         @else
                                                         <td>N/A</td>
                                                         @endif
-                                                        @endforeach
                                                         
                                                         <td>
                                                               <button class="btn-circle btn-tolbar" data-toggle="modal" data-target="#add-team-stream-edit{{$team->id}}">

@@ -142,8 +142,11 @@ class MemberController extends Controller
 
             $Member  = Member::where('id',$request->member_id)->delete();
             $User  = User::where('id',$request->user_id)->delete();
-        
-    
+            DB::table('business_units')->where('lead_id',$request->member_id)->update(['lead_id' => NULL]);
+            DB::table('value_stream')->where('lead_id',$request->member_id)->update(['lead_id' => NULL]);
+
+            DB::table('unit_team')->where('lead_id',$request->member_id)->update(['lead_id' => NULL]);
+            DB::table('value_team')->where('lead_id',$request->member_id)->update(['lead_id' => NULL]);
     }
  
 

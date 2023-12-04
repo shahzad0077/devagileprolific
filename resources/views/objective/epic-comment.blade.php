@@ -5,7 +5,7 @@ $user = DB::table('users')->where('id',$comment->user_id)->first();
 <input type="hidden" class="comment_id" value="{{$comment->id}}">
 <div class="col-md-12 col-lg-12 col-xl-12">
                         
-    <div class="card comment-card">
+    <div class="card comment-card" id="delete-comment{{$comment->id}}">
         <div class="card-body">
             <div class="d-flex flex-column">
                 <div class="d-flex justify-content-between align-items-center mb-2">
@@ -27,7 +27,7 @@ $user = DB::table('users')->where('id',$comment->user_id)->first();
                             </button>
                         </div>
                         <div>
-                            <button class="btn-circle btn-tolbar">
+                            <button class="btn-circle btn-tolbar" type="button" onclick="deleteepiccomment({{$comment->id}});">
                                 <img src="{{ url('public/assets/images/icons/delete.svg') }}">
                             </button>
                         </div>
@@ -37,9 +37,11 @@ $user = DB::table('users')->where('id',$comment->user_id)->first();
                     <p>{{$comment->comment}}</p>
                 </div>
                 <div>
-                    <button class="btn btn-default btn-sm">Reply</button>
+                    <button class="btn btn-default btn-sm" type="button" onclick="addepicreply({{$comment->id}});">Reply</button>
                 </div>
             </div>
+            <div class="mt-2 d-flex flex-row" id="epic-reply{{$comment->id}}">
+            </div>  
         </div>
     </div>
 </div>

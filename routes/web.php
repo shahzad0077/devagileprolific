@@ -201,6 +201,7 @@ Route::post('add-teambacklog-epic', [App\Http\Controllers\TeamController::class,
 Route::post('assign-teambacklog-epic', [App\Http\Controllers\TeamController::class,'AssignTeamBacklogEpic']);
 Route::post('update-teambacklog-epic', [App\Http\Controllers\TeamController::class,'UpdateTeamBacklogEpic']);
 Route::post('delete-team-backlog', [App\Http\Controllers\TeamController::class,'DeleteTeamBacklogEpic']);
+
 Route::name('flags.')->namespace('App\Http\Controllers')->prefix('dashboard/flags')->group(function () {
     Route::get('{organizationid}/{flagtype}/{type}', 'FlagController@flags');
     Route::POST('change-flag-status', 'FlagController@changestatus');
@@ -233,11 +234,16 @@ Route::post('update-epic-comment', [App\Http\Controllers\ObjectiveController::cl
 Route::get('get-epic-comment', [App\Http\Controllers\ObjectiveController::class, 'GetEpicComment']);
 Route::post('save-edit-epic-comment', [App\Http\Controllers\ObjectiveController::class, 'SaveEditComment']);
 Route::post('delete-epic-comment', [App\Http\Controllers\ObjectiveController::class, 'DeleteEpicComment']);
+Route::post('epic-reply', [App\Http\Controllers\ObjectiveController::class, 'EpicCommentReply']);
 //keyChart
 Route::get('get-key-chart', [App\Http\Controllers\OrganizationController::class, 'GetKeychart']);
 Route::post('add-new-quarter-value', [App\Http\Controllers\OrganizationController::class, 'AddnewQvalue']);
 Route::post('update-new-quarter-value', [App\Http\Controllers\OrganizationController::class, 'UpdateQvalue']);
 Route::post('delete-new-quarter-value', [App\Http\Controllers\OrganizationController::class, 'DeleteQvalue']);
+Route::post('update-key-quarter-value', [App\Http\Controllers\OrganizationController::class, 'UpdateQkeyVal']);
+
 
 Route::get('get-team', [App\Http\Controllers\TeamController::class,'GetTeam']);
 Route::get('get-team-obj', [App\Http\Controllers\TeamController::class,'GetTeamObj']);
+Route::get('get-unit-obj', [App\Http\Controllers\TeamController::class,'GetBUObj']);
+Route::get('get-BU-key', [App\Http\Controllers\TeamController::class,'GetBUKey']);

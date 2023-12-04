@@ -66,20 +66,24 @@ $var_objective = "Org-Unit-team";
                                                         <td><a class="nav-link" href="{{url('dashboard/organization/'.$team->slug.'/portfolio/BU')}}">{{$team->team_title}}</a></td>
                                                         
                                                         <td>{{$dataCount}}</td>
-                            
-                                                        @php
-                                                            $lead  = DB::table('members')->where('id' , $team->lead_id)->first();
-                                                        @endphp
+                                                        @if($team->lead_id)
+                                                        @foreach(DB::table('members')->get() as $r)
+                                                        @if($r->id == $team->lead_id)
                                                         <td class="image-cell">
-                                                            @if($lead->image)
-                                                            <img src="{{asset('public/assets/images/'.$lead->image)}}" alt="Example Image">
+                                                            @if($r->image != NULL)
+                                                            <img src="{{asset('public/assets/images/'.$r->image)}}" alt="Example Image">
                                                             @else
                                                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv1Tt9_33HyVMm_ZakYQy-UgsLjE00biEArg&usqp=CAU" alt="Example Image">
                                                             @endif
                                                             <div>
-                                                                <div class="title">{{$lead->name}} {{ $lead->last_name }}</div>
+                                                                <div class="title">{{$r->name}} {{ $r->last_name }}</div>
                                                             </div>
                                                         </td>
+                                                        @endif
+                                                        @endforeach
+                                                        @else
+                                                        <td>N/A</td>
+                                                        @endif
                                                         
                                                         <td>
                                                               <button class="btn-circle btn-tolbar" data-toggle="modal" data-target="#edit{{$team->id}}">

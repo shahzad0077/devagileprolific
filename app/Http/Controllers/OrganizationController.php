@@ -521,9 +521,11 @@ class OrganizationController extends Controller
     }
    
     $key = DB::table('key_result')->where('id',$request->obj)->first();
-  
+    $keyQAll = DB::table('key_chart')->where('key_id',$request->obj)->get();
 
-    return view('objective.key-chart',compact('KEYChart','key','report'));
+
+
+    return view('objective.key-chart',compact('KEYChart','key','report','keyQAll'));
 
   
     }
@@ -542,9 +544,10 @@ class OrganizationController extends Controller
     $report = DB::table('sprint')->where('user_id',Auth::id())->where('status',NULL)->where('value_unit_id',$request->unit_id)->first();
     $KEYChart =  DB::table('key_chart')->where('key_id',$request->id)->where('IndexCount',$report->IndexCount)->first();
     $key = DB::table('key_result')->where('id',$request->id)->first();
+    $keyQAll = DB::table('key_chart')->where('key_id',$request->id)->get();
     // $keyqvalue =  DB::table('key_quarter_value')->where('key_chart_id', $KEYChart->id)->get();
 
-    return view('objective.key-chart',compact('KEYChart','key','report'));
+    return view('objective.key-chart',compact('KEYChart','key','report','keyQAll'));
 
     }
 
@@ -555,7 +558,10 @@ class OrganizationController extends Controller
         
         ]);
 
+        $key = DB::table('key_quarter_value')->where('id',$request->id)->first();
+        $keychart = DB::table('key_quarter_value')->where('key_chart_id',$key->key_chart_id)->orderby('id','DESC')->first();
 
+        return $keychart;
 
     }
 
@@ -564,6 +570,34 @@ class OrganizationController extends Controller
         DB::table('key_quarter_value')->where('id',$request->id)->delete();
       
     }
+
+    public function UpdateQkeyVal(Request $request)
+    {
+        DB::table('key_chart')->where('id',$request->id)->update([
+          'quarter_value' => $request->title,
+        
+        ]);
+
+        $KEYChart = array();
+
+        $key = DB::table('key_chart')->where('id',$request->id)->first();
+        $report = DB::table('sprint')->where('user_id',Auth::id())->where('status',NULL)->where('value_unit_id',$request->unit_id)->first();
+      
+        if($report)
+        {
+          
+        $KEYChart =  DB::table('key_chart')->where('key_id',$key->key_id)->where('IndexCount',$report->IndexCount)->first();
+        
+        }
+
+        return $KEYChart;
+       
+
+
+       
+
+    }
+
     
     
     

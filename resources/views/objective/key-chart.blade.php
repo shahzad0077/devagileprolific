@@ -1,4 +1,55 @@
-<p style="font-size: 14px"><b >Current Value:  @if($KEYChart){{$KEYChart->quarter_value}}@endif</b>  {{$key->key_result_type}} {{$key->target_number}}</p>
+@if(count($keyQAll) > 0)
+<div class="row">
+    <div class="col-md-12 col-lg-12 col-xl-12">
+        <div class="d-flex flex-row align-items-center justify-content-between comment-header">
+            <div>
+                <h4>Quarter Value</h4>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
+<table id="" class="table table-sm">
+    <thead>
+        <tr>
+            <td>Quarter</td>
+            <td>Value</td>
+            <td>Action</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($keyQAll as $Q)
+        <tr> 
+            <td>Q {{ $loop->iteration  }}</td>
+
+            <td id="edit-q-val{{$Q->id}}">{{$Q->quarter_value}}</td>
+      
+
+            <td id="edit-button-qval{{$Q->id}}">
+
+
+                <button class="btn-circle btn-tolbar" type="button" onclick="editkeyqvalue({{$Q->id}},'{{$Q->quarter_value}}')">
+                    <img src="{{ url('public/assets/images/icons/edit.svg') }}">
+                </button>
+                  
+            </td>
+
+        </tr>
+        @endforeach
+    </tbody>     
+</table>
+@endif
+@if($KEYChart)
+@php
+$keyqvalue = '';
+$keyqfirst =  DB::table('key_quarter_value')->where('key_chart_id', $KEYChart->id)->orderby('id','DESC')->first();
+if($keyqfirst)
+{
+$keyqvalue = $keyqfirst->value;
+}        
+@endphp
+@endif
+<p style="font-size: 14px"><b >Current Value: </b> @if($KEYChart)<b id="q-value{{$KEYChart->id}}">{{$keyqvalue}}</b>@endif  {{$key->key_result_type}} @if($KEYChart)<span id="q-sprint{{$KEYChart->id}}">{{$KEYChart->quarter_value}}</span>@endif</p>
 <div class="row">
     <div class="col-md-12 col-lg-12 col-xl-12">
         <div class="d-flex flex-row align-items-center justify-content-between comment-header">
@@ -8,17 +59,27 @@
         </div>
     </div>
     <hr>
+
     @if($report && $KEYChart)
     <div class="col-md-12 mt-3 col-lg-12 col-xl-12">
         <div class="d-flex flex-column">
-            <div>
+            
+            <div class="d-flex flex-row">
+                
                 <div class="form-group mb-0">
-                    <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" @if($KEYChart) onfocusout="addnewquartervalue({{$key->id}},'{{$KEYChart->id}}','{{$report->id}}')" @endif id="new-chart-value{{$key->id}}" required>
+                    <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control w-75"  id="new-chart-value{{$key->id}}" required>
                     <label for="objective-name">New Value</label>
                 </div>
+              
+                <button class="btn btn-default btn-sm mt-2" @if($KEYChart) onclick="addnewquartervalue({{$key->id}},'{{$KEYChart->id}}','{{$report->id}}')" @endif type="button">Add</button>
+
             </div>
+      
+         
         </div>
+    
     </div>
+ 
     @else
     <div class="ml-2 text-danger mt-2" role="alert">First Start Quarter</div>
 
@@ -27,10 +88,10 @@
 
 @if($KEYChart)
 @php
- $keyqvalue =  DB::table('key_quarter_value')->where('key_chart_id', $KEYChart->id)->get();    
+ $keyqvalue =  DB::table('key_quarter_value')->where('key_chart_id', $KEYChart->id)->orderby('id','DESC')->get();
 @endphp
 
-<table id="example" class="table table-sm" style="width: 110%">
+<table id="example" class="table table-sm" style="width: 100%">
     <thead>
         <tr>
           
