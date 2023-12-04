@@ -99,7 +99,7 @@
                                     <label for="small-description">Small Description</label>
                                 </div>
                             </div>
-
+                            @if($type == 'unit' || $type == 'stream')
                             <div class="col-md-12 col-lg-12 col-xl-12">
                                 <div class="d-flex flex-row align-items-center justify-content-between mt-4">
                                       <div>
@@ -114,10 +114,10 @@
                                 </div>
 
                                 
- 
+                           
                             <div class="col-md-6 col-lg-6 col-xl-6">
                                 <div class="form-group mb-0">
-                                 <select name="key-team"  id="key-team" onchange="getteamobj(this.value)"  class="form-control" value="" required>
+                                 <select name="key-team"  id="key-team" onchange="getteamobj(this.value,1)"  class="form-control" value="" required>
                                                         
                                 </select>
                                     <label for="small-description" style="bottom:72px">Choose Team</label>
@@ -126,12 +126,15 @@
 
                             <div class="col-md-6 col-lg-6 col-xl-6">
                                 <div class="form-group mb-0">
-                                 <select name="obj-team"  id="obj-team"  class="form-control js-select2" multiple="multiple" required>
+                                 <select name="obj-team"  id="obj-team1"  class="form-control js-select2" multiple="multiple" required>
                                                         
                                 </select>
                                     <label for="small-description" style="bottom:55px">Choose Objective</label>
                                 </div>
                             </div>
+
+                          
+                            @endif
 
                         <div class="col-md-12 col-lg-12 col-xl-12">
                         <div class="d-flex flex-row align-items-center justify-content-between mt-4">
@@ -171,7 +174,8 @@
                                     <label for="small-description">Unit</label>
                                 </div>
                             </div>
-
+                            
+                            <div id="target-error" class="w-100 mb-3 ml-2 text-danger"></div>
                             <div class="col-md-12 col-lg-12 col-xl-6">
                                 <div class="form-group mb-0">
                                     <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" id="init_value" required>
@@ -181,7 +185,7 @@
 
                             <div class="col-md-12 col-lg-12 col-xl-6">
                                 <div class="form-group mb-0">
-                                    <input type="text" onkeypress="return onlyNumberKey(event)" class="form-control" id="target_number" required>
+                                    <input type="text"   onkeypress="return onlyNumberKey(event)"  class="form-control" id="target_number" required>
                                     <label for="objective-name">Target Number</label>
                                 </div>
                             </div>
@@ -450,6 +454,12 @@
                                 <label for="small-description">Small Description</label>
                             </div>
                         </div>
+                        
+                  
+
+                   
+
+                        
                         <div class="col-md-12">
                             <button onclick="saveObjective();" type="button" class="btn btn-primary btn-lg btn-theme btn-block ripple">Submit</button>
                         </div>
