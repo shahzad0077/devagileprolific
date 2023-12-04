@@ -18,12 +18,14 @@ use Illuminate\Support\Facades\Http;
 use OneSignal;
 class Cmf
 { 
-    public static function save_activity($user_id , $activity)
+    public static function save_activity($user_id , $activity,$type,$value_id)
     {
         $act = new activities();
         $act->user_id = $user_id;
         $act->activity = $activity;
         $act->is_read = 1;
+        $act->type = $type;
+        $act->value_id = $value_id;
         $act->save();
     }
     public static function create_time_ago($time)

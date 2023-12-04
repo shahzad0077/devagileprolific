@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Organization;
 use App\Models\Epic;
+use App\Models\activities;
+use App\Models\attachments;
 use App\Models\flags;
 use App\Models\flag_comments;
 use App\Models\escalate_cards;
@@ -112,18 +114,11 @@ class FlagController extends Controller
             $update_escalated_flag->flag_assign = $request->flag_assign;
             $update_escalated_flag->save();
         }
+        Cmf::save_activity(Auth::id() , 'Updated a Impediment Flag','flags',$request->id);
         $html = view('flags.simplecard', compact('r'))->render();
         return $html;
     }
-    public function deletecomment(Request $request)
-    {
-        $comment = flag_comments::find($request->id);
-        flag_comments::where('id' , $request->id)->delete();
-        flag_comments::where('comment_id' , $request->id)->delete();
-        $comments = flag_comments::where('flag_id' , $comment->flag_id)->wherenull('comment_id')->orderby('id' , 'desc')->get();
-        $html = view('flags.allcomments', compact('comments'))->render();
-        return $html;
-    }
+    
     public function updatecomment(Request $request)
     {
         $addcomment = flag_comments::find($request->comment_id);
@@ -324,6 +319,7 @@ class FlagController extends Controller
         $addcomment->comment = $request->comment;
         $addcomment->type = 'comment';
         $addcomment->save();
+        Cmf::save_activity(Auth::id() , 'Added a New Comment','flags',$request->flag_id);
         $comments = flag_comments::where('flag_id' , $request->flag_id)->wherenull('comment_id')->orderby('id' , 'desc')->get();
         $data = flags::find($request->flag_id);
         $html = view('flags.tabs.comments', compact('comments','data'))->render();
@@ -338,10 +334,20 @@ class FlagController extends Controller
         $addcomment->type = 'reply';
         $addcomment->comment_id = $request->comment_id;
         $addcomment->save();
-
-
+        Cmf::save_activity(Auth::id() , 'Reply a Comment','flags',$request->flag_id);
         $comments = flag_comments::where('flag_id' , $request->flag_id)->wherenull('comment_id')->orderby('id' , 'desc')->get();
         $data = flags::find($request->flag_id);
+        $html = view('flags.tabs.comments', compact('comments','data'))->render();
+        return $html;
+    }
+    public function deletecomment(Request $request)
+    {
+        $comment = flag_comments::find($request->id);
+        flag_comments::where('id' , $request->id)->delete();
+        flag_comments::where('comment_id' , $request->id)->delete();
+        $comments = flag_comments::where('flag_id' , $comment->flag_id)->wherenull('comment_id')->orderby('id' , 'desc')->get();
+        Cmf::save_activity(Auth::id() , 'Delete a Comment','flags',$comment->flag_id);
+        $data = flags::find($comment->flag_id);
         $html = view('flags.tabs.comments', compact('comments','data'))->render();
         return $html;
     }
@@ -361,6 +367,19 @@ class FlagController extends Controller
             $html = view('flags.tabs.comments', compact('comments','data'))->render();
             return $html;
         }
-        
+        if($request->tab == 'activites')
+        {
+            $activity = activities::where('value_id' , $request->id)->where('type' , 'flags')->orderby('id' , 'desc')->get();
+            $data = flags::find($request->id);
+            $html = view('flags.tabs.activities', compact('activity','data'))->render();
+            return $html;
+        }
+        if($request->tab == 'attachment')
+        {
+            $attachments = attachments::where('value_id' , $request->id)->where('type' , 'flags')->orderby('id' , 'desc')->get();
+            $data = flags::find($request->id);
+            $html = view('flags.tabs.attachments', compact('attachments','data'))->render();
+            return $html;
+        }
     }
 }

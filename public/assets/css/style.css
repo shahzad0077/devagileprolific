@@ -21005,10 +21005,28 @@ input[type="radio"]:checked {
     display: none;
     width: 285px;
     height: 145px;
+    z-index: 1111;
     right: 20px;
     top: 30%;
+    padding: 20px;
     background-color: white;
     box-shadow: 0px 2px 2px 4px rgb(87 106 134 / 20%);
+}
+.deletecomment img{
+    cursor: pointer;
+}
+.deletecomment h4{
+    font-size: 16px;
+    font-weight: 500;
+}
+.deletecomment button{
+    height: 41px;
+    border-radius: 5px !important;
+}
+
+.deletecomment p{
+    font-size: 12px !important;
+
 }
 .commentedit{
     position: absolute;
@@ -21311,4 +21329,136 @@ input[type="radio"]:checked {
 }
 .commenticon{
     cursor: pointer;
+}
+
+
+.activity-feed {
+    overflow: auto;
+    height: 50vh;
+}
+
+/* width */
+.activity-feed::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.activity-feed::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+.activity-feed::-webkit-scrollbar-thumb {
+  background: #c5c9d1;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.activity-feed::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.activity {
+  position: relative;
+  margin-bottom: 10px;
+  padding-left: 40px;
+}
+
+.profile-image-container {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    padding: 8px;
+    z-index: 11111;
+    top: 0;
+    left: 3%;
+    transform: translateX(-50%);
+    background-color: #fcedda;
+}
+
+.profile-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dotted-line {
+  position: absolute;
+  left: 3%;
+  top: 20px;
+  width: 1px;
+  height: 100%;
+  border-left: 1px dotted #ddd;
+  transform: translateX(-50%);
+}
+
+.activity-content {
+    font-size: 12px;
+}
+
+.activity-header {
+  font-weight: bold;
+}
+.activity-header span{
+    font-weight: 400;
+}
+.activity-time {
+  font-size: 12px;
+  color: black;
+}
+.nodatafound{
+    text-align: center;
+    margin-top: 25%;
+}
+.nodatafound h4{
+    font-size: 16px;
+    color: #b2b2b2;
+}
+.attachment-card {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.attachment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.attachment-title {
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center; /* Align title and icon vertically */
+}
+
+.file-icon {
+  margin-right: 10px;
+}
+
+.attachment-date {
+  font-size: 14px;
+  color: #555;
+  margin: 0; /* Remove the default margin */
+}
+
+.attachment-icons {
+  display: flex;
+  align-items: center;
+}
+
+.action-icon {
+  font-size: 20px;
+  margin-left: 10px;
+  color: #555;
+  cursor: pointer;
 }

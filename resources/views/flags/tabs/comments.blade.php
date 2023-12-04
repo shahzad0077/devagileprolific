@@ -21,6 +21,9 @@
             </div>
         </div>
     </div>
+</div>
+<div class="row">
+    <div class="activity-feed">
     <div class="col-md-12 col-lg-12 col-xl-12 writecomment">
         <div class="d-flex flex-column">
             <form method="POST" id="savecomment{{ $data->id }}" action="{{ url('dashboard/flags/savecomment') }}">
@@ -40,19 +43,25 @@
             </form>
         </div>
     </div>
-</div>
-<div class="row">
+    
     <div class="col-md-12 col-lg-12 col-xl-12">
+        @if($comments->count() > 0)
         @foreach($comments as $r)
         @php
             $user = DB::table('users')->where('id',$r->user_id)->first();
         @endphp
         <div class="card comment-card-new">
             <div class="deletecomment" id="commentdelete{{ $r->id }}">
-                <div class="buttons">
-                    <button onclick="deletecommenthide({{$r->id}})" class="btn btn-default btn-sm">Cancel</button>
-                    <button onclick="deletecomment({{ $r->id }})" class="btn btn-primary btn-sm">Delete</button>
+                <div class="row">
+                    <div class="col-md-10">
+                        <h4>Delete Comment</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <img onclick="deletecommentshow({{$r->id}})" src="{{ url('public/assets/svg/crossdelete.svg') }}">
+                    </div>
                 </div>
+                <p>Do you want to delete your comment ? You won’t be able to undo this action.</p>
+                <button onclick="deletecomment({{ $r->id }})" class="btn btn-danger btn-block">Delete</button>
             </div>
             <div class="commentedit" id="commentedit{{ $r->id }}">
                 <form method="POST" id="updatecomment{{ $r->id }}" action="{{ url('dashboard/flags/updatecomment') }}">
@@ -80,9 +89,6 @@
                 <div class="d-flex flex-column">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div class="d-flex flex-row align-items-center">
-                            <!-- <div>
-                                <img class="user-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv1Tt9_33HyVMm_ZakYQy-UgsLjE00biEArg&usqp=CAU" style="width:34px; height:34px; background-size:cover">                        
-                            </div> -->
                             <div class="d-flex flex-column">
                                 <div>
                                     <h5>{{ $user->name }} {{ $user->last_name }}</h5>
@@ -155,16 +161,22 @@
                 </div>
             </div>
         </div>
-        @foreach(DB::table('flag_comments')->where('type' , 'reply')->where('comment_id' , $r->id)->get() as $p)
+        @foreach(DB::table('flag_comments')->where('type' , 'reply')->where('comment_id' , $r->id)->orderby('id' , 'desc')->get() as $p)
         @php
             $puser = DB::table('users')->where('id',$p->user_id)->first();
         @endphp
             <div class="card comment-card-new reply-card">
                 <div class="deletecomment" id="commentdelete{{ $p->id }}">
-                    <div class="buttons">
-                        <button onclick="deletecommenthide({{$p->id}})" class="btn btn-default btn-sm">Cancel</button>
-                        <button onclick="deletecomment({{ $p->id }})" class="btn btn-primary btn-sm">Delete</button>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h4>Delete Comment</h4>
+                        </div>
+                        <div class="col-md-2">
+                            <img onclick="deletecommentshow({{$p->id}})" src="{{ url('public/assets/svg/crossdelete.svg') }}">
+                        </div>
                     </div>
+                    <p>Do you want to delete your comment ? You won’t be able to undo this action.</p>
+                    <button onclick="deletecomment({{ $p->id }})" class="btn btn-danger btn-block">Delete</button>
                 </div>
                 <div class="commentedit" id="commentedit{{ $p->id }}">
                     <form method="POST" id="updatecomment{{ $p->id }}" action="{{ url('dashboard/flags/updatecomment') }}">
@@ -204,12 +216,12 @@
                             </div>
                             <div class="d-flex flex-row align-items-center">
                                 <div class="pr-2">
-                                    <span onclick="editcommentshow({{$r->id}})" class="commenticon">
+                                    <span onclick="editcommentshow({{$p->id}})" class="commenticon">
                                         <img src="{{ url('public/assets/svg/editcommentsvg.svg') }}">
                                     </span>
                                 </div>
                                 <div>
-                                    <span onclick="deletecommentshow({{$r->id}})" class="commenticon">
+                                    <span onclick="deletecommentshow({{$p->id}})" class="commenticon">
                                         <img src="{{ url('public/assets/svg/deletecomment.svg') }}">
                                     </span>
                                 </div>
@@ -261,7 +273,14 @@
             }));
         </script>
         @endforeach
+        @else
+            <div class="nodatafound">
+                <h4>No Comments</h4>    
+            </div>
+        @endif
     </div>
+
+</div>
 </div>
 <script type="text/javascript">
 $('#savecomment{{ $data->id }}').on('submit',(function(e) {
@@ -326,9 +345,6 @@ function editcommenthide(id) {
 function deletecommentshow(id) {
     $('#commentdelete'+id).slideToggle();
 }
-function deletecommenthide(id) {
-    $('#commentdelete'+id).hide();
-}
 function deletecomment(id) {
     $.ajax({
         type: "POST",
@@ -339,8 +355,8 @@ function deletecomment(id) {
         data: {
             id:id,
         },
-        success: function(res) {
-            $('.comment-area').html(res);
+        success: function(data) {
+            $('.secondportion').html(data);
         },
         error: function(error) {
             console.log('Error updating card position:', error);
