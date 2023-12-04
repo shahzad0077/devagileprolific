@@ -601,7 +601,7 @@ function delete_record_user()
         if(res == 1)
         {
       
-            $('#edit-memeber').attr('disabled',false);
+        $('#edit-memeber').attr('disabled',false);
         $('.email-error-member').html('');
         }else
         {

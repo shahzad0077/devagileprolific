@@ -76,7 +76,7 @@ $var_objective = "V-Stream";
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                     @if (session('message'))
+                                                @if (session('message'))
                                                    <div class="alert alert-success mt-1" role="alert">
                                                     {{ session('message') }}
                                                   </div>
@@ -86,7 +86,6 @@ $var_objective = "V-Stream";
                                                    @foreach($Stream as $stream)
                                                    @php
                                                     $TeamCount = DB::table('value_team')->where('org_id',$stream->id)->count();
-                                                    $member = DB::table('members')->where('org_user',Auth::id())->count();
                                                    @endphp
                                                     <tr>
                                                         <td>
@@ -97,30 +96,24 @@ $var_objective = "V-Stream";
                                                         </td>
                                                         <td> <a  href="{{url('dashboard/organization/'.$stream->slug.'/portfolio/'.$stream->type)}}" class="nav-link text-black">{{$stream->value_name}}</a></td>
                                                         <td>{{$stream->business_name}}</td>
-                                                        @if($member > 0)
-                                                        @php
-                                                            $lead  = DB::table('members')->where('id' , $stream->Lead_id)->first();
-                                                        @endphp
-                                                        @if($lead)
+                                                        @if($stream->Lead_id)
+                                                        @foreach(DB::table('members')->get() as $r)
+                                                        @if($r->id == $stream->Lead_id)
                                                         <td class="image-cell">
-                                                            @if($lead->image)
-                                                            <img src="{{asset('public/assets/images/'.$lead->image)}}" alt="Example Image">
+                                                            @if($r->image != NULL)
+                                                            <img src="{{asset('public/assets/images/'.$r->image)}}" alt="Example Image">
                                                             @else
                                                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv1Tt9_33HyVMm_ZakYQy-UgsLjE00biEArg&usqp=CAU" alt="Example Image">
                                                             @endif
                                                             <div>
-                                                                <div class="title">{{$lead->name}} {{ $lead->last_name }}</div>
+                                                                <div class="title">{{$r->name}} {{$r->last_name}}</div>
                                                             </div>
                                                         </td>
-                                                        @else
-                                                        <td class="image-cell">
-                                                            <button data-toggle="modal" data-target="#edit{{$unit->id}}" class="btn btn-primary">Assign</button>
-                                                        </td>
+                                                
                                                         @endif
+                                                        @endforeach
                                                         @else
-                                                        <td class="image-cell">
-                                                            <a class="nav-link" href="{{url('dashboard/organization/users')}}"><button class="btn btn-primary">Assign</button></a>
-                                                        </td>
+                                                        <td>N/A</td>
                                                         @endif
                                                         <td>{{$TeamCount}}</td>
                                                         <!--<td class="text-center">-->
@@ -218,7 +211,7 @@ $var_objective = "V-Stream";
                                                                 <div class="col-md-12 col-lg-12 col-xl-12">
                                                                     <div class="form-group mb-0">
                                                                         <select class="form-control" name="lead_manager" required>
-                                                                            <option value="">Select Lead Member</option>
+                                                                         
                                                                             <?php foreach(DB::table('members')->where('org_user',Auth::id())->get() as $r){ ?>
                                                                               <option @if($r->id == $stream->Lead_id) selected @endif value="{{ $r->id }}">{{ $r->name }} {{$r->last_name}}</option>
                                                                             <?php }  ?>
