@@ -47,7 +47,7 @@
         @php
             $user = DB::table('users')->where('id',$r->user_id)->first();
         @endphp
-        <div class="card comment-card">
+        <div class="card comment-card-new">
             <div class="deletecomment" id="commentdelete{{ $r->id }}">
                 <div class="buttons">
                     <button onclick="deletecommenthide({{$r->id}})" class="btn btn-default btn-sm">Cancel</button>
@@ -95,14 +95,14 @@
                         </div>
                         <div class="d-flex flex-row align-items-center">
                             <div class="pr-2">
-                                <button onclick="editcommentshow({{$r->id}})" class="btn-circle btn-tolbar">
-                                    <img src="{{ url('public/assets/images/icons/edit.svg') }}">
-                                </button>
+                                <span onclick="editcommentshow({{$r->id}})" class="commenticon">
+                                    <img src="{{ url('public/assets/svg/editcommentsvg.svg') }}">
+                                </span>
                             </div>
                             <div>
-                                <button onclick="deletecommentshow({{$r->id}})" class="btn-circle btn-tolbar">
-                                    <img src="{{ url('public/assets/images/icons/delete.svg') }}">
-                                </button>
+                                <span onclick="deletecommentshow({{$r->id}})" class="commenticon">
+                                    <img src="{{ url('public/assets/svg/deletecomment.svg') }}">
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -122,8 +122,8 @@
                             <div class="d-flex flex-column mt-3 d-none" >
                                 <div>
                                     <div class="form-group mb-0">
-                                        <input type="text" class="form-control" name="comment" id="objective-name" required>
                                         <label for="objective-name">Write Reply</label>
+                                        <input type="text" class="form-control" name="comment" id="objective-name" required>
                                     </div>
                                 </div>
                                 <div>
@@ -147,7 +147,7 @@
                                 processData: false,
                                 success: function(data){
                                     $('#savereplybutton{{ $r->id }}').html('Save');
-                                    $('.comment-area').html(data);
+                                    $('.secondportion').html(data);
                                 }
                             });
                         }));
@@ -159,7 +159,7 @@
         @php
             $puser = DB::table('users')->where('id',$p->user_id)->first();
         @endphp
-        <div class="card comment-card reply-card">
+        <div class="card comment-card-new reply-card">
             <div class="deletecomment" id="commentdelete{{ $p->id }}">
                 <div class="buttons">
                     <button onclick="deletecommenthide({{$p->id}})" class="btn btn-default btn-sm">Cancel</button>

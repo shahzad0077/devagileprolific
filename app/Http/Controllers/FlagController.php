@@ -115,19 +115,6 @@ class FlagController extends Controller
         $html = view('flags.simplecard', compact('r'))->render();
         return $html;
     }
-    public function savereply(Request $request)
-    {
-        $addcomment = new flag_comments();
-        $addcomment->flag_id = $request->flag_id;
-        $addcomment->user_id = $request->user_id;
-        $addcomment->comment = $request->comment;
-        $addcomment->type = 'reply';
-        $addcomment->comment_id = $request->comment_id;
-        $addcomment->save();
-        $comments = flag_comments::where('flag_id' , $request->flag_id)->wherenull('comment_id')->orderby('id' , 'desc')->get();
-        $html = view('flags.allcomments', compact('comments'))->render();
-        return $html;
-    }
     public function deletecomment(Request $request)
     {
         $comment = flag_comments::find($request->id);
@@ -337,6 +324,22 @@ class FlagController extends Controller
         $addcomment->comment = $request->comment;
         $addcomment->type = 'comment';
         $addcomment->save();
+        $comments = flag_comments::where('flag_id' , $request->flag_id)->wherenull('comment_id')->orderby('id' , 'desc')->get();
+        $data = flags::find($request->flag_id);
+        $html = view('flags.tabs.comments', compact('comments','data'))->render();
+        return $html;
+    }
+    public function savereply(Request $request)
+    {
+        $addcomment = new flag_comments();
+        $addcomment->flag_id = $request->flag_id;
+        $addcomment->user_id = $request->user_id;
+        $addcomment->comment = $request->comment;
+        $addcomment->type = 'reply';
+        $addcomment->comment_id = $request->comment_id;
+        $addcomment->save();
+
+
         $comments = flag_comments::where('flag_id' , $request->flag_id)->wherenull('comment_id')->orderby('id' , 'desc')->get();
         $data = flags::find($request->flag_id);
         $html = view('flags.tabs.comments', compact('comments','data'))->render();

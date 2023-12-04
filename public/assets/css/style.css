@@ -20953,6 +20953,52 @@ input[type="radio"]:checked {
     font-size: 13px;
     line-height: normal;
 }
+
+
+.comment-card-new {
+    box-shadow: none;
+    margin: 10px 0px;
+    height: 264px;
+    width: 94%;
+    padding: 0px;
+    box-shadow: 0px 2px 2px 4px rgb(87 106 134 / 20%);
+    border-radius: 10px;
+}
+
+.comment-card-new .user-image {
+    width: 41px;
+    height: 41px;
+    object-fit: cover;
+    background-size: cover;
+    border-radius: 1000px;
+}
+
+
+.comment-card-new h5 {
+    color: var(--Black, #000);
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 0px;
+}
+
+
+.comment-card-new small {
+    color: var(--Light-Gray, #787878);
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.comment-card-new p {
+    color: var(--Ligh-text, #A7A7A7);
+    font-size: 13px;
+    line-height: normal;
+}
+
+
 .deletecomment{
     position: absolute;
     background-color: #7f7f7fbd;
@@ -21259,4 +21305,7 @@ input[type="radio"]:checked {
 }
 .loaderdisplay i{
     font-size: 50px;
+}
+.commenticon{
+    cursor: pointer;
 }
