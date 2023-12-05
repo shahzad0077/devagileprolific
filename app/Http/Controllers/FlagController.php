@@ -87,6 +87,9 @@ class FlagController extends Controller
     public function changestatus(Request $request)
     {
         DB::table('flags')->where('id',$request->droppedElId)->update(['flag_status' => $request->parentElId]);
+        $data = flags::find($request->droppedElId);
+        $html = view('flags.modalheader', compact('data'))->render();
+        return $html;
     }
     public function getflagmodal(Request $request)
     {
