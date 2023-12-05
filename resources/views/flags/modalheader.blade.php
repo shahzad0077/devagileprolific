@@ -52,58 +52,58 @@
                 @endif
             </div>
             @endforeach
-            <div onclick="showmemberbox()" class="member-list-image">
+            <div onclick="showmemberbox()" class="member-list-image memberlistposition">
                 <img src="{{url('public/assets/svg/plussmember.svg')}}">
-            </div>
-            <div class="memberadd-box">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4>Members</h4>
+                <div class="memberadd-box">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Members</h4>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <img onclick="showmemberbox()" class="memberclose" src="{{url('public/assets/svg/memberclose.svg')}}">
+                        </div>
                     </div>
-                    <div class="col-md-6 text-right">
-                        <img onclick="showmemberbox()" class="memberclose" src="{{url('public/assets/svg/memberclose.svg')}}">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="mb-2 positionrelative">
-                            <input type="text" placeholder="Search Member" class="form-control" name="flag_title" id="objective-name" required>
-                            <div class="membersearchiconforinput">
-                                <img src="{{ url('public/assets/images/searchiconsvg.svg') }}">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-2 positionrelative">
+                                <input type="text" placeholder="Search Member" class="form-control" name="flag_title" id="objective-name" required>
+                                <div class="membersearchiconforinput">
+                                    <img src="{{ url('public/assets/images/searchiconsvg.svg') }}">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 memberprofile">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="memberprofileimage">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv1Tt9_33HyVMm_ZakYQy-UgsLjE00biEArg&usqp=CAU">
+                    <div class="row">
+                        <div class="col-md-12 memberprofile">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="memberprofileimage">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv1Tt9_33HyVMm_ZakYQy-UgsLjE00biEArg&usqp=CAU">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="membername">Test Name</div>
-                                <div class="memberdetail">Test Deatail</div>
-                            </div>
-                            <div class="col-md-2 text-center mt-3">
-                                <img src="{{ url('public/assets/svg/smalltick.svg') }}">
+                                <div class="col-md-8">
+                                    <div class="membername">Test Name</div>
+                                    <div class="memberdetail">Test Deatail</div>
+                                </div>
+                                <div class="col-md-2 text-center mt-3">
+                                    <img src="{{ url('public/assets/svg/smalltick.svg') }}">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 memberprofile">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="memberprofileimage">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv1Tt9_33HyVMm_ZakYQy-UgsLjE00biEArg&usqp=CAU">
+                        <div class="col-md-12 memberprofile">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="memberprofileimage">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv1Tt9_33HyVMm_ZakYQy-UgsLjE00biEArg&usqp=CAU">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="membername">Test Name</div>
-                                <div class="memberdetail">Test Deatail</div>
-                            </div>
-                            <div class="col-md-2 text-center mt-3">
-                                <img src="{{ url('public/assets/svg/smalltick.svg') }}">
+                                <div class="col-md-8">
+                                    <div class="membername">Test Name</div>
+                                    <div class="memberdetail">Test Deatail</div>
+                                </div>
+                                <div class="col-md-2 text-center mt-3">
+                                    <img src="{{ url('public/assets/svg/smalltick.svg') }}">
+                                </div>
                             </div>
                         </div>
                     </div>

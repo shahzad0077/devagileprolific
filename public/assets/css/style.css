@@ -21500,3 +21500,6 @@ input[type="radio"]:checked {
 .paddingrightzero{
     padding-right: 0px;
 }
+.memberlistposition{
+    position: relative;
+}
