@@ -95,27 +95,27 @@ class FlagController extends Controller
     public function savemember(Request $request)
     {
 
-        $flag = flags::find($request->dataid);
-        $asign = $flag->flag_assign;
-        $explode = explode(',',$asign);
-        $a=$explode;
-        if(in_array($request->id,$explode))
-        {
-            $a = array_diff($explode, [$request->id]);
-            $implode = implode(',', $a);
-            $flag->flag_assign = $implode;
-            $flag->save();
-        }else{
-            array_push($a,$request->id);
-            $implode = implode(',', $a);
-            $flag->flag_assign = $implode;
-            $flag->save();
-        }
+        // $flag = flags::find($request->dataid);
+        // $asign = $flag->flag_assign;
+        // $explode = explode(',',$asign);
+        // $a=$explode;
+        // if(in_array($request->id,$explode))
+        // {
+        //     $a = array_diff($explode, [$request->id]);
+        //     $implode = implode(',', $a);
+        //     $flag->flag_assign = $implode;
+        //     $flag->save();
+        // }else{
+        //     array_push($a,$request->id);
+        //     $implode = implode(',', $a);
+        //     $flag->flag_assign = $implode;
+        //     $flag->save();
+        // }
 
         
-        $data = flags::find($request->dataid);
-        $html = view('flags.modalheader', compact('data'))->render();
-        return $html;
+        // $data = flags::find($request->dataid);
+        // $html = view('flags.modalheader', compact('data'))->render();
+        // return $html;
     }
     public function getflagmodal(Request $request)
     {
