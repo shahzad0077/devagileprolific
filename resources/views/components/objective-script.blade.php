@@ -2211,6 +2211,13 @@ function saveQuarter()
     var enddate = $('#q_end_date').val();
     var title = $('#q_title').val();
     var detail = $('#q_description').val();
+
+        if($('#q_title').val() == '' || $('#q_start_date').val() == '') 
+        {
+        $('#sprint-error').html('Please fill out all required fields.');
+        return false;
+        } 
+
     
         $.ajax({
             type: "POST",
@@ -2237,6 +2244,7 @@ function saveQuarter()
             setTimeout(function() { 
             $('#create-report').modal('hide');
             $('#success-sprint').html('');
+            $('#sprint-error').html('');
             }, 3000); 
             
             $('#sprint-end').html('<button class="button mr-1" onclick="endquarter();">End Quarter</button>');
@@ -2854,19 +2862,21 @@ function updateKeyQvalue(id)
 }
 
 
-function addepicreply(id)
+function addepicreply(id,val)
 {
-$('#epic-reply'+id).html('<input type="text" placeholder="Type..." class="form-control w-50" style="font-size:12px" id="reply'+id+'"><button type="button" class="btn btn-default btn-sm ml-2 mt-1" onclick="savereply('+id+')">save</button>');
+$('#epic-reply'+id).html('<input type="text" placeholder="Type..." class="form-control w-50" style="font-size:12px" id="reply'+id+'"><button type="button" class="btn btn-default btn-sm ml-2 mt-1" onclick="savereply('+id+','+val+')">save</button>');
 }
 
-function savereply(id)
+function savereply(id,val)
+
 {
+    
    var title = $('#reply'+id).val(); 
    var unit_id = "{{ $organization->id }}"; 
 
     $.ajax({
     type: "POST",
-    url: "{{ url('epic-reply') }}",
+    url: "{{ url('epic-reply-edit') }}",
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
@@ -2879,7 +2889,14 @@ function savereply(id)
     success: function(res) {
       
     $('#epic-reply'+id).html('');
-       
+    if(val == 1)
+    {
+    $('#comment_area').html(res);
+    }
+    if(val == 0)
+    {
+    $('#edit-comment_area').html(res);
+    }  
         
     }
 });
