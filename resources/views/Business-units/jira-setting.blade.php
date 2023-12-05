@@ -285,7 +285,7 @@ $var_objective = "Jira";
                   
                  
                         <div class="col-md-12">
-                            <button class="btn btn-primary btn-lg btn-theme btn-block ripple" type="submit">Create</button>
+                            <button class="btn btn-primary btn-lg btn-theme btn-block ripple" type="submit">Save Settings</button>
                         </div>
                     </div>
                 </form>
