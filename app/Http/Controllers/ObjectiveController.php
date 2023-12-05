@@ -2968,7 +2968,7 @@ class ObjectiveController extends Controller
         
 
     DB::table('epic_comment')->where('id',$request->id)->delete();
-  
+    DB::table('epic_comment_reply')->where('comment_id',$request->id)->delete();
     // $Comment = DB::table('epic_comment')->where('user_id',Auth::id())->where('epic_id',$request->epic)->get();
     // return view('objective.edit-epic-comment',compact('Comment'));    
 
@@ -2985,8 +2985,18 @@ class ObjectiveController extends Controller
             'reply' => $request->title,
             'user_id' => Auth::id(),  
             ]);
-
-        
+ 
+    $EpicComment = DB::table('epic_comment')->where('user_id',Auth::id())->where('id',$request->id)->first();
+    if($EpicComment->epic_id != NULL)
+    {
+    $Comment = DB::table('epic_comment')->where('user_id',Auth::id())->where('epic_id',$EpicComment->epic_id)->get();
+    return view('objective.edit-epic-comment',compact('Comment'));
+    }else
+    {
+    $Comment = DB::table('epic_comment')->where('user_id',Auth::id())->where('epic_id',NULL)
+    ->where('r_id',$EpicComment->r_id)->get();
+    return view('objective.epic-comment',compact('Comment'));   
+    }      
 
     } 
     
