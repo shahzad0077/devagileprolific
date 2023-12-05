@@ -48,12 +48,12 @@
                 @if($member->image)
                 <img src="{{ url('public/assets/images') }}/{{ $member->image }}">
                 @else
-
+                <div class="namecountersmall">{{ substr($member->name, 0, 1); }}</div>
                 @endif
             </div>
             @endforeach
-            <div onclick="showmemberbox()" class="member-list-image memberlistposition">
-                <img src="{{url('public/assets/svg/plussmember.svg')}}">
+            <div class="member-list-image memberlistposition">
+                <img onclick="showmemberbox()" src="{{url('public/assets/svg/plussmember.svg')}}">
                 <div class="memberadd-box">
                     <div class="row">
                         <div class="col-md-6">
@@ -74,38 +74,29 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12 memberprofile">
+                        @foreach(DB::table('members')->where('org_user' , Auth::id())->limit(2)->get() as $r)
+                        <div class="col-md-12 memberprofile" onclick="savemember({{$r->id}} , {{$data->id}})">
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="memberprofileimage">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv1Tt9_33HyVMm_ZakYQy-UgsLjE00biEArg&usqp=CAU">
+                                        @if($r->image)
+                                        <img src="{{ url('public/assets/images') }}/{{ $r->image }}">
+                                        @else
+                                        <div class="namecounter">{{ substr($r->name, 0, 1); }}</div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="membername">Test Name</div>
-                                    <div class="memberdetail">Test Deatail</div>
+                                    <div class="membername">{{ $r->name }} {{ $r->last_name }}</div>
+                                    <div class="memberdetail">{{ DB::table('users')->where('id' , $r->user_id)->first()->role }}</div>
                                 </div>
                                 <div class="col-md-2 text-center mt-3">
-                                    <img src="{{ url('public/assets/svg/smalltick.svg') }}">
+
+                                    <img class="tickimage" src="{{ url('public/assets/svg/smalltick.svg') }}">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 memberprofile">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <div class="memberprofileimage">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv1Tt9_33HyVMm_ZakYQy-UgsLjE00biEArg&usqp=CAU">
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="membername">Test Name</div>
-                                    <div class="memberdetail">Test Deatail</div>
-                                </div>
-                                <div class="col-md-2 text-center mt-3">
-                                    <img src="{{ url('public/assets/svg/smalltick.svg') }}">
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

@@ -228,7 +228,7 @@ Route::name('flags.')->namespace('App\Http\Controllers')->prefix('dashboard/flag
     Route::POST('showtab', 'FlagController@showtab');
     Route::POST('uploadattachment', 'FlagController@uploadattachment');
     Route::POST('deleteattachment', 'FlagController@deleteattachment');
-    
+    Route::POST('savemember', 'FlagController@savemember');
     
 });
 Route::name('react.')->namespace('App\Http\Controllers')->prefix('dashboard/react')->group(function () {

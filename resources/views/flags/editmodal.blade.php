@@ -28,6 +28,25 @@
     </div>
 </div>
 <script type="text/javascript">
+    function savemember(id,dataid) {
+        $.ajax({
+            type: "POST",
+            url: "{{ url('dashboard/flags/savemember') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                id:id,
+                dataid:dataid,
+            },
+            success: function(res) {
+                $('.modalheaderforapend').html(res);
+            },
+            error: function(error) {
+                console.log('Error updating card position:', error);
+            }
+        });
+    }
     function changeflagstatus(status,id) {
         $.ajax({
             type: "POST",

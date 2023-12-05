@@ -8,6 +8,7 @@ use App\Models\Organization;
 use App\Models\Epic;
 use App\Models\activities;
 use App\Models\attachments;
+use App\Models\flag_members;
 use App\Models\flags;
 use App\Models\flag_comments;
 use App\Models\escalate_cards;
@@ -91,6 +92,31 @@ class FlagController extends Controller
         $html = view('flags.modalheader', compact('data'))->render();
         return $html;
     }
+    public function savemember(Request $request)
+    {
+
+        $flag = flags::find($request->dataid);
+        $asign = $flag->flag_assign;
+        $explode = explode(',',$asign);
+        $a=$explode;
+        if(in_array($request->id,$explode))
+        {
+            $a = array_diff($explode, [$request->id]);
+            $implode = implode(',', $a);
+            $flag->flag_assign = $implode;
+            $flag->save();
+        }else{
+            array_push($a,$request->id);
+            $implode = implode(',', $a);
+            $flag->flag_assign = $implode;
+            $flag->save();
+        }
+
+        
+        $data = flags::find($request->dataid);
+        $html = view('flags.modalheader', compact('data'))->render();
+        return $html;
+    }
     public function getflagmodal(Request $request)
     {
         $data = flags::find($request->id);
@@ -121,7 +147,6 @@ class FlagController extends Controller
         $html = view('flags.simplecard', compact('r'))->render();
         return $html;
     }
-    
     public function updatecomment(Request $request)
     {
         $addcomment = flag_comments::find($request->comment_id);
@@ -180,13 +205,15 @@ class FlagController extends Controller
         $flag->business_units = $request->buisness_unit_id;
         $flag->epic_id = $request->flag_epic_id;
         $flag->flag_type = $request->flag_type;
-        $flag->flag_assign = $request->flag_assign;
         $flag->flag_title = $request->flag_title;
         $flag->flag_description = $request->flag_description;
         $flag->archived = 2;
         $flag->flag_status = 'todoflag';
         $flag->board_type = $request->board_type;
         $flag->save();
+
+        $member = new flag_members();
+
         if($request->type == 'unit')
         {
             $organization  = DB::table('business_units')->where('slug',$request->slug)->first();
