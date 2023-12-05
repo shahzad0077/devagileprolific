@@ -1051,7 +1051,7 @@
                         
             
                         
-          <div class="col-md-12 col-lg-12 col-xl-12" id="epic_story_edit"></div>        
+                      <div class="col-md-12 col-lg-12 col-xl-12" id="epic_story_edit"></div>        
                         <div class="row ml-2">
                             <div class="col-md-12" id="epic_story_edit">
                          

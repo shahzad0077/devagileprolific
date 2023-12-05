@@ -621,6 +621,13 @@ class OrganizationController extends Controller
 
     }
 
+      
+    public function DeleteSprintQuarter(Request $request)
+    {
+        DB::table('sprint')->where('id',$request->sprint_id)->delete();
+        DB::table('sprint_report')->where('q_id',$request->sprint_id)->delete();
+        return redirect()->back();
+    }
     
     
     

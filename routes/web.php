@@ -43,6 +43,7 @@ Route::get('dashboard/organization/Okr-report-all/{sprint}/{type}', [App\Http\Co
 Route::get('dashboard/organization/report-init/{init}/{sprint}', [App\Http\Controllers\OrganizationController::class,'AllInitReport']);
 
 Route::post('update-sprint', [App\Http\Controllers\OrganizationController::class,'UpdateSprintQuarter']);
+Route::post('delete-report', [App\Http\Controllers\OrganizationController::class,'DeleteSprintQuarter']);
 
 
 
@@ -213,7 +214,7 @@ Route::name('flags.')->namespace('App\Http\Controllers')->prefix('dashboard/flag
     Route::POST('savecomment', 'FlagController@savecomment');
     Route::POST('deletecomment', 'FlagController@deletecomment');
     Route::POST('updatecomment', 'FlagController@updatecomment');
-    Route::POST('showorderby', 'FlagController@showorderby');
+    Route::POST('orderbycomment', 'FlagController@orderbycomment');
     Route::POST('deleteflag', 'FlagController@deleteflag');
     Route::POST('savereply', 'FlagController@savereply');
     Route::POST('searchflag', 'FlagController@searchflag');
@@ -228,8 +229,7 @@ Route::name('flags.')->namespace('App\Http\Controllers')->prefix('dashboard/flag
     Route::POST('showtab', 'FlagController@showtab');
     Route::POST('uploadattachment', 'FlagController@uploadattachment');
     Route::POST('deleteattachment', 'FlagController@deleteattachment');
-    Route::POST('savemember', 'FlagController@savemember');
-    
+    Route::POST('savemember', 'FlagController@savemember');    
 });
 Route::name('react.')->namespace('App\Http\Controllers')->prefix('dashboard/react')->group(function () {
     Route::get('{organizationid}', 'ReactController@index');
@@ -240,7 +240,7 @@ Route::post('update-epic-comment', [App\Http\Controllers\ObjectiveController::cl
 Route::get('get-epic-comment', [App\Http\Controllers\ObjectiveController::class, 'GetEpicComment']);
 Route::post('save-edit-epic-comment', [App\Http\Controllers\ObjectiveController::class, 'SaveEditComment']);
 Route::post('delete-epic-comment', [App\Http\Controllers\ObjectiveController::class, 'DeleteEpicComment']);
-Route::post('epic-reply', [App\Http\Controllers\ObjectiveController::class, 'EpicCommentReply']);
+Route::post('epic-reply-edit', [App\Http\Controllers\ObjectiveController::class, 'EpicCommentReply']);
 //keyChart
 Route::get('get-key-chart', [App\Http\Controllers\OrganizationController::class, 'GetKeychart']);
 Route::post('add-new-quarter-value', [App\Http\Controllers\OrganizationController::class, 'AddnewQvalue']);
