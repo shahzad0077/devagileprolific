@@ -205,15 +205,13 @@ class FlagController extends Controller
         $flag->business_units = $request->buisness_unit_id;
         $flag->epic_id = $request->flag_epic_id;
         $flag->flag_type = $request->flag_type;
+        $flag->flag_assign = $request->flag_assign;
         $flag->flag_title = $request->flag_title;
         $flag->flag_description = $request->flag_description;
         $flag->archived = 2;
         $flag->flag_status = 'todoflag';
         $flag->board_type = $request->board_type;
         $flag->save();
-
-        $member = new flag_members();
-
         if($request->type == 'unit')
         {
             $organization  = DB::table('business_units')->where('slug',$request->slug)->first();

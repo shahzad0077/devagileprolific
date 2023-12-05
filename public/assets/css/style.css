@@ -21139,6 +21139,7 @@ input[type="radio"]:checked {
     width: 100%;
     height: 100%;
     cursor: pointer;
+    border-radius: 50%;
 }
 .displayflex{
     display: flex;
