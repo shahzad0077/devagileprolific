@@ -62,9 +62,13 @@ $var_objective = 'Report-'.$type;
                                             All
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            @foreach($SprintInit as $keyInt)
+                                            @foreach($key as $k)
+                                            @if($keyInt->initiative_key_id == $k->id)
+                                            <a class="dropdown-item"href="{{url('dashboard/organization/report-init/'.$keyInt->initiative_id.'/'.$sprint)}}">{{$keyInt->initiative_name}}</a>
+                                            @endif
+                                            @endforeach
+                                            @endforeach  
                                         </div>
                                     </div>
                                 </div>
@@ -123,14 +127,14 @@ $var_objective = 'Report-'.$type;
                                                                         </clipPath>
                                                                     </defs>
                                                                 </svg>
-                                                                <span class="ml-2"><a href="javascript:void(0)">SSP-10</span></a>
+                                                                <span class="ml-2"><a href="javascript:void(0)">SSP-{{$k->id}}</span></a>
                                                             </td>
                                                             <td class="cell-20-percent"><a href="javascript:void(0)">{{$epic->epic_name}}</a></td>
                                                             <td>Added</td>
                                                             <td>{{$epic->epic_date}}</td>
                                                             <td>{{\Carbon\Carbon::parse($epic->epic_done)->format('M d,Y')}}</td>
                                                             <td>Done</td>
-                                                            <td><a href="javascript:void(0)">IN2234</a></td>
+                                                            <td><a href="javascript:void(0)">IN{{$init->id}}</a></td>
                                                             <td class="cell-30-percent"><a href="javascript:void(0)"></a>{{$init->initiative_name}}</td>
                                                         </tr>
                                                         @endif
@@ -143,7 +147,7 @@ $var_objective = 'Report-'.$type;
                                         </div>
                                     </div>
 
-
+                                    @if(count($SprintEpic) > 10 )
                                     <div class="row">
                                         <div class="col-md-12 text-center">
                                             <button class="btn btn-default">
@@ -151,6 +155,7 @@ $var_objective = 'Report-'.$type;
                                             </button>
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -208,14 +213,14 @@ $var_objective = 'Report-'.$type;
                                                                         </clipPath>
                                                                     </defs>
                                                                 </svg>
-                                                                <span class="ml-2"><a href="javascript:void(0)">SSP-10</span></a>
+                                                                <span class="ml-2"><a href="javascript:void(0)">SSP-{{$k->id}}</span></a>
                                                             </td>
                                                             <td class="cell-20-percent"><a href="javascript:void(0)">{{$epic->epic_name}}</a></td>
                                                             <td>Added</td>
                                                             <td>{{$epic->epic_date}}</td>
                                                            
                                                             <td>{{$epic->epic_status}}</td>
-                                                            <td><a href="javascript:void(0)">IN2234</a></td>
+                                                            <td><a href="javascript:void(0)">IN{{$init->id}}</a></td>
                                                             <td class="cell-30-percent"><a href="javascript:void(0)"></a>{{$init->initiative_name}}</td>
                                                         </tr>
                                                         @endif
@@ -229,7 +234,7 @@ $var_objective = 'Report-'.$type;
                                         </div>
                                     </div>
 
-
+                                    @if(count($SprintEpic) > 10 )
                                     <div class="row">
                                         <div class="col-md-12 text-center">
                                             <button class="btn btn-default">
@@ -237,6 +242,7 @@ $var_objective = 'Report-'.$type;
                                             </button>
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -293,14 +299,14 @@ $var_objective = 'Report-'.$type;
                                                                         </clipPath>
                                                                     </defs>
                                                                 </svg>
-                                                                <span class="ml-2"><a href="javascript:void(0)">SSP-10</span></a>
+                                                                <span class="ml-2"><a href="javascript:void(0)">SSP-{{$k->id}}</span></a>
                                                             </td>
                                                             <td class="cell-20-percent"><a href="javascript:void(0)">{{$epic->epic_name}}</a></td>
                                                             <td>Added</td>
                                                             <td>{{$epic->epic_date}}</td>
                                                         
                                                             <td>{{$epic->epic_status}}</td>
-                                                            <td><a href="javascript:void(0)">IN2234</a></td>
+                                                            <td><a href="javascript:void(0)">IN{{$init->id}}</a></td>
                                                             <td class="cell-30-percent"><a href="javascript:void(0)"></a>{{$init->initiative_name}}</td>
                                                         </tr>
                                                         @endif
@@ -314,6 +320,7 @@ $var_objective = 'Report-'.$type;
                                     </div>
 
 
+                                    @if(count($SprintEpic) > 10 )
                                     <div class="row">
                                         <div class="col-md-12 text-center">
                                             <button class="btn btn-default">
@@ -321,6 +328,7 @@ $var_objective = 'Report-'.$type;
                                             </button>
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

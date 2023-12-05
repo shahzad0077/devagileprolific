@@ -58,7 +58,10 @@ $var_objective = 'Report-'.$type;
 
                                                     <tbody>
                                               
-                                                     
+                                                        @php
+                                                        $id = 0;
+                                                        @endphp
+
                                                        @foreach($key as $k)
                                                        @if($k->obj_id == $o->id)
                                                        @php
@@ -68,7 +71,7 @@ $var_objective = 'Report-'.$type;
                                                        $Completion = ($k->key_epic_comp/$k->key_epic_count * 100);
                                                        }
                                                        
-                                                       $id = 0;
+                                                       $id++;
                                                        @endphp
                                                         <tr>
                                                             <td class="key-result-cell">
@@ -83,11 +86,15 @@ $var_objective = 'Report-'.$type;
                                                                     </clipPath>
                                                                   </defs>
                                                                 </svg>
-                                                                <span class="ml-2"><a href="{{url('dashboard/organization/report-2/'.$k->id.'/'.$report->id)}}"> {{ $id = $id + 1 }}.{{$k->key_name}}</span></a>
+                                                                <span class="ml-2"><a href="{{url('dashboard/organization/report-2/'.$k->id.'/'.$report->id)}}"> {{ $id}}.{{$k->key_name}}</span></a>
                                                             </td>
                                                             <td class="center">{{$k->key_epic_comp}}</td>
                                                             <td class="center">{{$k->key_epic_incopm}}</td>
+                                                            @if($Completion == 100)
+                                                            <td class="center text-success">{{round($Completion,2)}}%</td>
+                                                            @else
                                                             <td class="center text-danger">{{round($Completion,2)}}%</td>
+                                                            @endif
                                                         </tr>
                                                           @endif
                                                           @endforeach
@@ -96,6 +103,7 @@ $var_objective = 'Report-'.$type;
                                             </div>
                                         </div>
                                     </div>
+                                    @if(count($key) > 10)
                                     <div class="row">
                                         <div class="col-md-12 text-center">
                                             <button class="btn btn-default">
@@ -103,6 +111,7 @@ $var_objective = 'Report-'.$type;
                                             </button>
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
