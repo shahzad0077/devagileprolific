@@ -1,6 +1,3 @@
-@php
-    $user = DB::table('members')->where('id' , $r->flag_assign)->first();
-@endphp
 <div class="card-body">
     <div class="d-flex flex-column">
         <div class="d-flex flex-row" onclick="editflag({{$r->id}})">
@@ -64,11 +61,14 @@
             <div class="d-flex flex-row align-items-center">
                 <div class="d-flex flex-row align-items-center image-cont pr-3">
                     <div class="pr-1">
-
+                        @php
+                            $member_id = DB::table('flag_members')->where('flag_id' , $r->id)->first();
+                            $user = DB::table('members')->where('id' , $member_id->member_id)->first();
+                        @endphp
                         @if($user->image != NULL)
                         <img class="user-image" src="{{asset('public/assets/images/'.$user->image)}}" alt="Example Image">
                         @else
-                        <img class="user-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv1Tt9_33HyVMm_ZakYQy-UgsLjE00biEArg&usqp=CAU" alt="Example Image">
+                        <div class="namecountersmallforsimplecard">{{ substr($user->name, 0, 1); }}</div>
                         @endif
                     </div>
                     <div>

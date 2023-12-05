@@ -42,20 +42,9 @@
         </div>
         <div class="col-md-12 col-lg-12 col-xl-12">
             <div class="form-group mb-0">
-                <label for="lead-manager">Flag Assignee</label>
-                <select required class="form-control" name="flag_assign" id="flag_assign">
-                    <option  value="">Select Flag Assignee</option>
-                    @foreach(DB::table('members')->where('org_user',Auth::id())->get() as $r)                
-                      <option @if($r->id  == $data->flag_assign) selected @endif value="{{ $r->id }}">{{ $r->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="col-md-12 col-lg-12 col-xl-12">
-            <div class="form-group mb-0">
                 <label>Description</label>
                 <div class="textareaformcontrol">
-                    <textarea name="flag_description" id="editor{{ $r->id }}">{{ $data->flag_description }}</textarea> 
+                    <textarea name="flag_description" id="editor{{ $data->id }}">{{ $data->flag_description }}</textarea> 
                 </div>
             </div>
         </div>
@@ -67,7 +56,7 @@
     </div>
 </form>
 <script>
-     $('#editor{{ $r->id }}').summernote({
+     $('#editor{{ $data->id }}').summernote({
         height: 180,
         toolbar: [
             ['style', ['bold', 'italic', 'underline', 'clear']],

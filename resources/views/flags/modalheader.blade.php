@@ -40,18 +40,20 @@
             </div>
         </div>
         <div class="members-list">
-            @foreach(explode(",", $data->flag_assign) as $r)
-            @php
-                $member = DB::table('members')->where('id' , $r)->first();
-            @endphp
-            <div class="member-list-image">
-                @if($member->image)
-                <img src="{{ url('public/assets/images') }}/{{ $member->image }}">
-                @else
-                <div class="namecountersmall">{{ substr($member->name, 0, 1); }}</div>
-                @endif
+            <div id="members">
+                @foreach(DB::table('flag_members')->where('flag_id' , $data->id)->get() as $r)
+                @php
+                    $member = DB::table('members')->where('id' , $r->member_id)->first();
+                @endphp
+                <div class="member-list-image">
+                    @if($member->image)
+                    <img src="{{ url('public/assets/images') }}/{{ $member->image }}">
+                    @else
+                    <div class="namecountersmall">{{ substr($member->name, 0, 1); }}</div>
+                    @endif
+                </div>
+                @endforeach
             </div>
-            @endforeach
             <div class="member-list-image memberlistposition">
                 <img onclick="showmemberbox()" src="{{url('public/assets/svg/plussmember.svg')}}">
                 <div class="memberadd-box">
@@ -91,8 +93,9 @@
                                     <div class="memberdetail">{{ DB::table('users')->where('id' , $r->user_id)->first()->role }}</div>
                                 </div>
                                 <div class="col-md-2 text-center mt-3">
-
+                                    @if(DB::table('flag_members')->where('flag_id' , $data->id)->where('member_id' , $r->id)->count() > 0)
                                     <img class="tickimage" src="{{ url('public/assets/svg/smalltick.svg') }}">
+                                    @endif
                                 </div>
                             </div>
                         </div>

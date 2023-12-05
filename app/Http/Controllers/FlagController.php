@@ -94,28 +94,21 @@ class FlagController extends Controller
     }
     public function savemember(Request $request)
     {
-
-        // $flag = flags::find($request->dataid);
-        // $asign = $flag->flag_assign;
-        // $explode = explode(',',$asign);
-        // $a=$explode;
-        // if(in_array($request->id,$explode))
-        // {
-        //     $a = array_diff($explode, [$request->id]);
-        //     $implode = implode(',', $a);
-        //     $flag->flag_assign = $implode;
-        //     $flag->save();
-        // }else{
-        //     array_push($a,$request->id);
-        //     $implode = implode(',', $a);
-        //     $flag->flag_assign = $implode;
-        //     $flag->save();
-        // }
-
-        
-        // $data = flags::find($request->dataid);
-        // $html = view('flags.modalheader', compact('data'))->render();
-        // return $html;
+        $check = flag_members::where('flag_id' , $request->dataid)->where('member_id' , $request->id)->count();
+        if($check > 0)
+        {
+            flag_members::where('flag_id' , $request->dataid)->where('member_id' , $request->id)->delete();
+        }
+        else
+        {
+            $member = new flag_members();
+            $member->member_id = $request->id;
+            $member->flag_id = $request->dataid;
+            $member->save();
+        }
+        $data = flags::find($request->dataid);
+        $html = view('flags.modalheader', compact('data'))->render();
+        return $html;
     }
     public function getflagmodal(Request $request)
     {
@@ -130,7 +123,6 @@ class FlagController extends Controller
         $update->flag_title = $request->flag_title;
         $update->flag_description = $request->flag_description;
         $update->flag_type = $request->flag_type;
-        $update->flag_assign = $request->flag_assign;
         $update->save();
         $r = $update;
         if($update->escalate)
@@ -140,7 +132,6 @@ class FlagController extends Controller
             $update_escalated_flag->flag_title = $request->flag_title;
             $update_escalated_flag->flag_description = $request->flag_description;
             $update_escalated_flag->flag_type = $request->flag_type;
-            $update_escalated_flag->flag_assign = $request->flag_assign;
             $update_escalated_flag->save();
         }
         Cmf::save_activity(Auth::id() , 'Updated a Impediment Flag','flags',$request->id);
@@ -205,13 +196,16 @@ class FlagController extends Controller
         $flag->business_units = $request->buisness_unit_id;
         $flag->epic_id = $request->flag_epic_id;
         $flag->flag_type = $request->flag_type;
-        $flag->flag_assign = $request->flag_assign;
         $flag->flag_title = $request->flag_title;
         $flag->flag_description = $request->flag_description;
         $flag->archived = 2;
         $flag->flag_status = 'todoflag';
         $flag->board_type = $request->board_type;
         $flag->save();
+        $member = new flag_members();
+        $member->member_id = $request->flag_assign;
+        $member->flag_id = $flag->id;
+        $member->save();
         if($request->type == 'unit')
         {
             $organization  = DB::table('business_units')->where('slug',$request->slug)->first();
@@ -414,9 +408,7 @@ class FlagController extends Controller
         $add->type = 'flags';
         $add->value_id = $request->value_id;
         $add->save();
-
         Cmf::save_activity(Auth::id() , 'Added a New Attachment','flags',$request->value_id);
-
         $attachments = attachments::where('value_id' , $request->value_id)->where('type' , 'flags')->orderby('id' , 'desc')->get();
         $data = flags::find($request->value_id);
         $html = view('flags.tabs.attachments', compact('attachments','data'))->render();

@@ -21289,6 +21289,16 @@ input[type="radio"]:checked {
     width: 39px;
     padding-top: 20%;
 }
+.namecountersmallforsimplecard{
+    background-color: #dedcdf;
+    border-radius: 50%;
+    text-align: center;
+    height: 31px;
+    width: 31px;
+    font-size: 15px;
+    padding-top: 15%;
+    font-weight: 600;
+}
 .namecountersmall{
     background-color: #dedcdf;
     border-radius: 50%;
@@ -21529,4 +21539,7 @@ input[type="radio"]:checked {
 }
 .memberlistposition{
     position: relative;
+}
+#members{
+    display: flex;
 }

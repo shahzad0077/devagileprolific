@@ -1,0 +1,7 @@
+FAQ Order (Done)
+Add Blog (Done)
+Edit Plan Order by min age and Sum insured (Done)
+Change Position (No Pre / Pre Exisitng) (Done)
+Dynamic Pages check on website
+Metta Keywords not show on website (Done)
+discount when number of traverls more then one
