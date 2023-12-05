@@ -223,8 +223,9 @@ class OrganizationController extends Controller
     
     public function endQuarter(Request $request)
     {
-    
+
      $s = DB::table('sprint')->where('user_id',Auth::id())->where('status',NULL)->where('value_unit_id',$request->unit_id)->where('type',$request->type)->first();
+  
     // $data = DB::table('objectives')->whereBetween('created_at', [$s->start_data, $s->end_date])->where('user_id',Auth::id())->where('trash',NULL)->count();
     // $dataobj = DB::table('objectives')->whereBetween('created_at', [$s->start_data, $s->end_date])->where('user_id',Auth::id())->where('trash',NULL)->where('obj_prog','=',100)->count();
     // $datakey = DB::table('key_result')->whereBetween('created_at', [$s->start_data, $s->end_date])->where('user_id',Auth::id())->count();
@@ -440,11 +441,12 @@ class OrganizationController extends Controller
       if($sprint)
       {
       $obj =   json_decode($sprint->objective);
-      $key =   json_decode($sprint->key_result);   
+      $key =   json_decode($sprint->key_result);
+      $count = count($key);   
       }
       }
       
-    return view('Report.report3',compact('sprint','obj','key','report','organization','type'));
+    return view('Report.report3',compact('sprint','obj','key','report','organization','type','count'));
 
     }
     
@@ -496,6 +498,27 @@ class OrganizationController extends Controller
 
         return view('Report.report2',compact('SprintInit','SprintObj','id','obj','key','sprint','organization','type'));
 
+    }
+
+    public function AllEpicReport($sprint,$type)
+    {
+        $report = DB::table('sprint')->where('id',$sprint)->first();
+        $organization = DB::table('business_units')->where('id',$report->value_unit_id)->first();        
+
+        return view('Report.allreportepic',compact('report','sprint','type','organization'));
+
+    
+    }
+
+    public function AllInitReport($init,$sprint)
+    {
+        $report = DB::table('sprint')->where('id',$sprint)->first();
+        $organization = DB::table('business_units')->where('id',$report->value_unit_id)->first();
+        $InitName = DB::table('sprint_report')->where('initiative_id',$init)->where('q_id',$sprint)->first();        
+        $type = $organization->type;
+        return view('Report.init-report',compact('report','sprint','type','organization','init','InitName'));
+
+    
     }
     
     

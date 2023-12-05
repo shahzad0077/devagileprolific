@@ -51,19 +51,23 @@ $var_objective = 'Report-'.$type;
 
                                                     <tbody>
                                               
-                                                     
+                                                       @php
+                                                       $id = 0;
+                                                       @endphp
+
                                                        @foreach($key as $k)
                                                        @if($k->obj_id == $o->id)
                                                        @php
                                                        $KEYChart = array();
                                                        $key = DB::table('key_result')->where('id',$k->id)->first();
-                                                       $keyvalue = DB::table('key_quarter_value')->where('sprint_id',$report->id)->orderby('id','DESC')->first();
-                                                       if($keyvalue)
+                                                       if($report)
                                                        {
-                                                       $KEYChart =  DB::table('key_chart')->where('key_id',$k->id)->where('IndexCount',$report->IndexCount)->first();
+                                                       $keyvalue = DB::table('key_quarter_value')->where('key_id',$k->id)->where('sprint_id',$report->id)->orderby('id','DESC')->first();
                                                        }
+                                                       $KEYChart =  DB::table('key_chart')->where('key_id',$k->id)->where('IndexCount',$report->IndexCount)->first();
+                                                      
                                                     
-                                                       $id = 0;
+                                                       $id++;
                                                        @endphp
                                                         <tr>
                                                             <td class="key-result-cell">
@@ -78,7 +82,7 @@ $var_objective = 'Report-'.$type;
                                                                     </clipPath>
                                                                   </defs>
                                                                 </svg>
-                                                                <span class="ml-2"><a href="{{url('dashboard/organization/report-2/'.$k->id.'/'.$report->id)}}"> {{ $id = $id + 1 }}.{{$k->key_name}}</span></a>
+                                                                <span class="ml-2"><a href="{{url('dashboard/organization/report-2/'.$k->id.'/'.$report->id)}}"> {{ $id }}.{{$k->key_name}}</span></a>
                                                             </td>
                                                             <td class="text-center">@if($KEYChart){{$KEYChart->quarter_value}}@endif</td>
                                                             <td class="center">@if($key){{$key->target_number}}@endif</td>
@@ -92,6 +96,7 @@ $var_objective = 'Report-'.$type;
                                             </div>
                                         </div>
                                     </div>
+                                    @if($count > 10)
                                     <div class="row">
                                         <div class="col-md-12 text-center">
                                             <button class="btn btn-default">
@@ -99,6 +104,7 @@ $var_objective = 'Report-'.$type;
                                             </button>
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
