@@ -108,6 +108,7 @@ $var_objective = 'Report-'.$type;
                                                
                                                     @foreach($SprintInit as $init)
                                                     @php
+                                                    
                                                     $SprintEpic = DB::table('sprint_report')->where('epic_init_id',$init->initiative_id)->where('epic_prog','=',100)->where('epic_trash','=',NULL)->where('q_id',$sprint)->get();
                                                     @endphp
                                                     @foreach($SprintEpic as $epic)
@@ -146,7 +147,8 @@ $var_objective = 'Report-'.$type;
                                             </div>
                                         </div>
                                     </div>
-
+                                    
+                                    @if(count($SprintInit) > 0 )
                                     @if(count($SprintEpic) > 10 )
                                     <div class="row">
                                         <div class="col-md-12 text-center">
@@ -155,6 +157,7 @@ $var_objective = 'Report-'.$type;
                                             </button>
                                         </div>
                                     </div>
+                                    @endif
                                     @endif
                                 </div>
                             </div>
@@ -234,6 +237,7 @@ $var_objective = 'Report-'.$type;
                                         </div>
                                     </div>
 
+                                    @if(count($SprintInit) > 0 )
                                     @if(count($SprintEpic) > 10 )
                                     <div class="row">
                                         <div class="col-md-12 text-center">
@@ -242,6 +246,7 @@ $var_objective = 'Report-'.$type;
                                             </button>
                                         </div>
                                     </div>
+                                    @endif
                                     @endif
                                 </div>
                             </div>
@@ -320,6 +325,7 @@ $var_objective = 'Report-'.$type;
                                     </div>
 
 
+                                    @if(count($SprintInit) > 0 )
                                     @if(count($SprintEpic) > 10 )
                                     <div class="row">
                                         <div class="col-md-12 text-center">
@@ -328,6 +334,7 @@ $var_objective = 'Report-'.$type;
                                             </button>
                                         </div>
                                     </div>
+                                    @endif
                                     @endif
                                 </div>
                             </div>

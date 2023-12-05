@@ -267,11 +267,41 @@ $var_objective = 'Report-'.$type;
                                                     </div>
                                                 </div>
 
-                                                    <button class="btn-circle btn-tolbar" data-placement="top" title="Delete Report">
+                                                    <button class="btn-circle btn-tolbar" data-placement="top" title="Delete Report" data-toggle="modal" data-target="#delete-report{{$r->id}}">
                                                         <img src="{{asset('public/assets/images/icons/delete.svg')}}">
                                                     </button>
                                                 </td>
                                             </tr>
+                                            <div class="modal fade" id="delete-report{{$r->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title text-center" id="exampleModalLabel">Delete Quarter</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                    </div>
+                                                  
+                                            
+                                                    <form method="POST" action="{{url('delete-report')}}">
+
+                                                        @csrf
+                                                        <input type="hidden" name="sprint_id" value="{{$r->id}}">  
+                                                       <div class="modal-body">
+                                                         
+                                                       Are you sure you want to Delete this Quarter?
+                                               
+                                                       </div>
+                                                       <div class="modal-footer">
+                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                         <button type="submit"  class="btn btn-danger">Confirm</button>
+                                                       </div>
+                                                    </form>
+                                                   
+                                                    
+                                                  </div>
+                                                </div>
+                                              </div>
                                             @endforeach
 
                                            
