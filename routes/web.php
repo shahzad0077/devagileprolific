@@ -210,7 +210,7 @@ Route::name('flags.')->namespace('App\Http\Controllers')->prefix('dashboard/flag
     Route::POST('savecomment', 'FlagController@savecomment');
     Route::POST('deletecomment', 'FlagController@deletecomment');
     Route::POST('updatecomment', 'FlagController@updatecomment');
-    Route::POST('orderbycomment', 'FlagController@orderbycomment');
+    Route::POST('showorderby', 'FlagController@showorderby');
     Route::POST('deleteflag', 'FlagController@deleteflag');
     Route::POST('savereply', 'FlagController@savereply');
     Route::POST('searchflag', 'FlagController@searchflag');
@@ -223,6 +223,9 @@ Route::name('flags.')->namespace('App\Http\Controllers')->prefix('dashboard/flag
     Route::POST('showepicdetail', 'FlagController@showepicdetail');
     Route::POST('escalateflag', 'FlagController@escalateflag');
     Route::POST('showtab', 'FlagController@showtab');
+    Route::POST('uploadattachment', 'FlagController@uploadattachment');
+    Route::POST('deleteattachment', 'FlagController@deleteattachment');
+    
     
 });
 Route::name('react.')->namespace('App\Http\Controllers')->prefix('dashboard/react')->group(function () {

@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Http;
 use OneSignal;
 class Cmf
 { 
+    public static function get_file_extension($file_name) {
+        return substr(strrchr($file_name,'.'),1);
+    }
     public static function save_activity($user_id , $activity,$type,$value_id)
     {
         $act = new activities();
@@ -49,7 +52,7 @@ class Cmf
     {
         $file = $imagename;
         $filename = rand() . '.' . $file->getClientOriginalExtension();
-        $file->move(public_path('images'), $filename);
+        $file->move(public_path('uploads'), $filename);
         return $filename;
     }
     public static function shorten_url($text)

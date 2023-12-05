@@ -182,8 +182,8 @@
                             <span class="sr-only">Toggle Dropdown</span>
                           </button>
                           <div class="dropdown-menu">
-                            <a class="dropdown-item" href="javascript:void(0)">In Progress</a>
-                            <a class="dropdown-item" href="javascript:void(0)">Done</a>
+                            <a class="dropdown-item" onclick="changeflagstatus('inprogress')" href="javascript:void(0)">In Progress</a>
+                            <a class="dropdown-item" onclick="changeflagstatus('inprogress')" href="javascript:void(0)">Done</a>
                           </div>
                         </div>
                         <div class="members-list">

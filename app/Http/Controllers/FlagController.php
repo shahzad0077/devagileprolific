@@ -128,12 +128,6 @@ class FlagController extends Controller
         $html = view('flags.allcomments', compact('comments'))->render();
         return $html;
     }
-    public function orderbycomment(Request $request)
-    {
-        $comments = flag_comments::where('flag_id' , $request->flag_id)->wherenull('comment_id')->orderby('id' , $request->id)->get();
-        $html = view('flags.allcomments', compact('comments'))->render();
-        return $html;
-    }
     public function deleteflag(Request $request)
     {
         flag_comments::where('flag_id' , $request->delete_id)->delete();
@@ -353,7 +347,6 @@ class FlagController extends Controller
     }
     public function showtab(Request $request)
     {
-
         if($request->tab == 'general')
         {
             $data = flags::find($request->id);
@@ -379,6 +372,62 @@ class FlagController extends Controller
             $attachments = attachments::where('value_id' , $request->id)->where('type' , 'flags')->orderby('id' , 'desc')->get();
             $data = flags::find($request->id);
             $html = view('flags.tabs.attachments', compact('attachments','data'))->render();
+            return $html;
+        }
+    }
+    public function uploadattachment(Request $request)
+    {
+        $filename = $request->file('file')->getClientOriginalName();
+        $add = new attachments();
+        $add->user_id = Auth::id();
+        $add->attachment = Cmf::sendimagetodirectory($request->file);
+        $add->file_name = $request->file('file')->getClientOriginalName();
+        $add->extension = Cmf::get_file_extension($filename);
+        $add->type = 'flags';
+        $add->value_id = $request->value_id;
+        $add->save();
+
+        Cmf::save_activity(Auth::id() , 'Added a New Attachment','flags',$request->value_id);
+
+        $attachments = attachments::where('value_id' , $request->value_id)->where('type' , 'flags')->orderby('id' , 'desc')->get();
+        $data = flags::find($request->value_id);
+        $html = view('flags.tabs.attachments', compact('attachments','data'))->render();
+        return $html;
+    }
+    public function deleteattachment(Request $request)
+    {
+        $attachment = attachments::find($request->id);
+        attachments::where('id',$request->id)->delete();
+        $attachments = attachments::where('value_id' , $attachment->value_id)->where('type' , 'flags')->orderby('id' , 'desc')->get();
+        Cmf::save_activity(Auth::id() , 'Delete a Attachment','flags',$attachment->value_id);
+        $data = flags::find($attachment->value_id);
+        $html = view('flags.tabs.attachments', compact('attachments','data'))->render();
+        return $html;
+    }
+    public function showorderby(Request $request)
+    {
+        if($request->table == 'flag_comments')
+        {
+            $comments = flag_comments::where('flag_id' , $request->flag_id)->wherenull('comment_id')->orderby('id' , $request->id)->get();
+            $orderby = $request->id;
+            $data = flags::find($request->flag_id);
+            $html = view('flags.tabs.comments', compact('comments','data','orderby'))->render();
+            return $html;
+        }
+        if($request->table == 'activities')
+        {
+            $activity = activities::where('value_id' , $request->flag_id)->where('type' , 'flags')->orderby('id' , $request->id)->get();
+            $orderby = $request->id;
+            $data = flags::find($request->flag_id);
+            $html = view('flags.tabs.activities', compact('activity','data','orderby'))->render();
+            return $html;
+        }
+        if($request->table == 'attachments')
+        {
+            $attachments = attachments::where('value_id' , $request->flag_id)->where('type' , 'flags')->orderby('id' , $request->id)->get();
+            $data = flags::find($request->flag_id);
+            $orderby = $request->id;
+            $html = view('flags.tabs.attachments', compact('attachments','data','orderby'))->render();
             return $html;
         }
     }
