@@ -110,6 +110,21 @@ function get_date(val,id)
         return false;
         } 
 
+    var unitid = [];
+    $('.unitobj').each(function() {
+        unitid.push($(this).val());
+    });
+   
+    var unitObj = [];
+    $('.bu-obj').each(function() {
+        unitObj.push($(this).val());
+    });  
+
+    var unitObjkey = [];
+    $('.key-BU').each(function() {
+        unitObjkey.push($(this).val());
+    });
+
 
         
             $.ajax({
@@ -127,7 +142,12 @@ function get_date(val,id)
                     slug:slug,
                     unit_id:unit_id,
                     type:type,
-                    objective_status:objective_status
+                    objective_status:objective_status,
+                    unitid:unitid,
+                    unitObj:unitObj,
+                    unitObjkey:unitObjkey,
+
+
                 },
                 success: function(res) {
                     // if (res == 1) {
@@ -2778,8 +2798,7 @@ function getteamobj(id,x)
 
         }
         
-         
-       function getUnitObj(id)
+       function getUnitObj(id,val)
         {
     
         var type = "{{ $organization->type }}"; 
@@ -2798,13 +2817,13 @@ function getteamobj(id,x)
        
         if(res)
         {
-        $('.bu-obj').empty();
-        $('.bu-obj').append('<option hidden>Choose Obective</option>'); 
+        $('#bu-obj'+val).empty();
+        $('#bu-obj'+val).append('<option hidden>Choose Obective</option>'); 
         $.each(res, function(key, course){
-        $('.bu-obj').append('<option value="'+ course.id +'">' + course.objective_name+ '</option>');
+        $('#bu-obj'+val).append('<option value="'+ course.id +'">' + course.objective_name+ '</option>');
         });
         }else{
-        $('.bu-obj').empty();
+        $('#bu-obj'+val).empty();
         }
 
         }
@@ -2812,7 +2831,8 @@ function getteamobj(id,x)
 
         }
 
-        function getBUKey(id)
+        
+        function getBUKey(id,val)
         {
    
         $.ajax({
@@ -2828,13 +2848,13 @@ function getteamobj(id,x)
           
         if(res)
         {
-        $('.key-BU').empty();
-        $('.key-BU').append('<option hidden>Choose Key Result</option>'); 
+        $('#key-BU'+val).empty();
+        $('#key-BU'+val).append('<option hidden>Choose Key Result</option>'); 
         $.each(res, function(key, course){
-        $('.key-BU').append('<option value="'+ course.id +'">' + course.key_name+ '</option>');
+        $('#key-BU'+val).append('<option value="'+ course.id +'">' + course.key_name+ '</option>');
         });
         }else{
-        $('.key-BU').empty();
+        $('#key-BU'+val).empty();
         }
 
         }
@@ -3016,7 +3036,40 @@ function appendteam()
         function remove_div(div) 
         {
         $('#remove_button'+div).remove();
-        }   
+        }
+
+    var y = 1;   
+    function appendBu()
+    {
+    
+    y++;
+    var org_id = "{{ $organization->org_id }}";
+    var type = "{{ $organization->type }}";  
+        $.ajax({
+        type: "GET",
+        url: "{{ url('append-bu') }}",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+        org_id:org_id,
+        type:type,
+        y:y,
+        },
+        success: function(res) {
+        $('.field_wrapper_bu').append(res);
+        }
+        });
+
+        }
+
+        function remove_div_unit(div) 
+        {
+        $('#remove-unit'+div).remove();
+        }
+
+
+        
 
 
 function getRandomInt(min, max) {

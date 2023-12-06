@@ -88,7 +88,7 @@ class ObjectiveController extends Controller
         // }else
         // {
          
-        DB::table('objectives')->insert([
+        $OBJ = DB::table('objectives')->insertGetId([
 
         'objective_name' => $request->objective_name,
         'org_id' => $request->org_id,
@@ -101,6 +101,22 @@ class ObjectiveController extends Controller
         'status' => $request->objective_status
 
         ]);
+
+        if($request->has('unitid')){
+          foreach($request->unitid  as $key => $value)
+          {
+        
+            DB::table('team_link_child')->insert([
+              'team_id' => $request->unit_id,
+              'team_obj_id' => $OBJ,
+              'bussiness_unit_id' => $request->unitid[$key],
+              'bussiness_obj_id' => $request->unitObj[$key],
+              'bussiness_key_id' => $request->unitObjkey[$key],
+              'type' => $request->type,
+
+            ]);
+          }
+        }
 
         // $organization  = Organization::where('slug',$request->slug)->where('trash',NULL)->first();
         // $objective =  DB::table('objectives')->where('user_id',Auth::id())->where('org_id',$request->org_id)->where('trash',NULL)->get();
@@ -655,6 +671,7 @@ class ObjectiveController extends Controller
         DB::table('initiative')->where('id',$request->initiative_delete_id)->delete();
         DB::table('quarter')->where('user_id', Auth::id())->where('initiative_id',$request->initiative_delete_id)->delete();
         DB::table('quarter_month')->where('user_id', Auth::id())->where('initiative_id',$request->initiative_delete_id)->delete();
+        DB::table('epics')->where('user_id', Auth::id())->where('initiative_id',$request->initiative_delete_id)->delete();
 
         if($request->type == 'unit')
         {

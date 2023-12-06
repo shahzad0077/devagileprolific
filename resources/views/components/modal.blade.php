@@ -457,37 +457,100 @@
                         
                   
                         @if($type == 'BU')
+                        <div class="col-md-12 col-lg-12 col-xl-12">
+                            <div class="d-flex flex-row align-items-center justify-content-between mt-4">
+                                  <div>
+                                    Team's Linking
+                                  </div>
+
+                           <a href="javascript:void(0);" onclick="appendBu();" class="text-black" title="Add field"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+
+                                
+                            </div>
+                            <hr>
+                            </div>
                         <div class="col-md-6 col-lg-6 col-xl-6">
                           <div class="form-group mb-0">
-                             <select class="form-control" onchange="getUnitObj(this.value)">
-                              <option value="" >Select Business Team</option>
+                             <select class="form-control unitobj" onchange="getUnitObj(this.value,1)">
+                              <option value="" >Select Business Unit</option>
                               <?php foreach(DB::table('business_units')->where('id',$organization->org_id)->get() as $r){ ?>
                                 <option value="{{ $r->id }}">{{ $r->business_name }}</option>
                                  <?php }  ?>
 
                              </select>
-                              <label for="small-description">Choose Team</label>
+                              <label for="small-description">Choose Business Unit</label>
                           </div>
                       </div>
 
                       <div class="col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group mb-0">
-                         <select name="" id="" onchange="getBUKey(this.value)"  class="form-control bu-obj" value="" required>
+                         <select name="" id="bu-obj1" onchange="getBUKey(this.value,1)"  class="form-control bu-obj" value="" required>
                                                 
                         </select>
                             <label for="small-description" >Choose Objective</label>
                         </div>
                     </div>
 
-                    <div class="col-md-12 col-lg-12 col-xl-12">
+                    <div class="col-md-6 col-lg-6 col-xl-6">
                         <div class="form-group mb-0">
-                         <select name="" id=""   class="form-control key-BU" value="" required>
+                         <select name="" id="key-BU1"   class="form-control key-BU" value="" required>
                                                 
                         </select>
                             <label for="small-description" >Choose Key Result</label>
                         </div>
                     </div>
+
+                    <div class="col-md-12 field_wrapper_bu"></div>
+
                       @endif
+
+                      @if($type == 'VS')
+                      <div class="col-md-12 col-lg-12 col-xl-12">
+                          <div class="d-flex flex-row align-items-center justify-content-between mt-4">
+                                <div>
+                                  Team's Linking
+                                </div>
+
+                         <a href="javascript:void(0);" onclick="appendBu();" class="text-black" title="Add field"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+
+                              
+                          </div>
+                          <hr>
+                          </div>
+                      <div class="col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group mb-0">
+                           <select class="form-control unitobj" onchange="getUnitObj(this.value,1)">
+                            <option value="" >Select Value Stream</option>
+                            <?php foreach(DB::table('value_stream')->where('id',$organization->org_id)->get() as $r){ ?>
+                              <option value="{{ $r->id }}">{{ $r->value_name }}</option>
+                               <?php }  ?>
+
+                           </select>
+                            <label for="small-description">Choose Value Stream</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-6 col-xl-6">
+                      <div class="form-group mb-0">
+                       <select name="" id="bu-obj1" onchange="getBUKey(this.value,1)"  class="form-control bu-obj" value="" required>
+                                              
+                      </select>
+                          <label for="small-description" >Choose Objective</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-6 col-lg-6 col-xl-6">
+                      <div class="form-group mb-0">
+                       <select name="" id="key-BU1"   class="form-control key-BU" value="" required>
+                                              
+                      </select>
+                          <label for="small-description" >Choose Key Result</label>
+                      </div>
+                  </div>
+
+                  <div class="col-md-12 field_wrapper_bu"></div>
+
+                    @endif
                    
 
                         
