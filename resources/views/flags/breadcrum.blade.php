@@ -72,7 +72,7 @@
     </div>
 </div>
 <div class="modal" id="edit-epic" tabindex="-1" role="dialog" aria-labelledby="edit-epic" aria-hidden="true">
-    <div class="modal-dialog modal-lg modalfullscreen" id="modaldialog" role="document">
+    <div class="modal-dialog modal-lg" id="modaldialog" role="document">
         <div class="modal-content newmodalcontent" id="newmodalcontent">
             
         </div>
@@ -303,7 +303,8 @@ function deleteflag(id) {
     $('#deleteflagmodal').modal('show');
 }
 function maximizemodal() {
-    alert('ok');
+    $('#modaldialog').toggleClass('modalfullscreen')
+    $('#edit-modal').css('padding-right' , '0px')
 }
 $('#deleteflagform').on('submit',(function(e) {
     $('#deleteflagbutton').html('<i class="fa fa-spin fa-spinner"></i>');
