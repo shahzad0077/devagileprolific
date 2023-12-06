@@ -106,7 +106,7 @@
                                         Teams
                                       </div>
 
-                              {{-- <a href="javascript:void(0);" class="add_team text-black" title="Add field"><i class="fa fa-plus" aria-hidden="true"></i></a> --}}
+                               <a href="javascript:void(0);" onclick="appendteam();" class="add_team text-black" title="Add field"><i class="fa fa-plus" aria-hidden="true"></i></a> 
 
                                     
                                 </div>
@@ -117,7 +117,7 @@
                            
                             <div class="col-md-6 col-lg-6 col-xl-6">
                                 <div class="form-group mb-0">
-                                 <select name="key-team"  id="key-team" onchange="getteamobj(this.value,1)"  class="form-control" value="" required>
+                                 <select name="key-team"  id="key-team" onchange="getteamobj(this.value,1)"  class="form-control key-team" value="" required>
                                                         
                                 </select>
                                     <label for="small-description" style="bottom:72px">Choose Team</label>
@@ -126,14 +126,14 @@
 
                             <div class="col-md-6 col-lg-6 col-xl-6">
                                 <div class="form-group mb-0">
-                                 <select name="obj-team"  id="obj-team1"  class="form-control js-select2" multiple="multiple" required>
+                                 <select name="obj-team"  id="obj-team1"  class="form-control obj-team"  required>
                                                         
                                 </select>
-                                    <label for="small-description" style="bottom:55px">Choose Objective</label>
+                                    <label for="small-description" style="bottom:72px">Choose Objective</label>
                                 </div>
                             </div>
 
-                          
+                            <div class="col-md-12 field_wrapper_bu_team"></div>
                             @endif
 
                         <div class="col-md-12 col-lg-12 col-xl-12">
@@ -456,7 +456,38 @@
                         </div>
                         
                   
+                        @if($type == 'BU')
+                        <div class="col-md-6 col-lg-6 col-xl-6">
+                          <div class="form-group mb-0">
+                             <select class="form-control" onchange="getUnitObj(this.value)">
+                              <option value="" >Select Business Team</option>
+                              <?php foreach(DB::table('business_units')->where('id',$organization->org_id)->get() as $r){ ?>
+                                <option value="{{ $r->id }}">{{ $r->business_name }}</option>
+                                 <?php }  ?>
 
+                             </select>
+                              <label for="small-description">Choose Team</label>
+                          </div>
+                      </div>
+
+                      <div class="col-md-6 col-lg-6 col-xl-6">
+                        <div class="form-group mb-0">
+                         <select name="" id="" onchange="getBUKey(this.value)"  class="form-control bu-obj" value="" required>
+                                                
+                        </select>
+                            <label for="small-description" >Choose Objective</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 col-lg-12 col-xl-12">
+                        <div class="form-group mb-0">
+                         <select name="" id=""   class="form-control key-BU" value="" required>
+                                                
+                        </select>
+                            <label for="small-description" >Choose Key Result</label>
+                        </div>
+                    </div>
+                      @endif
                    
 
                         
