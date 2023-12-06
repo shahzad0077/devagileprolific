@@ -381,5 +381,20 @@ $updateData = [
     return $objective;
     }
 
+    public function AppendTeam(Request $request)
+    {
+    $index = $request->x;
+    if($request->type == 'unit')
+    {
+    $Team = DB::table('unit_team')->where('org_id',$request->unit_id)->get();
+    }
+    if($request->type == 'stream')
+    { 
+    $Team = DB::table('value_team')->where('org_id',$request->unit_id)->get();
+    }
+     
+    return view('Team.Apeend-Team',compact('Team','index'));  
+    }
+
     
 }
