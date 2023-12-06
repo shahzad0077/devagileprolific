@@ -144,35 +144,14 @@ class FlagController extends Controller
     }
     public function createimpediment(Request $request)
     {
-        if($request->epic_id)
-        {
-            $flag = new flags();
-            $flag->business_units = $request->business_units;
-            $flag->epic_id = $request->epic_id;
-            $flag->flag_type = $request->flag_type;
-            $flag->flag_assign = $request->flag_assign;
-            $flag->flag_title = $request->flag_title;
-            $flag->flag_description = $request->flag_description;
-            $flag->archived = 2;
-            $flag->flag_status = 'todoflag';
-            $flag->board_type = $request->board_type;
-            $flag->save();
-        }
-        else
-        {
-            $flag = new flags();
-            $flag->business_units = $request->business_units;
-            $flag->epic_id = $request->epic_id;
-            $flag->flag_type = $request->flag_type;
-            $flag->flag_assign = $request->flag_assign;
-            $flag->flag_title = $request->flag_title;
-            $flag->flag_description = $request->flag_description;
-            $flag->archived = 2;
-            $flag->flag_status = 'todoflag';
-            $flag->board_type = $request->board_type;
-            $flag->save();
-        }
-        return redirect()->back()->with('message', 'Flag Created Successfully!!');
+        $flag = new flags();
+        $flag->business_units = $request->id;
+        $flag->flag_type = $request->flag_type;
+        $flag->archived = 2;
+        $flag->flag_status = 'todoflag';
+        $flag->board_type = $request->type;
+        $flag->save();
+        return $flag->id;
     }
     public function getepicflag(Request $request)
     {
@@ -520,5 +499,11 @@ class FlagController extends Controller
             </div>';
         }
         
+    }
+    public function moveflag(Request $request)
+    {
+        $flag = flags::find($request->flag_id);
+        $flag->flag_status = $request->board;
+        $flag->save();
     }
 }

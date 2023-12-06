@@ -21083,7 +21083,10 @@ input[type="radio"]:checked {
 .rightside{
     display: flex;
 }
-
+.rightside span{
+    padding: 15px;
+    cursor: pointer;
+}
 .displayflex{
     display: flex;
 }
@@ -21561,4 +21564,80 @@ input[type="radio"]:checked {
 }
 .selectepic a{
     margin-top: -6px;
+}
+
+
+.deleteflag{
+    cursor: auto;
+    position: absolute;
+    border-radius: 5px;
+    display: none; 
+    width: 285px;
+    z-index: 1111;
+    top: 140;
+    left: 80px;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0px 2px 2px 4px rgb(87 106 134 / 20%);
+}
+.deleteflag img{
+    cursor: pointer;
+}
+.deleteflag h4{
+    font-size: 16px;
+    font-weight: 500;
+    color: #47495b;
+}
+.deleteflag button{
+    height: 41px;
+    border-radius: 5px !important;
+}
+
+.deleteflag p{
+    font-size: 12px !important;
+
+}
+
+.moveflag{
+    cursor: auto;
+    position: absolute;
+    border-radius: 5px;
+    display: none; 
+    width: 285px;
+    z-index: 1111;
+    top: 40;
+    left: 80px;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0px 2px 2px 4px rgb(87 106 134 / 20%);
+}
+.moveflag img{
+    cursor: pointer;
+}
+.moveflag h4{
+    font-size: 16px;
+    font-weight: 500;
+    color: #47495b;
+}
+.moveflag button{
+    height: 41px;
+    border-radius: 5px !important;
+}
+
+.moveflag p{
+    font-size: 12px !important;
+
+}
+#edit-epic .modal-content{
+    padding: 5px !important;
+}
+.modalheaderforapend{
+    padding-top: 5px !important;
+}
+.modalfullscreen{
+    max-width: 100%;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
 }

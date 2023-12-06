@@ -14,7 +14,7 @@
         <div class="col-md-12 col-lg-12 col-xl-12">
             <div class="form-group mb-0">
                 <label for="objective-name">Flag Title</label>
-                <input type="text" value="{{ $data->flag_title }}" class="form-control" name="flag_title" id="objective-name" required>
+                <input type="text" value="{{ $data->flag_title }}" class="form-control" name="flag_title" id="flag_tittle" required>
             </div>
         </div>
         <div class="col-md-12 col-lg-12 col-xl-12" id="epicinputtoshow">
@@ -33,18 +33,7 @@
                 @endif
             </div>
             <div class="searchepic-box">
-                <div class="epic">
-                    <div class="epic-tittle">Epic Name</div>
-                    <div class="epic-detail">Objective / Key Result / Initiative</div>
-                </div>
-                <div class="epic">
-                    <div class="epic-tittle">Epic Name</div>
-                    <div class="epic-detail">Objective / Key Result / Initiative</div>
-                </div>
-                <div class="epic">
-                    <div class="epic-tittle">Epic Name</div>
-                    <div class="epic-detail">Objective / Key Result / Initiative</div>
-                </div>
+                
             </div>
         </div>
         <div class="col-md-12 col-lg-12 col-xl-12">

@@ -59,6 +59,7 @@
         </div>
         <div class="d-flex flex-row justify-content-between align-items-center">
             <div class="d-flex flex-row align-items-center">
+                @if(DB::table('flag_members')->where('flag_id' , $r->id)->first())
                 <div class="d-flex flex-row align-items-center image-cont pr-3">
                     <div class="pr-1">
                         @php
@@ -75,6 +76,7 @@
                         {{ $user->name }}
                     </div>
                 </div>
+                @endif
                 <div class="vertical-line pr-2">
                 </div>
                 <div class="d-flex flex-row align-items-center">

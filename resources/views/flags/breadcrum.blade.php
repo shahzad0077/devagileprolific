@@ -66,101 +66,13 @@
                 <a class="dropdown-item" href="javascript:void(0)" onclick="viewboards('archived')">Archived</a>
               </div>
             </div>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#add-flag">Add New</button>
+            <button onclick="addnewflag({{ $organization->id }} , '{{$organization->type}}' , 'Impediment')" class="btn btn-primary">Add New</button>
             <input id="viewboards" value="all" type="hidden" name="">
         </div>
     </div>
 </div>
-
-<!-- Add Edit Epic -->
-
-<div class="modal fade" id="add-flag" role="dialog" aria-labelledby="add-flag" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" style="width: 626px !important;">
-            <div class="modal-header">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h5 class="modal-title" id="create-epic">Add Impediment</h5>
-                    </div>
-                    <div class="col-md-12">
-                        <p>Fill out the form, submit and hit the save button.</p>
-                    </div>
-                </div>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <img src="{{url('public/assets/images/icons/minus.svg')}}">
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row mb-3">
-                    <div class="col-md-12">
-                        <div id="success-flag"></div>
-                    </div>
-                </div>
-                <form id="createimpedimentform" action="{{ url('dashboard/flags/createimpediment') }}" method="POST">
-                    @csrf
-                    <input type="hidden" value="{{ $organization->id }}" name="business_units">
-                    <input type="hidden" value="{{ $type }}" name="board_type">
-                    <div class="row">
-                        <div class="col-md-12 col-lg-12 col-xl-12">
-                            <div class="form-group mb-0">
-                                <input type="text" class="form-control" name="flag_title" id="objective-name" required>
-                                <label for="objective-name">Flag Title</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-xl-6">
-                            <div class="form-group mb-0">
-                               <select name="flag_type" class="form-control" id="flag_type" required>
-                                   <option value="">Select Flag Type</option>
-                                   <option value="Risk">Risk</option>
-                                   <option value="Impediment">Impediment</option>
-                                   <option value="Blocker">Blocker</option>
-                                   <option value="Action">Action</option>
-                               </select>
-                                <label for="small-description">Flag Type</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-6 col-xl-6">
-                            <div class="form-group mb-0">
-                                <select required class="form-control" name="flag_assign" id="flag_assign">
-                                    <option  value="">Select Flag Assignee</option>
-                                    @foreach(DB::table('members')->where('org_user',Auth::id())->get() as $r)                
-                                      <option value="{{ $r->id }}">{{ $r->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="lead-manager">Flag Assignee</label>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-lg-12 col-xl-12">
-                            <div class="form-group mb-0">
-                                <select onchange="showepicdetails(this.value)" id="epics" name="epic_id" class="form-control">
-                                    <option value="">Select Epic</option>
-                                    @foreach($epics as $r)
-                                    <option value="{{ $r->id }}">{{ $r->epic_name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="small-description" class="lable-bottom-imp" style="top:-40px">Assign to an Epic (Optional)</label>
-                            </div>
-                            <div id="epicresult"></div>
-                        </div>
-                        <div class="col-md-12 col-lg-12 col-xl-12">
-                            <div class="form-group mb-0">
-                                <input name="flag_description" type="text" name="description" class="form-control" id="description" required>
-                                <label for="description">Small Description</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button id="addflagbutton" type="submit" class="btn btn-primary btn-lg btn-theme btn-block ripple">Submit</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal" id="edit-epic" tabindex="-1" role="dialog" aria-labelledby="edit-epic" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg modalfullscreen" id="modaldialog" role="document">
         <div class="modal-content newmodalcontent" id="newmodalcontent">
             
         </div>
@@ -193,6 +105,24 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/dragula@3.7.3/dist/dragula.min.js"></script>
 <script>
+function addnewflag(id,type,flag_type) {
+    $.ajax({
+        type: "POST",
+        url: "{{ url('dashboard/flags/createimpediment') }}",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            id:id,
+            type:type,
+            flag_type:flag_type
+        },
+        success: function(res) {
+            viewboards($('#viewboards').val());
+            editflag(res);
+        }
+    });
+}
 function showmemberbox() {
     $('.memberadd-box').slideToggle();
 }
@@ -372,7 +302,9 @@ function deleteflag(id) {
     $('#deleteid').val(id);
     $('#deleteflagmodal').modal('show');
 }
-
+function maximizemodal() {
+    alert('ok');
+}
 $('#deleteflagform').on('submit',(function(e) {
     $('#deleteflagbutton').html('<i class="fa fa-spin fa-spinner"></i>');
     e.preventDefault();
@@ -389,40 +321,6 @@ $('#deleteflagform').on('submit',(function(e) {
             $('#deleteflagbutton').html('Confirm');
             $('#'+value).remove();
             $('#deleteflagmodal').modal('hide');
-        }
-    });
-}));
-$('#createimpedimentform').on('submit',(function(e) {
-    $('#addflagbutton').html('<i class="fa fa-spin fa-spinner"></i>');
-    e.preventDefault();
-    $('#success-flag').html('')
-    var formData = new FormData(this);
-    var cardid = $('#cardid').val();
-    $.ajax({
-        type:'POST',
-        url: $(this).attr('action'),
-        data:formData,
-        cache:false,
-        contentType: false,
-        processData: false,
-        success: function(data){
-            if(data.error == 1)
-            {
-                $('#addflagbutton').html('Submit');
-                $('#success-flag').html(
-                    '<div class="alert alert-danger" role="alert">This Epic Has Already Flag Created</div>'
-                );
-            }else{
-                $("#createimpedimentform")[0].reset();
-                $('#addflagbutton').html('<i class="fa fa-check"></i> Success');
-                $('#addflagbutton').css('background-color' , 'green');
-                viewboards('all');
-                $('#add-flag').modal('hide');
-                $('#addflagbutton').css('background-color' , '#3661EC');
-                $('#addflagbutton').html('Submit');
-
-            }
-            
         }
     });
 }));
@@ -465,6 +363,12 @@ $(document).ready(function() {
         editflag("{{ $_GET['flag'] }}")
     @endif
     $("#edit-epic").on('hidden.bs.modal', function(){
+       if($('#flag_tittle').val() == '')
+       {
+            var cardid = $('#cardid').val();
+            $('#'+cardid).remove();
+            deleteflag($('#cardid').val())
+       }
        var new_url="{{ url()->current() }}";
        window.history.pushState("data","Title",new_url);
     });

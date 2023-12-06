@@ -107,6 +107,8 @@
     </div>
 </div>
 <div class="rightside" >
-    <img src="{{url('public/assets/svg/maximize.svg')}}">
+    <span onclick="maximizemodal()">
+        <img  src="{{url('public/assets/svg/maximize.svg')}}">
+    </span>
     <img data-dismiss="modal" class="closeimage" aria-label="Close" src="{{url('public/assets/svg/cross.svg')}}">
 </div>

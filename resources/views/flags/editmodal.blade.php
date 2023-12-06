@@ -13,25 +13,63 @@
                     <li id="attachment" onclick="showtab({{$data->id}} , 'attachment')" class="tabsclass"><img src="{{ url('public/assets/svg/attachment.svg') }}"> Attachments</li>
                 </ul>
                 <h4>Action</h4>
-                <ul>
+                <ul class="positionrelative">
                     @php
                         $check_escalate = DB::table('escalate_cards')->where('flag_id' , $data->id)
                     @endphp
                     @if($data->board_type != 'unit')
-                        @if($check_escalate > 0)
+                        @if($check_escalate->count() > 0)
                             <li><img src="{{ url('public/assets/svg/escalate-action.svg') }}"> Escalated</li>
                         @else
-                            <li onclick="escalateflag({{$data->id}})"><img src="{{ url('public/assets/svg/escalate-action.svg') }}"> Escalated</li>
+                            <li onclick="escalateflag({{$data->id}})"><img src="{{ url('public/assets/svg/escalate-action.svg') }}"> Escalate</li>
                         @endif
                     @endif
                     <li><img src="{{ url('public/assets/svg/share-action.svg') }}"> Share</li>
-                    <li><img src="{{ url('public/assets/svg/arrow-right-action.svg') }}"> Move</li>
+                    <li onclick="moveflagshow({{$data->id}})"><img src="{{ url('public/assets/svg/arrow-right-action.svg') }}"> Move</li>
                     @if($data->archived == 1)
                     <li onclick="unarchiveflag({{$data->id}})"><img src="{{ url('public/assets/svg/archive-action.svg') }}"> Un Archive</li>
                     @else
                     <li onclick="archiveflag({{$data->id}})"><img src="{{ url('public/assets/svg/archive-action.svg') }}"> Archive</li>
                     @endif
-                    <li><img src="{{ url('public/assets/svg/trash-action.svg') }}"> Delete</li>
+                    <li onclick="deleteflagshow({{$data->id}})"><img src="{{ url('public/assets/svg/trash-action.svg') }}"> Delete
+                    </li>
+                    <div class="moveflag" id="moveflag{{ $data->id }}">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h4>Move Flag</h4>
+                            </div>
+                            <div class="col-md-2">
+                                <img onclick="moveflagshow({{$data->id}})" src="{{ url('public/assets/svg/crossdelete.svg') }}">
+                            </div>
+                        </div>
+                        <form id="moveflagform{{ $data->id }}" method="POST" action="{{ url('dashboard/flags/moveflag') }}">
+                            @csrf
+                            <input type="hidden" value="{{ $data->id }}" name="flag_id">
+                            <div class="form-group">
+                                <label>Select Board</label>
+                                <select class="form-control" name="board">
+                                    <option value="">Select Board</option>
+                                    <option @if($data->flag_status == 'todoflag') selected @endif value="todoflag">To Do @if($data->flag_status == 'todoflag') (Current) @endif</option>
+                                    <option @if($data->flag_status == 'inprogress') selected @endif value="inprogress">In Progress @if($data->flag_status == 'inprogress') (Current) @endif</option>
+                                    <option @if($data->flag_status == 'doneflag') selected @endif value="doneflag">Done @if($data->flag_status == 'doneflag') (Current) @endif</option>
+                                </select>
+                            </div>
+                            <button id="moveflagbutton" type="submit" class="btn btn-primary btn-block">Move</button>
+                        </form>
+                        
+                    </div>
+                    <div class="deleteflag" id="flagdelete{{ $data->id }}">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h4>Delete Flag</h4>
+                            </div>
+                            <div class="col-md-2">
+                                <img onclick="deleteflagshow({{$data->id}})" src="{{ url('public/assets/svg/crossdelete.svg') }}">
+                            </div>
+                        </div>
+                        <p>All actions will be removed from the activity feed and you won’t be able to re-open the card. There is no undo.</p>
+                        <button onclick="deleteflag({{ $data->id }})" class="btn btn-danger btn-block">Delete</button>
+                    </div>
                 </ul>
             </div>
         </div>
@@ -41,6 +79,50 @@
     </div>
 </div>
 <script type="text/javascript">
+    $('#moveflagform{{ $data->id }}').on('submit',(function(e) {
+        $('#moveflagbutton').html('<i class="fa fa-spin fa-spinner"></i>');
+        e.preventDefault();
+        var value = $('#deleteid').val();
+        var formData = new FormData(this);
+        $.ajax({
+            type:'POST',
+            url: $(this).attr('action'),
+            data:formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            success: function(data){
+                $('#moveflagbutton').html('Move');
+                viewboards($('#viewboards').val());
+                editflag("{{ $data->id }}")
+            }
+        });
+    }));
+    function deleteflag(id) {
+        $.ajax({
+            type: "POST",
+            url: "{{ url('dashboard/flags/deleteflag') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                delete_id:id,
+            },
+            success: function(res) {
+                $('#edit-epic').modal('hide');
+                viewboards($('#viewboards').val());
+            },
+            error: function(error) {
+                
+            }
+        });
+    }
+    function moveflagshow(id) {
+        $('#moveflag'+id).slideToggle();
+    }
+    function deleteflagshow(id) {
+        $('#flagdelete'+id).slideToggle();
+    }
     function searchmember(id) {
         var dataid = '{{ $data->id }}';
         $.ajax({

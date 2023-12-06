@@ -235,6 +235,7 @@ Route::name('flags.')->namespace('App\Http\Controllers')->prefix('dashboard/flag
     Route::POST('removeepic', 'FlagController@removeepic');
     Route::POST('searchepic', 'FlagController@searchepic');
     Route::POST('selectepic', 'FlagController@selectepic');
+    Route::POST('moveflag', 'FlagController@moveflag');
 });
 Route::name('react.')->namespace('App\Http\Controllers')->prefix('dashboard/react')->group(function () {
     Route::get('{organizationid}', 'ReactController@index');
