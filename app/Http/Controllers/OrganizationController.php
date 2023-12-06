@@ -12,6 +12,10 @@ use Carbon\Carbon;
 
 class OrganizationController extends Controller
 {
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
     // public function Organization()
     // {
     //     $organization  = Organization::where('user_id',Auth::id())->where('trash',NULL)->Paginate(10);

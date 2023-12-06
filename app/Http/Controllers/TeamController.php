@@ -396,5 +396,21 @@ $updateData = [
     return view('Team.Apeend-Team',compact('Team','index'));  
     }
 
+    public function AppendBU(Request $request)
+    {
+    $index = $request->y;
+    $type = $request->type;    
+    if($request->type == 'BU')
+    {
+    $Team = DB::table('business_units')->where('id',$request->org_id)->get();
+    }
+    if($request->type == 'VS')
+    { 
+    $Team = DB::table('value_stream')->where('id',$request->org_id)->get();
+    }
+     
+    return view('Team.Append-Bu',compact('Team','index','type'));  
+    }
+
     
 }
