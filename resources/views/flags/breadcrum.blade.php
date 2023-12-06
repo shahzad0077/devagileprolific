@@ -341,7 +341,8 @@ function archiveflag(id) {
             id:id,
         },
         success: function(res) {
-            viewboards($('#viewboards').val())
+            viewboards($('#viewboards').val());
+            editflag(id);
         },
         error: function(error) {
             console.log('Error updating card position:', error);
@@ -359,7 +360,8 @@ function unarchiveflag(id) {
             id:id,
         },
         success: function(res) {
-            viewboards($('#viewboards').val())
+            viewboards($('#viewboards').val());
+            editflag(id);
         },
         error: function(error) {
             console.log('Error updating card position:', error);

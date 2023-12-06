@@ -14,10 +14,23 @@
                 </ul>
                 <h4>Action</h4>
                 <ul>
-                    <li><img src="{{ url('public/assets/svg/escalate-action.svg') }}"> Escalate</li>
+                    @php
+                        $check_escalate = DB::table('escalate_cards')->where('flag_id' , $data->id)
+                    @endphp
+                    @if($data->board_type != 'unit')
+                        @if($check_escalate > 0)
+                            <li><img src="{{ url('public/assets/svg/escalate-action.svg') }}"> Escalated</li>
+                        @else
+                            <li onclick="escalateflag({{$data->id}})"><img src="{{ url('public/assets/svg/escalate-action.svg') }}"> Escalated</li>
+                        @endif
+                    @endif
                     <li><img src="{{ url('public/assets/svg/share-action.svg') }}"> Share</li>
                     <li><img src="{{ url('public/assets/svg/arrow-right-action.svg') }}"> Move</li>
-                    <li><img src="{{ url('public/assets/svg/archive-action.svg') }}"> Archive</li>
+                    @if($data->archived == 1)
+                    <li onclick="unarchiveflag({{$data->id}})"><img src="{{ url('public/assets/svg/archive-action.svg') }}"> Un Archive</li>
+                    @else
+                    <li onclick="archiveflag({{$data->id}})"><img src="{{ url('public/assets/svg/archive-action.svg') }}"> Archive</li>
+                    @endif
                     <li><img src="{{ url('public/assets/svg/trash-action.svg') }}"> Delete</li>
                 </ul>
             </div>
