@@ -309,6 +309,19 @@ class ObjectiveController extends Controller
           ]);
         }
 
+        if($request->has('selectedOptionsteam')){
+        foreach($request->selectedOptionsteam  as $key => $value)
+        {
+      
+          DB::table('team_link_parent')->insert([
+            'link_team_id' => $request->selectedOptionsteam[$key],
+            'key_id' => $KEY,
+            'buisness_unit_id' => $request->unit_id,
+            'link_obj_id' => $request->teamObj[$key],
+          ]);
+        }
+      }
+
         if($request->type == 'unit')
         {
          $organization  = DB::table('business_units')->where('slug',$request->slug)->first();

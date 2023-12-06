@@ -258,3 +258,4 @@ Route::get('get-team', [App\Http\Controllers\TeamController::class,'GetTeam']);
 Route::get('get-team-obj', [App\Http\Controllers\TeamController::class,'GetTeamObj']);
 Route::get('get-unit-obj', [App\Http\Controllers\TeamController::class,'GetBUObj']);
 Route::get('get-BU-key', [App\Http\Controllers\TeamController::class,'GetBUKey']);
+Route::get('append-team', [App\Http\Controllers\TeamController::class,'AppendTeam']);

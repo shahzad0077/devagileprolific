@@ -397,6 +397,18 @@ $('.target_value').each(function() {
     Target.push($(this).val());
 });
 
+var selectedOptionsteam = [];
+    $('.key-team').each(function() {
+        selectedOptionsteam.push($(this).val());
+    });
+   
+    var teamObj = [];
+    $('.obj-team').each(function() {
+        teamObj.push($(this).val());
+    });  
+
+ 
+
 
 
 if ($('#key_name').val() == '') 
@@ -429,7 +441,10 @@ $.ajax({
         target_number:target_number,
         init_value:init_value,
         key_result_type:key_result_type,
-        key_result_unit:key_result_unit
+        key_result_unit:key_result_unit,
+        selectedOptionsteam:selectedOptionsteam,
+        teamObj:teamObj,
+
 
     },
     success: function(res) {
@@ -2971,6 +2986,37 @@ var iniV = $('#init_value').val();
 
 
 }
+
+var x = 1;
+function appendteam()
+{
+    
+      x++;
+    
+    var unit_id = "{{ $organization->id }}";
+    var type = "{{ $organization->type }}";  
+        $.ajax({
+        type: "GET",
+        url: "{{ url('append-team') }}",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+        unit_id:unit_id,
+        type:type,
+        x:x,
+        },
+        success: function(res) {
+        $('.field_wrapper_bu_team').append(res);
+        }
+        });
+
+        }
+
+        function remove_div(div) 
+        {
+        $('#remove_button'+div).remove();
+        }   
 
 
 function getRandomInt(min, max) {
