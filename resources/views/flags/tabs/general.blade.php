@@ -17,13 +17,20 @@
                 <input type="text" value="{{ $data->flag_title }}" class="form-control" name="flag_title" id="objective-name" required>
             </div>
         </div>
-        <div class="col-md-12 col-lg-12 col-xl-12">
+        <div class="col-md-12 col-lg-12 col-xl-12" id="epicinputtoshow">
+            <input type="hidden" id="epic_id" value="{{ $data->epic_id }}" name="epic_id">
             <div class="form-group mb-0 positionrelative">
                 <label for="objective-name">Epic (Optional)</label>
-                <input type="text" placeholder="Search Epic" class="form-control" name="epic_id" id="objective-name" required>
+                <input onkeyup="searchepic(this.value)" type="text" placeholder="Search Epic" class="form-control">
                 <div class="searchiconforinput">
                     <img src="{{ url('public/assets/images/searchiconsvg.svg') }}">
                 </div>
+                @if($data->epic_id)
+                <div class="selectepic">
+                    <p>{{ DB::Table('epics')->where('id' , $data->epic_id)->first()->epic_name }}</p>
+                    <a onclick="removeepic({{ $data->id }})" href="javascript:void(0)"><img class="closeimage" src="{{url('public/assets/svg/cross.svg')}}"></a>
+                </div>
+                @endif
             </div>
             <div class="searchepic-box">
                 <div class="epic">
@@ -56,7 +63,8 @@
     </div>
 </form>
 <script>
-     $('#editor{{ $data->id }}').summernote({
+
+    $('#editor{{ $data->id }}').summernote({
         height: 180,
         toolbar: [
             ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -86,4 +94,42 @@
             }
         });
     }));
+    function removeepic(id) {
+        $.ajax({
+            type: "POST",
+            url: "{{ url('dashboard/flags/removeepic') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                id:id,
+            },
+            success: function(res) {
+                $('#epicinputtoshow').html(res);
+            },
+            error: function(error) {
+                console.log('Error updating card position:', error);
+            }
+        });
+    }
+    function selectepic(id) {
+        var flagid = '{{ $data->id }}';
+        $.ajax({
+            type: "POST",
+            url: "{{ url('dashboard/flags/selectepic') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                id:id,
+                flagid:flagid,
+            },
+            success: function(res) {
+                $('#epicinputtoshow').html(res);
+            },
+            error: function(error) {
+                console.log('Error updating card position:', error);
+            }
+        });
+    }
 </script>

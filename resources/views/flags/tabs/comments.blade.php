@@ -82,7 +82,6 @@
                                 <div>
                                     <div class="form-group mb-0">
                                         <input value="{{ $r->comment }}" type="text" class="form-control" name="comment" id="objective-name" required>
-                                        <label for="objective-name">Write Comment</label>
                                     </div>
                                 </div>
                                 <div>
@@ -197,7 +196,6 @@
                                     <div>
                                         <div class="form-group mb-0">
                                             <input value="{{ $p->comment }}" type="text" class="form-control" name="comment" id="objective-name" required>
-                                            <label for="objective-name">Write Comment</label>
                                         </div>
                                     </div>
                                     <div>
@@ -256,7 +254,7 @@
                         processData: false,
                         success: function(data){
                             $('#updatecommentbutton{{ $p->id }}').html('Save');
-                            $('.comment-area').html(data);
+                            $('.secondportion').html(data);
                         }
                     });
                 }));
@@ -276,7 +274,7 @@
                     processData: false,
                     success: function(data){
                         $('#updatecommentbutton{{ $r->id }}').html('Save');
-                        $('.comment-area').html(data);
+                        $('.secondportion').html(data);
                     }
                 });
             }));

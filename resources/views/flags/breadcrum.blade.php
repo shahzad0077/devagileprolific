@@ -467,4 +467,33 @@ $(document).ready(function() {
        window.history.pushState("data","Title",new_url);
     });
 });
+function searchepic(id) {
+    var type = '{{ $type }}';
+    var organizationid = '{{ $organization->slug }}';
+    $.ajax({
+        type: "POST",
+        url: "{{ url('dashboard/flags/searchepic') }}",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            id:id,
+            type:type,
+            organizationid:organizationid,
+        },
+        success: function(res) {
+            if(id == '')
+            {
+                $('.searchepic-box').hide();
+            }else{
+                $('.searchepic-box').show();
+                $('.searchepic-box').html(res);
+            }
+            
+        },
+        error: function(error) {
+            console.log('Error updating card position:', error);
+        }
+    });
+}
 </script>

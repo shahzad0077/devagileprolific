@@ -28,6 +28,26 @@
     </div>
 </div>
 <script type="text/javascript">
+    function searchmember(id) {
+        var dataid = '{{ $data->id }}';
+        $.ajax({
+            type: "POST",
+            url: "{{ url('dashboard/flags/searchmember') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                id:id,
+                dataid:dataid,
+            },
+            success: function(res) {
+                $('#memberstoshow').html(res)
+            },
+            error: function(error) {
+                
+            }
+        });
+    }
     function savemember(id,dataid) {
         $.ajax({
             type: "POST",

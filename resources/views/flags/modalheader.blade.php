@@ -68,14 +68,14 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-2 positionrelative">
-                                <input type="text" placeholder="Search Member" class="form-control" name="flag_title" id="objective-name" required>
+                                <input onkeyup="searchmember(this.value)" type="text" placeholder="Search Member" class="form-control" name="flag_title" id="objective-name" required>
                                 <div class="membersearchiconforinput">
                                     <img src="{{ url('public/assets/images/searchiconsvg.svg') }}">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" id="memberstoshow">
                         @foreach(DB::table('members')->where('org_user' , Auth::id())->limit(2)->get() as $r)
                         <div class="col-md-12 memberprofile" onclick="savemember({{$r->id}} , {{$data->id}})">
                             <div class="row">

@@ -21543,3 +21543,22 @@ input[type="radio"]:checked {
 #members{
     display: flex;
 }
+.selectepic{
+    display: flex;
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    background-color: #797979;
+    height: 33px;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+}
+.selectepic img{
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+}
+.selectepic a{
+    margin-top: -6px;
+}

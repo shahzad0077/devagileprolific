@@ -122,7 +122,6 @@ class FlagController extends Controller
         $update = flags::find($request->id);
         $update->flag_title = $request->flag_title;
         $update->flag_description = $request->flag_description;
-        $update->flag_type = $request->flag_type;
         $update->save();
         $r = $update;
         if($update->escalate)
@@ -136,15 +135,6 @@ class FlagController extends Controller
         }
         Cmf::save_activity(Auth::id() , 'Updated a Impediment Flag','flags',$request->id);
         $html = view('flags.simplecard', compact('r'))->render();
-        return $html;
-    }
-    public function updatecomment(Request $request)
-    {
-        $addcomment = flag_comments::find($request->comment_id);
-        $addcomment->comment = $request->comment;
-        $addcomment->save();
-        $comments = flag_comments::where('flag_id' , $addcomment->flag_id)->wherenull('comment_id')->orderby('id' , 'desc')->get();
-        $html = view('flags.allcomments', compact('comments'))->render();
         return $html;
     }
     public function deleteflag(Request $request)
@@ -341,6 +331,20 @@ class FlagController extends Controller
         $html = view('flags.tabs.comments', compact('comments','data'))->render();
         return $html;
     }
+    public function updatecomment(Request $request)
+    {
+        $addcomment = flag_comments::find($request->comment_id);
+        $addcomment->comment = $request->comment;
+        $addcomment->save();
+
+        Cmf::save_activity(Auth::id() , 'Update a Comment','flags',$addcomment->flag_id);
+
+
+        $comments = flag_comments::where('flag_id' , $addcomment->flag_id)->wherenull('comment_id')->orderby('id' , 'desc')->get();
+        $data = flags::find($addcomment->flag_id);
+        $html = view('flags.tabs.comments', compact('comments','data'))->render();
+        return $html;
+    }
     public function savereply(Request $request)
     {
         $addcomment = new flag_comments();
@@ -450,5 +454,71 @@ class FlagController extends Controller
             $html = view('flags.tabs.attachments', compact('attachments','data','orderby'))->render();
             return $html;
         }
+    }
+    public function searchmember(Request $request)
+    {
+        $member = DB::table('members')->where('name', 'LIKE', "%$request->id%")->where('org_user' , Auth::id())->limit(2)->get();
+        $data = flags::find($request->dataid);
+        $html = view('flags.tabs.searchmember', compact('member','data'))->render();
+            return $html;
+    }
+    public function removeepic(Request $request)
+    {
+        $update = flags::find($request->id);
+        $update->epic_id = null;
+        $update->save();
+        $data = flags::find($request->id);
+        $html = view('flags.tabs.epicinputtoshow', compact('data'))->render();
+        return $html;
+    }
+    public function selectepic(Request $request)
+    {
+        $update = flags::find($request->flagid);
+        $update->epic_id = $request->id;
+        $update->save();
+        $data = flags::find($request->flagid);
+        $html = view('flags.tabs.epicinputtoshow', compact('data'))->render();
+        return $html;
+    }
+    public function searchepic(Request $request)
+    {
+        if($request->type == 'stream')
+        {
+            $organization = DB::table('value_stream')->where('slug',$request->organizationid)->first();
+        }
+        if($request->type == 'unit')
+        {
+            $organization = DB::table('business_units')->where('slug',$request->organizationid)->first();
+        }
+        if($request->type == 'BU')
+        {
+            $organization = DB::table('unit_team')->where('slug',$request->organizationid)->first();
+        }
+        if($request->type == 'VS')
+        {
+            $organization = DB::table('value_team')->where('slug',$request->organizationid)->first();
+        }
+        $epics = DB::table('epics')->where('epic_name', 'LIKE', "%$request->id%")->where('buisness_unit_id' , $organization->id)->where('trash' , Null)->get();
+
+        if($epics->count() > 0)
+        {
+            foreach ($epics as $r) {
+                $data  = Epic::where('id' , $r->id)->first();
+                $buisness_unit_id = DB::table('business_units')->where('id' , $data->buisness_unit_id)->first()->business_name;
+                $obj_id = DB::table('objectives')->where('id' , $data->obj_id)->first()->objective_name;
+                $key_id = DB::table('key_result')->where('id' , $data->key_id)->first()->key_name;
+                $initiative_id = DB::table('initiative')->where('id' , $data->initiative_id)->first()->initiative_name;
+                $string = $buisness_unit_id.' / '.$obj_id.' / '.$key_id.' / '.$initiative_id;
+                echo '<div onclick="selectepic('.$r->id.')" class="epic">
+                        <div class="epic-tittle">'.$r->epic_name.'</div>
+                        <div class="epic-detail">'.$string.'</div>
+                    </div>';
+            }
+        }else{
+            echo '<div class="nodatafound">
+                <h4>No Epics Found Try Again</h4>    
+            </div>';
+        }
+        
     }
 }
