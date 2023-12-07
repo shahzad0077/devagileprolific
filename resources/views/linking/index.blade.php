@@ -6,7 +6,7 @@
 <style>
 .flowchart-example-container {
     width: 100%;
-    height: 400px;
+    height: 100vh;
     background: white;
     border: 1px solid #BBB;
     margin-bottom: 10px;

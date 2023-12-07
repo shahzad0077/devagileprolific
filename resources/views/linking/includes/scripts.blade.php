@@ -259,22 +259,23 @@
                             label: '',
                         }
                     },
-                    body:'<div class="row"><div class="col-md-6">Hello</div><div class="col-md-6">Hello</div></div>'
+                    body:'<div class="row"> <div class="col-md-12"> <h3 style=" font-size: 16px; font-weight: 600; margin-bottom: 15px; ">Increase Sales Growth</h3> </div> </div> <div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div> <div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div><div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div><div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div>'
                 }
             },
             @endforeach
 
-            @foreach(DB::table('unit_team')->limit(3)->get() as $key=>$r)
+            @foreach(DB::table('unit_team')->limit(2)->get() as $key=>$r)
             operator{{ $r->id }}: {
                 top: 80,
-                left: 300,
+                left: 660,
                 properties: {
                     title: '{{ $r->team_title }}',
                     inputs: {
                         input_1: {
-                            label: 'Input 1',
+                            label: '',
                         }
                     },
+                    body:'<div class="row"> <div class="col-md-12"> <h3 style=" font-size: 16px; font-weight: 600; margin-bottom: 15px; ">Increase Sales Growth</h3> </div> </div> <div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div> <div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div><div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div><div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div>',
                     outputs: {}
                 }
             },
