@@ -21672,6 +21672,15 @@ input[type="radio"]:checked {
     font-weight: 500;
 }
 .dashboard-card-second{
+    height: 400px;
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--white, #FFF);
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+    border: transparent !important;
+}
+.dashboard-card-third{
+    height: 375px;
     padding: 20px;
     border-radius: 12px;
     background: var(--white, #FFF);
@@ -21724,10 +21733,111 @@ input[type="radio"]:checked {
 }
 .progress-container {
   display: flex;
-  justify-content: space-between;
+}
+.custom-progress-bar {
+  flex-grow: 1;
+  height: 12px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+.progress-bar-green {
+  background-color: #3fe1a7;
+}
+.progress-bar-blue {
+  background-color: #e1db3f;
+}
+.progress-bar-yellow {
+  background-color: #787878;
+}
+.custom-progress-bar:last-child {
+  margin-right: 0;
+}
+.objectivepoints{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.dotforobjectivedashboard {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+.objectivepointtittle{
+    font-size: 14px;
+    color: #787878;
+}
+.objectivepointanswer{
+    font-size: 14px;
+    color: black;
+    font-weight: 500;
+}
+.chartforkeyresult{
+    width: 100%;
+    height: 100%;
 }
 
-.progress-bar-for-objective {
-  flex-grow: 1;
-  margin-right: 10px;
+@keyframes circleprogressbar {
+  0%, 33% { --pgPercentage: 0; }
+  100% { --pgPercentage: var(--value); }
+}
+
+@property --pgPercentage {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+.circleprogressbar{
+    margin-left: 45px;
+}
+div[role="circleprogressbar"] {
+  --size: 9rem;
+  --fg: #3fe1a7;
+  --bg: #def;
+  --pgPercentage: 10;
+  animation: circleprogressbar 3s 1 forwards;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: 
+    radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0),
+    conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0)
+    ;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: calc(var(--size) / 5);
+  color: var(--fg);
+}
+
+div[role="circleprogressbar"]::before {
+  counter-reset: percentage var(--value);
+  content: counter(percentage) '%';
+}
+.targetprice{
+    text-align: center;
+    font-size: 21px;
+    font-weight: 500;
+}
+.targetprice small{
+    font-size: 15px;
+    color: #787878;
+}
+
+.seereportdashboard{
+    width: 100%;
+    border-radius: 54px;
+    padding: 9px 16px;
+    height: 43px;
+    flex-shrink: 0;
+    border: 1px solid #3661EC;
+    background: var(--primary-color, #3661EC);
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    min-width: 100px;
+    line-height: normal;
+    color: white;
+    box-shadow: 0px 9px 37px 0px rgba(84, 122, 255, 0.37);
 }
