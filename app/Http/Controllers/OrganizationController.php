@@ -632,6 +632,33 @@ class OrganizationController extends Controller
         DB::table('sprint_report')->where('q_id',$request->sprint_id)->delete();
         return redirect()->back();
     }
+
+    public function AddnewKeyQvalue(Request $request)
+    {
+      $kindex = DB::table('key_chart')->where('key_id',$request->id)->where('buisness_unit_id',$request->unit_id)->orderby('id','DESC')->first();
+      $Index =  $kindex->IndexCount + 1;
+      DB::table('key_chart')->insert([
+          'key_id' => $request->id,
+          'quarter_value' => $request->value,
+          'buisness_unit_id' => $request->unit_id,
+          'IndexCount' =>  $Index,
+        
+        ]);
+
+    $KEYChart = array();
+    $report = DB::table('sprint')->where('user_id',Auth::id())->where('status',NULL)->where('value_unit_id',$request->unit_id)->first();
+    if($report)
+    {
+    $KEYChart =  DB::table('key_chart')->where('key_id',$request->id)->where('IndexCount',$report->IndexCount)->first();
+
+    }
+    $key = DB::table('key_result')->where('id',$request->id)->first();
+    $keyQAll = DB::table('key_chart')->where('key_id',$request->id)->get();
+   
+
+    return view('objective.key-chart',compact('KEYChart','key','report','keyQAll'));
+
+    }
     
     
     
