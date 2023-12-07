@@ -252,7 +252,7 @@
                 top: 20,
                 left: 20,
                 properties: {
-                    title: '{{ $r->key_name }}',
+                    title: '<div class="row"><div class="col-md-9">{{ $r->key_name }}</div><div class="col-md-2"><div style=" padding-bottom: 5px !important; padding-top: 5px !important; " class="badge badge-primary">100%</div></div></div>',
                     inputs: {},
                     outputs: {
                         output_1: {
@@ -269,7 +269,7 @@
                 top: 80,
                 left: 660,
                 properties: {
-                    title: '{{ $r->team_title }}',
+                    title: '<div class="row"><div class="col-md-9">{{ $r->team_title }}</div><div class="col-md-2"><div style=" padding-bottom: 5px !important; padding-top: 5px !important; " class="badge badge-primary">100%</div></div></div>',
                     inputs: {
                         input_1: {
                             label: '',
