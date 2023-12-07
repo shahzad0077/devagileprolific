@@ -21412,7 +21412,7 @@ input[type="radio"]:checked {
     overflow: hidden;
     position: absolute;
     padding: 8px;
-    z-index: 11111;
+    z-index: 900;
     top: 0;
     left: 3%;
     transform: translateX(-50%);
@@ -21640,4 +21640,94 @@ input[type="radio"]:checked {
     padding: 0px;
     height: 100%;
     width: 100%;
+}
+
+.dashboard-card{
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--white, #FFF);
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+    border: transparent !important;
+    padding-left: 35px;
+}
+.dashboard-card-tittle{
+    margin-top: 10px;
+}
+.dashboard-card-tittle h4{
+    font-size: 14px;
+    color: #999999;
+}
+.dashboard-card-number{
+    margin-top: 10px;
+}
+.dashboard-card-number h3{
+    font-size: 20px;
+    font-weight: 700;
+}
+.dashboard-card-tittle-second{
+    display: flex;
+}
+.dashboard-card-tittle-second h4{
+    font-size: 16px;
+    font-weight: 500;
+}
+.dashboard-card-second{
+    padding: 20px;
+    border-radius: 12px;
+    background: var(--white, #FFF);
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+    border: transparent !important;
+}
+.dashboard-card-dropdown img{
+    cursor: pointer;
+}
+.dashboard-card-subtittle p{
+    color: #787878;
+    font-size: 14px;
+}
+.percentagenumber{
+    font-size: 12px;
+    font-weight: 600;
+}
+.percentagetittle{
+    color: #787878;
+    font-size: 12px;
+}
+.color-3F51B5{
+    background: #3F51B5;
+}
+.color-0AF30A{
+    background: #0AF30A;
+}
+.color-green{
+    background: green;
+}
+.color-black{
+    background: black;
+}
+.color-red{
+    background: red;
+}
+.color-FFC100{
+    background: #FFC100;
+}
+.performance{
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+.dashboard-object-tittle{
+    font-size: 15px;
+}
+.dashboard-object-tittle-points{
+    font-size: 16px;
+    font-weight: 600;
+}
+.progress-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-bar-for-objective {
+  flex-grow: 1;
+  margin-right: 10px;
 }

@@ -6,17 +6,354 @@ $var_objective = "Org";
 @section('content')
 <div class="row">
     <div class="col-md-12 py-3 p-0">
-        <div class="card">
-            <div class="card-body p-10">
-                <div class="row">
-                    <div class="col-md-12 mb-2">
-                        <button class="btn btn-sm btn-dark" style="display:none;" id="delete-button" onclick="delete_record();" type="button">Delete All</button>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="dashboard-card">
+                    <div class="card-svg">
+                        <img src="{{ url('public/assets/svg/portfoliosvg.svg') }}">
                     </div>
+                    <div class="dashboard-card-tittle">
+                        <h4>Portfolio</h4>
+                    </div>
+                    <div class="dashboard-card-number">
+                        <h3>25</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="dashboard-card">
+                    <div class="card-svg">
+                        <img src="{{ url('public/assets/svg/epicsbacklogsvg.svg') }}">
+                    </div>
+                    <div class="dashboard-card-tittle">
+                        <h4>Epics Backlog</h4>
+                    </div>
+                    <div class="dashboard-card-number">
+                        <h3>25</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="dashboard-card">
+                    <div class="card-svg">
+                        <img src="{{ url('public/assets/svg/performancesvg.svg') }}">
+                    </div>
+                    <div class="dashboard-card-tittle">
+                        <h4>Performance</h4>
+                    </div>
+                    <div class="dashboard-card-number">
+                        <h3>25</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="dashboard-card">
+                    <div class="card-svg">
+                        <img src="{{ url('public/assets/svg/teamssvg.svg') }}">
+                    </div>
+                    <div class="dashboard-card-tittle">
+                        <h4>Teams</h4>
+                    </div>
+                    <div class="dashboard-card-number">
+                        <h3>25</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="dashboard-card">
+                    <div class="card-svg">
+                        <img src="{{ url('public/assets/svg/reportingsvg.svg') }}">
+                    </div>
+                    <div class="dashboard-card-tittle">
+                        <h4>Reporting</h4>
+                    </div>
+                    <div class="dashboard-card-number">
+                        <h3>25</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="dashboard-card">
+                    <div class="card-svg">
+                        <img src="{{ url('public/assets/svg/impedimentssvg.svg') }}">
+                    </div>
+                    <div class="dashboard-card-tittle">
+                        <h4>Impediments</h4>
+                    </div>
+                    <div class="dashboard-card-number">
+                        <h3>25</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-7">
+            <div class="col-md-4">
+                <div class="dashboard-card-second">
+                    <div class="dashboard-card-tittle-second row">
+                        <div class="col-md-10">
+                            <h4>Performance</h4>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <div class="dashboard-card-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img  src="{{url('public/assets/svg/more.svg')}}" width="20">
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="javascript:void(0)">Action One</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">Action Two</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">Action Three</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="dashboard-card-subtittle">
+                                <p>Measure How Fast Your teams are growing</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="performance">
+                        <div class="row">
+                            <div class="col-md-6 percentagetittle">
+                                Design Team
+                            </div>
+                            <div class="col-md-6 text-right percentagenumber">
+                                90%
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <div class="progress">
+                                    <div class="progress-bar color-3F51B5" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%">
+                                      <span class="sr-only">90% Complete</span>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="performance">
+                        <div class="row">
+                            <div class="col-md-6 percentagetittle">
+                                Design Team
+                            </div>
+                            <div class="col-md-6 text-right percentagenumber">
+                                20%
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <div class="progress">
+                                    <div class="progress-bar color-0AF30A" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%">
+                                      <span class="sr-only">20% Complete</span>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="performance">
+                        <div class="row">
+                            <div class="col-md-6 percentagetittle">
+                                Design Team
+                            </div>
+                            <div class="col-md-6 text-right percentagenumber">
+                                20%
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <div class="progress">
+                                    <div class="progress-bar color-FFC100" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%">
+                                      <span class="sr-only">20% Complete</span>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="performance">
+                        <div class="row">
+                            <div class="col-md-6 percentagetittle">
+                                Design Team
+                            </div>
+                            <div class="col-md-6 text-right percentagenumber">
+                                60%
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <div class="progress">
+                                    <div class="progress-bar color-red" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%">
+                                      <span class="sr-only">60% Complete</span>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="performance">
+                        <div class="row">
+                            <div class="col-md-6 percentagetittle">
+                                Design Team
+                            </div>
+                            <div class="col-md-6 text-right percentagenumber">
+                                70%
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <div class="progress">
+                                    <div class="progress-bar color-black" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                                      <span class="sr-only">70% Complete</span>
+                                    </div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="performance">
+                        <div class="row">
+                            <div class="col-md-6 percentagetittle">
+                                Design Team
+                            </div>
+                            <div class="col-md-6 text-right percentagenumber">
+                                50%
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <div class="progress">
+                                    <div class="progress-bar color-green" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                                      <span class="sr-only">50% Complete</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="dashboard-card-second">
+                    <div class="dashboard-card-tittle-second row">
+                        <div class="col-md-10">
+                            <h4>Activities</h4>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <div class="dashboard-card-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img  src="{{url('public/assets/svg/more.svg')}}" width="20">
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="javascript:void(0)">Action One</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">Action Two</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">Action Three</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="dashboard-card-subtittle">
+                                <p>Tracking 30 objectives and mentioning.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <div class="activity mb-4">
+                              <div class="profile-image-container">
+                                <img src="{{ url('public/assets/svg/trend-up.svg') }}" alt="User Profile">
+                              </div>
+                              <div class="dotted-line"></div>
+                              <div class="activity-content">
+                                <div class="activity-header">Johne Dow<span> has be Updated With 10% Progress Progress</span></div>
+                                <div class="activity-time">Today , 12:00 am</div>
+                              </div>
+                            </div>
+                            <div class="activity mb-4">
+                              <div class="profile-image-container">
+                                <img src="{{ url('public/assets/svg/trend-up.svg') }}" alt="User Profile">
+                              </div>
+                              <div class="dotted-line"></div>
+                              <div class="activity-content">
+                                <div class="activity-header">Johne Dow<span> has be Updated With 10% Progress Progress</span></div>
+                                <div class="activity-time">Today , 12:00 am</div>
+                              </div>
+                            </div>
+                            <div class="activity mb-4">
+                              <div class="profile-image-container">
+                                <img src="{{ url('public/assets/svg/trend-up.svg') }}" alt="User Profile">
+                              </div>
+                              <div class="dotted-line"></div>
+                              <div class="activity-content">
+                                <div class="activity-header">Johne Dow<span> has be Updated With 10% Progress Progress</span></div>
+                                <div class="activity-time">Today , 12:00 am</div>
+                              </div>
+                            </div>
+                            <div class="activity mb-5">
+                              <div class="profile-image-container">
+                                <img src="{{ url('public/assets/svg/trend-up.svg') }}" alt="User Profile">
+                              </div>
+                              <div class="dotted-line"></div>
+                              <div class="activity-content">
+                                <div class="activity-header">Johne Dow<span> has be Updated With 10% Progress Progress</span></div>
+                                <div class="activity-time">Today , 12:00 am</div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="dashboard-card-second">
+                    <div class="dashboard-card-tittle-second row">
+                        <div class="col-md-6">
+                            <h4>Objectives</h4>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <div class="dashboard-card-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img  src="{{url('public/assets/svg/more.svg')}}" width="20">
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="javascript:void(0)">Action One</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">Action Two</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">Action Three</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="dashboard-card-subtittle">
+                                <p>Tracking 30 objectives</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 row">
+                        <div class="col-md-6">
+                            <h4 class="dashboard-object-tittle">Total:</h4>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <h4 class="dashboard-object-tittle-points">121</h4>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-for-objective bg-success" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">70%</div>
+                          </div>
+                        </div>
+
+                        <div class="progress-bar">
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-for-objective bg-info" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+                          </div>
+                        </div>
+
+                        <div class="progress-bar">
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-for-objective bg-warning" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
+                          </div>
+                        </div>
+                      </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<!-- <div class="row">
+    <div class="col-md-12 mb-2">
+        <button class="btn btn-sm btn-dark" id="delete-button" onclick="delete_record();" type="button">Delete All</button>
+    </div>
+</div> -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
