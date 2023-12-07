@@ -43,7 +43,16 @@
                         </svg>
                 </a>
             </li>
-            
+            <li data-toggle="tooltip" data-placement="right" data-original-title="Linking">
+                <a href="{{url('dashboard/linking/'.$organization->slug.'/')}}" @if (url()->current() == url('dashboard/linking/'.$organization->slug.'/')) class="nav-link active" @else class="nav-link"  @endif >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                      <path d="M25.6673 25.6665H2.33398C1.85565 25.6665 1.45898 25.2698 1.45898 24.7915C1.45898 24.3132 1.85565 23.9165 2.33398 23.9165H25.6673C26.1457 23.9165 26.5423 24.3132 26.5423 24.7915C26.5423 25.2698 26.1457 25.6665 25.6673 25.6665Z" fill="#787878"/>
+                      <path d="M11.375 4.66683V25.6668H16.625V4.66683C16.625 3.3835 16.1 2.3335 14.525 2.3335H13.475C11.9 2.3335 11.375 3.3835 11.375 4.66683Z" fill="#787878"/>
+                      <path opacity="0.4" d="M3.5 11.6668V25.6668H8.16667V11.6668C8.16667 10.3835 7.7 9.3335 6.3 9.3335H5.36667C3.96667 9.3335 3.5 10.3835 3.5 11.6668Z" fill="#787878"/>
+                      <path opacity="0.4" d="M19.834 17.4998V25.6665H24.5007V17.4998C24.5007 16.2165 24.034 15.1665 22.634 15.1665H21.7007C20.3007 15.1665 19.834 16.2165 19.834 17.4998Z" fill="#787878"/>
+                    </svg>
+                </a>
+            </li>
             <li data-toggle="tooltip" data-placement="right" data-original-title="Backlog">
                 <a href="{{url('dashboard/organization/'.$organization->slug.'/BU-Backlog')}}" @if (url()->current() == url('dashboard/organization/'.$organization->slug.'/BU-Backlog')) class="nav-link active" @else class="nav-link"  @endif>
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
@@ -96,6 +105,8 @@
                     </svg>
                 </a>
             </li>
+
+            
         </ul>
     </div>
 </div>

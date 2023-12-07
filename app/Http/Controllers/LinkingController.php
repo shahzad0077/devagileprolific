@@ -14,15 +14,12 @@ use Illuminate\Support\Str;
 use DB;
 use Carbon\Carbon;
 
-class ReactController extends Controller
+class LinkingController extends Controller
 {
     public function index($organizationid)
     {
-    	$data = [
-	        'john', 'doe'
-	    ];
+    	$var_objective = 'linking';
 	    $organization = DB::table('business_units')->where('slug',$organizationid)->first();
-	    $data = json_encode($data);
-	    return view('react.index',compact('organization','data')); 
+	    return view('linking.index',compact('organization','var_objective')); 
     }
 }

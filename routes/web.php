@@ -237,8 +237,8 @@ Route::name('flags.')->namespace('App\Http\Controllers')->prefix('dashboard/flag
     Route::POST('selectepic', 'FlagController@selectepic');
     Route::POST('moveflag', 'FlagController@moveflag');
 });
-Route::name('react.')->namespace('App\Http\Controllers')->prefix('dashboard/react')->group(function () {
-    Route::get('{organizationid}', 'ReactController@index');
+Route::name('linking.')->namespace('App\Http\Controllers')->prefix('dashboard/linking')->group(function () {
+    Route::get('{organizationid}', 'LinkingController@index');
 });
 //EpicComment
 Route::post('add-epic-comment', [App\Http\Controllers\ObjectiveController::class, 'SaveComment']);
