@@ -15,7 +15,12 @@
                     <a href="{{url('dashboard/organization/contacts')}}" style="text-decoration: none;"></a>
                 </div>
                 <div class="mr-2">
+                    @if($organization->type == 'unit')
                     <a  href="{{url('dashboard/organization/'.$organization->slug.'/portfolio/'.$organization->type)}}" style="text-decoration: none;" >{{$organization->business_name}}</a>
+                    @endif
+                    @if($organization->type == 'stream')
+                    <a  href="{{url('dashboard/organization/'.$organization->slug.'/portfolio/'.$organization->type)}}" style="text-decoration: none;" >{{$organization->value_name}}</a>
+                    @endif
                 </div>
                 <div class="mr-2">
                     <p>Linking</p>

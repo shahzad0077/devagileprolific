@@ -185,7 +185,7 @@
 
                             <div class="col-md-12 col-lg-12 col-xl-6">
                                 <div class="form-group mb-0">
-                                    <input type="text"   onkeypress="return onlyNumberKey(event)"  class="form-control" id="target_number" required>
+                                    <input type="text"  onkeypress="return onlyNumberKey(event)"  class="form-control" id="target_number" required>
                                     <label for="objective-name">Target Number</label>
                                 </div>
                             </div>

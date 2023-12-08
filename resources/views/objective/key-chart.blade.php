@@ -5,7 +5,12 @@
             <div>
                 <h4>Quarter Value</h4>
             </div>
+            <div>
+                <a href="javascript:void(0);" onclick="addnewquarterval({{$key->id}})" class="text-black" title="Add field"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+            </div>
+         
         </div>
+        <div class="col-md-12" id="field_wrapper{{$key->id}}"></div>
     </div>
     <hr>
 </div>

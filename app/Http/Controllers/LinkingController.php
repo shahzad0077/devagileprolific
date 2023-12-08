@@ -16,10 +16,17 @@ use Carbon\Carbon;
 
 class LinkingController extends Controller
 {
-    public function index($organizationid)
+    public function index($organizationid,$type)
     {
     	$var_objective = 'linking';
-	    $organization = DB::table('business_units')->where('slug',$organizationid)->first();
+        if($type == 'unit')
+        {
+        $organization = DB::table('business_units')->where('slug',$organizationid)->first();
+        }
+        if($type == 'stream')
+        {
+        $organization = DB::table('value_stream')->where('slug',$organizationid)->first();
+        }
 	    return view('linking.index',compact('organization','var_objective')); 
     }
 }

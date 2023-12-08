@@ -244,10 +244,37 @@
 
 
     });
-
     var defaultFlowchartData = {
         operators: {
             @foreach(DB::table('key_result')->limit(1)->get() as $key=>$r)
+    @php
+    $key = [];
+    $team = [];
+    $obj = [];
+    $Data = DB::table('team_link_parent')->where('buisness_unit_id',$organization->id)->get();
+    foreach($Data as $k)
+    {
+        $key[] = $k->key_id;
+        $team[] = $k->link_team_id;
+        $obj[] = $k->link_obj_id;
+    }
+    
+    if($organization->type == 'unit')
+    {
+    
+    $Team = DB::table('unit_team')->whereIn('id',$team)->where('org_id',$organization->id)->get();
+    $Objective = DB::table('objectives')->whereIn('id',$obj)->where('type','BU')->get();
+    
+    }
+
+    if($organization->type == 'stream')
+    {
+    $Team = DB::table('value_team')->whereIn('id',$team)->where('org_id',$organization->id)->get();
+    $Objective = DB::table('objectives')->whereIn('id',$obj)->where('type','VS')->get();
+
+    }
+
+    @endphp
             operator{{ $r->id }}: {
                 top: 20,
                 left: 20,
@@ -259,12 +286,11 @@
                             label: '',
                         }
                     },
-                    body:'<div class="row"> <div class="col-md-12"> <h3 style=" font-size: 16px; font-weight: 600; margin-bottom: 15px; ">Increase Sales Growth</h3> </div> </div> <div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div> <div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div><div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div><div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div>'
+                    body:'<div class="row"> <div class="col-md-12"> <h3 style=" font-size: 16px; font-weight: 600; margin-bottom: 15px; "></h3> </div> </div> <div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">{{ $r->key_prog }} %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> {{ $r->key_name }}</div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div>'
                 }
             },
             @endforeach
-
-            @foreach(DB::table('unit_team')->limit(2)->get() as $key=>$r)
+            @foreach($Team as $key=>$r)
             operator{{ $r->id }}: {
                 top: 80,
                 left: 660,
@@ -275,7 +301,7 @@
                             label: '',
                         }
                     },
-                    body:'<div class="row"> <div class="col-md-12"> <h3 style=" font-size: 16px; font-weight: 600; margin-bottom: 15px; ">Increase Sales Growth</h3> </div> </div> <div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div> <div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div><div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div><div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style=" padding-bottom: 5px !important; padding-top: 5px !important; ">100 %</div> </div> <div class="col-md-8" style=" font-size: 13px; font-weight: 600; margin-top: 4px; "> Increaase Quatarly Sales Growth </div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div>',
+                    body: '@foreach($Objective as $OBJ) @if($OBJ->unit_id == $r->id) <div class="row"> <div class="col-md-12"> <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 15px;"></h3> </div> </div> <div class="row mb-3"> <div class="col-md-2"> <div class="badge badge-primary" style="padding-bottom: 5px !important; padding-top: 5px !important;">{{ $OBJ->obj_prog }} %</div> </div> <div class="col-md-8" style="font-size: 13px; font-weight: 600; margin-top: 4px;">{{ $OBJ->objective_name }}</div> <div class="col-md-2 text-center"> <i class="fa fa-spinner"></i> </div> </div>@endif @endforeach',                    
                     outputs: {}
                 }
             },

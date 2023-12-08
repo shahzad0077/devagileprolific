@@ -240,6 +240,9 @@ Route::name('flags.')->namespace('App\Http\Controllers')->prefix('dashboard/flag
 Route::name('linking.')->namespace('App\Http\Controllers')->prefix('dashboard/linking')->group(function () {
     Route::get('{organizationid}', 'LinkingController@index');
 });
+Route::name('linking.')->namespace('App\Http\Controllers')->prefix('dashboard/linking')->group(function () {
+    Route::get('{organizationid}/{type}', 'LinkingController@index');
+});
 //EpicComment
 Route::post('add-epic-comment', [App\Http\Controllers\ObjectiveController::class, 'SaveComment']);
 Route::post('update-epic-comment', [App\Http\Controllers\ObjectiveController::class, 'UpdateEpicComment']);
@@ -253,7 +256,7 @@ Route::post('add-new-quarter-value', [App\Http\Controllers\OrganizationControlle
 Route::post('update-new-quarter-value', [App\Http\Controllers\OrganizationController::class, 'UpdateQvalue']);
 Route::post('delete-new-quarter-value', [App\Http\Controllers\OrganizationController::class, 'DeleteQvalue']);
 Route::post('update-key-quarter-value', [App\Http\Controllers\OrganizationController::class, 'UpdateQkeyVal']);
-
+Route::post('add-key-quarter-value', [App\Http\Controllers\OrganizationController::class, 'AddnewKeyQvalue']);
 
 Route::get('get-team', [App\Http\Controllers\TeamController::class,'GetTeam']);
 Route::get('get-team-obj', [App\Http\Controllers\TeamController::class,'GetTeamObj']);

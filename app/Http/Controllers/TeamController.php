@@ -17,6 +17,11 @@ use App\Helpers\Jira;
 
 class TeamController extends Controller
 {
+    public function __construct()
+    {
+    $this->middleware('auth');
+    }
+    
     public function TeamBacklog($id,$type)
     {
     if($type == 'BU')
