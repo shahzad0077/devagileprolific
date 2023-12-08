@@ -58,6 +58,41 @@ class EpicController extends Controller
     }
     public function showtab(Request $request)
     {
-        
+        if($request->tab == 'general')
+        {
+            $data = Epic::find($request->id);
+            $html = view('epics.tabs.general', compact('data'))->render();
+            return $html;
+        }
+        if($request->tab == 'childitems')
+        {
+            $epic = Epic::find($request->id);
+            $epicstory = DB::table('epics_stroy')->where('epic_id',$epic->id)->get();
+            $html = view('epics.tabs.childitems', compact('epic','epicstory'))->render();
+            return $html;
+        }
+
+
+        if($request->tab == 'comment')
+        {
+            $comments = flag_comments::where('flag_id' , $request->id)->wherenull('comment_id')->orderby('id' , 'desc')->get();
+            $data = flags::find($request->id);
+            $html = view('flags.tabs.comments', compact('comments','data'))->render();
+            return $html;
+        }
+        if($request->tab == 'activites')
+        {
+            $activity = activities::where('value_id' , $request->id)->where('type' , 'flags')->orderby('id' , 'desc')->get();
+            $data = flags::find($request->id);
+            $html = view('flags.tabs.activities', compact('activity','data'))->render();
+            return $html;
+        }
+        if($request->tab == 'attachment')
+        {
+            $attachments = attachments::where('value_id' , $request->id)->where('type' , 'flags')->orderby('id' , 'desc')->get();
+            $data = flags::find($request->id);
+            $html = view('flags.tabs.attachments', compact('attachments','data'))->render();
+            return $html;
+        }
     }
 }
