@@ -516,6 +516,84 @@ $var_objective = "Org";
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <svg width="204" height="99" viewBox="0 0 204 99" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.47593 57.9617H2V97H202V2C197.351 2 193.065 4.51226 190.794 8.56851L182.538 23.3153C180.359 27.2071 176.247 29.6175 171.786 29.6175C167.326 29.6175 163.214 32.0279 161.035 35.9197L155.27 46.2171C152.968 50.3281 148.624 52.8743 143.913 52.8743C139.201 52.8743 134.857 50.3281 132.555 46.2171L120.265 24.2663C117.718 19.7167 112.911 16.8989 107.697 16.8989C102.483 16.8989 97.6756 19.7167 95.1284 24.2663L87.1419 38.5305C84.3184 43.5734 78.9901 46.6967 73.2106 46.6967C67.4311 46.6967 62.1027 43.5734 59.2792 38.5305L58.6127 37.3399C55.9426 32.5711 50.9039 29.6175 45.4385 29.6175C39.973 29.6175 34.9343 32.5711 32.2643 37.3399L28.6531 43.7896C23.7531 52.5413 14.506 57.9617 4.47593 57.9617Z" fill="url(#paint0_linear_3185_22035)" stroke="url(#paint1_linear_3185_22035)" stroke-width="3"/>
+                            <defs>
+                            <linearGradient id="paint0_linear_3185_22035" x1="102" y1="2" x2="102" y2="97" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#FFC3C9"/>
+                            <stop offset="1" stop-color="white" stop-opacity="0"/>
+                            </linearGradient>
+                            <linearGradient id="paint1_linear_3185_22035" x1="102" y1="2" x2="102" y2="67.1961" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#F64E60"/>
+                            <stop offset="1" stop-color="#F64E60" stop-opacity="0"/>
+                            </linearGradient>
+                            </defs>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                         <div class="col-md-12">
+                            <div class="performance">
+                                <div class="row">
+                                    <div class="col-md-6 percentagetittle">
+                                        Design Team
+                                    </div>
+                                    <div class="col-md-6 text-right percentagenumber">
+                                        90%
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12">
+                                        <div class="progress">
+                                            <div class="progress-bar color-3F51B5" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%">
+                                              <span class="sr-only">90% Complete</span>
+                                            </div>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="performance">
+                                <div class="row">
+                                    <div class="col-md-6 percentagetittle">
+                                        Design Team
+                                    </div>
+                                    <div class="col-md-6 text-right percentagenumber">
+                                        90%
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12">
+                                        <div class="progress">
+                                            <div class="progress-bar color-3F51B5" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%">
+                                              <span class="sr-only">90% Complete</span>
+                                            </div>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="performance">
+                                <div class="row">
+                                    <div class="col-md-6 percentagetittle">
+                                        Design Team
+                                    </div>
+                                    <div class="col-md-6 text-right percentagenumber">
+                                        90%
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12">
+                                        <div class="progress">
+                                            <div class="progress-bar color-3F51B5" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%">
+                                              <span class="sr-only">90% Complete</span>
+                                            </div>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -19385,6 +19385,8 @@ option {
     border-bottom: 1px solid var(--border, #EFEFEF);
     background: var(--white, #FFF);
     padding: 5px 17px;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .active-header {
@@ -19412,6 +19414,8 @@ option {
     box-shadow: none !important;
     border-bottom-right-radius: 10px !important;
     border-bottom-left-radius: 10px !important;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .bg-white {
@@ -21103,10 +21107,6 @@ input[type="radio"]:checked {
 .newmodalcontent{
     border-radius: 8px !important;
 }
-
-.newmodalcontent .modal-header{
-    border-bottom: 1px solid #ddd !important;
-}
 .statuschangebutton{
     border-top-right-radius: 0px !important;
     border-bottom-right-radius: 0px !important;
@@ -21840,4 +21840,38 @@ div[role="circleprogressbar"]::before {
     line-height: normal;
     color: white;
     box-shadow: 0px 9px 37px 0px rgba(84, 122, 255, 0.37);
+}
+
+.epic-header-buttons {
+    height: 31px;
+    padding-top: 6px !important;
+    background-color: #f3f3f3 !important;
+    color: #787878;
+    border-radius: 12px;
+    font-size: 13px !important;
+    border-radius: 100px;
+    border: none;
+    padding: 15px;
+    margin-left: 10px;
+}
+.epic-header-buttons:hover {
+    background-color: #f3f3f3 !important;
+    color: #787878;
+    text-decoration: none;
+}
+.moverightside{
+    position: absolute;
+    right: -80px;
+    top: 7px;
+    display: flex;
+}
+.epic-percentage{
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #3F4254;
+}
+.moverightside img{
+    margin-bottom: 10px;
+    margin-left: 30px;
 }

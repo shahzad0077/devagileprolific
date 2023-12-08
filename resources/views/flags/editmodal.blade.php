@@ -2,6 +2,7 @@
     @include('flags.modalheader')
 </div>
 <div class="modal-body" id="showformforedit">
+    <div class="row"><div class="col-md-12"><div class="border-top"></div></div></div>
     <div class="row mt-3">
         <div class="col-md-3">
             <div class="menuettitle">

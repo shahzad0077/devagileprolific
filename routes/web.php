@@ -238,11 +238,21 @@ Route::name('flags.')->namespace('App\Http\Controllers')->prefix('dashboard/flag
     Route::POST('moveflag', 'FlagController@moveflag');
 });
 Route::name('linking.')->namespace('App\Http\Controllers')->prefix('dashboard/linking')->group(function () {
-    Route::get('{organizationid}', 'LinkingController@index');
-});
-Route::name('linking.')->namespace('App\Http\Controllers')->prefix('dashboard/linking')->group(function () {
     Route::get('{organizationid}/{type}', 'LinkingController@index');
 });
+
+
+Route::name('epics.')->namespace('App\Http\Controllers')->prefix('dashboard/epics')->group(function () {
+    Route::POST('getepic', 'EpicController@getepicmodal');
+    Route::POST('updategeneral', 'EpicController@updategeneral');
+    Route::POST('showepicinboard', 'EpicController@showepicinboard');
+    Route::POST('showtab', 'EpicController@showtab');
+
+    
+
+});
+
+
 //EpicComment
 Route::post('add-epic-comment', [App\Http\Controllers\ObjectiveController::class, 'SaveComment']);
 Route::post('update-epic-comment', [App\Http\Controllers\ObjectiveController::class, 'UpdateEpicComment']);

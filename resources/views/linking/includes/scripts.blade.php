@@ -244,9 +244,7 @@
 
 
     });
-    var defaultFlowchartData = {
-        operators: {
-            @foreach(DB::table('key_result')->limit(1)->get() as $key=>$r)
+
     @php
     $key = [];
     $team = [];
@@ -275,11 +273,16 @@
     }
 
     @endphp
+
+
+    var defaultFlowchartData = {
+        operators: {
+            @foreach(DB::table('key_result')->whereIn('id',$key)->get() as $key=>$r)
             operator{{ $r->id }}: {
                 top: 20,
                 left: 20,
                 properties: {
-                    title: '<div class="row"><div class="col-md-9">{{ $r->key_name }}</div><div class="col-md-2"><div style=" padding-bottom: 5px !important; padding-top: 5px !important; " class="badge badge-primary">100%</div></div></div>',
+                    title: '{{ $r->key_name }}',
                     inputs: {},
                     outputs: {
                         output_1: {
@@ -290,12 +293,13 @@
                 }
             },
             @endforeach
+
             @foreach($Team as $key=>$r)
             operator{{ $r->id }}: {
                 top: 80,
                 left: 660,
                 properties: {
-                    title: '<div class="row"><div class="col-md-9">{{ $r->team_title }}</div><div class="col-md-2"><div style=" padding-bottom: 5px !important; padding-top: 5px !important; " class="badge badge-primary">100%</div></div></div>',
+                    title: '{{ $r->team_title }}',
                     inputs: {
                         input_1: {
                             label: '',

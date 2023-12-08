@@ -1,6 +1,42 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     // function Updated by Usama Start
+    function editepic(epic_id) {
+        $.ajax({
+            type: "POST",
+            url: "{{ url('dashboard/epics/getepic') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                id: epic_id,
+            },
+            success: function(res) {
+                $('#newmodalcontent').html(res);
+                $('#edit-epic-modal-new').modal('show');
+                // showtab(id , 'general');
+            }
+        });
+    }
+    function showepicinboard(id) {
+        var organization = '{{ $organization->type }}';
+        var slug = '{{ $organization->slug }}';
+        $.ajax({
+            type: "POST",
+            url: "{{ url('dashboard/epics/showepicinboard') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                id: id,
+                organization: organization,
+                slug: slug,
+            },
+            success: function(res) {
+                $('#'+id).html(res)
+            }
+        });
+    }
     function editepicflag(id) {
         $.ajax({
             type: "POST",
@@ -1446,50 +1482,7 @@
 
 
 
-    function editepic(epic_id, epic_name, epic_start_date, epic_end_date, epic_detail, epic_status, ini_epic_id,
-        epic_key, epic_obj) {
-        $('#epic_story_edit').html('');
-        $('#edit_epic_id').val(epic_id);
-        $('#edit_epic_name').val(epic_name);
-        $('#edit_epic_start_date').val(epic_start_date);
-        $('#edit_epic_end_date').val(epic_end_date);
-        $('#edit_epic_status').val(epic_status);
-
-        $('#edit_ini_epic_id').val(ini_epic_id);
-        $('#edit_epic_key').val(epic_key);
-        $('#edit_epic_obj').val(epic_obj);
-
-
-        $('#edit_epic_description').val(epic_detail);
-
-        var type = "{{ $organization->type }}";
-        var unit_id = "{{ $organization->id }}";
-
-        $.ajax({
-            type: "GET",
-            url: "{{ url('get-epic-team') }}",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                epic_id: epic_id,
-                type: type,
-                unit_id: unit_id
-
-
-            },
-            success: function(res) {
-
-                $('#all-team').html(res);
-
-
-            }
-        });
-
-        getpicstory();
-        getpiccomment();
-
-    }
+    
 
     function getpicstory() {
         var edit_epic_id = $('#edit_epic_id').val();
